@@ -1,0 +1,12 @@
+local HiddenZone = require("incursion.util.HiddenZone")
+local PlayerColor = require("incursion.util.PlayerColor")
+
+
+local GUID_HIDDEN_ZONE_AXIS = "ee6182"
+local GUID_HIDDEN_ZONE_ALLIES = "ba2eea"
+
+
+function onLoad()
+    print('loaded mod')
+    HiddenZone.changeColor(PlayerColor.Pink.Name, GUID_HIDDEN_ZONE_ALLIES)
+end

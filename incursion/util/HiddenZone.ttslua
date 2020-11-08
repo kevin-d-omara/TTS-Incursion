@@ -1,0 +1,38 @@
+local HiddenZone = {}
+
+
+--[[
+Change the color of the Hidden Zone.
+
+It works by deleting the Hidden Zone & spawning a copy with the new color.
+]]
+function HiddenZone.changeColor(
+    newColor, -- <string> The color to change the Hidden Zone to. See: https://api.tabletopsimulator.com/player-color/).
+    zoneGuid  -- <string> The GUID of the HiddenZone object.
+)
+    local zoneObj = getObjectFromGUID(zoneGuid)
+    local zoneJson = JSON.decode(zoneObj.getJSON())
+    zoneJson.FogColor = newColor
+
+    destroyObject(zoneObj)
+
+    -- After the existing hidden zone is destroyed, then we spawn a new one.
+    -- This delay ensures the new hidden zone has the same GUID as the old one.
+    HiddenZone.spawnAfterDelay(zoneJson, 2)
+end
+
+
+function HiddenZone.spawnAfterDelay(zoneJson, frameCount)
+    local spawnNewZone = function ()
+        spawnObjectJSON({
+            json    = JSON.encode(zoneJson),
+            sound   = false,
+            -- All other values are inherited from zoneJson (i.e. position, rotation, locked, etc.)
+        })
+    end
+
+    Wait.frames(spawnNewZone, frameCount)
+end
+
+
+return HiddenZone

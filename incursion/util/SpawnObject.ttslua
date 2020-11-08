@@ -1,0 +1,137 @@
+local SpawnObject = {}
+
+-- Forward Definitions:
+local getOptionalParameter
+
+
+--[[
+Spawn a HiddenZone.
+
+The parameters are based on [spawnObjectJSON](https://api.tabletopsimulator.com/base/#spawnobjectjson).
+
+# Args:
+<table> parameters
+    <vector> position: [Optional, defaults to {x=0, y=3, z=0}.]
+    <vector> rotation: [Optional, defaults to {x=0, y=0, z=0}.]
+    <vector> scale: [Optional, defaults to {x=1, y=1, z=1}.]
+    <bool> sound: [Optional, defaults to true.]
+    <func> callbackFunction: [Optional, defaults to not being used.]
+    <table> hiddenZoneOptions:
+        <string> FogColor: (https://api.tabletopsimulator.com/player-color/)
+        <bool> FogHidePointers: [Optional, defaults to false.]
+        <bool> FogReverseHiding: [Optional, defaults to false.]
+        <bool> FogSeethrough: [Optional, defaults to true.]
+
+# Example
+SpawnObject.spawnHiddenZone({
+    position = {-10, 3, 0},
+    rotation = {0, 0, 0},
+    scale = {12, 6, 6},
+    hiddenZoneOptions = {
+        FogColor = "Blue",
+        FogHidePointers = true,
+        FogReverseHiding = false,
+        FogSeethrough = true,
+    },
+})
+--]]
+function SpawnObject.spawnHiddenZone(parameters)
+    local hiddenZoneJson = SpawnObject._getHiddenZoneJson(getOptionalParameter(parameters, "hiddenZoneOptions", {}))
+    spawnObjectJSON({
+        json            = JSON.encode(hiddenZoneJson),
+        position        = getOptionalParameter(parameters, "position", {x=0, y=3, z=0}),
+        rotation        = getOptionalParameter(parameters, "rotation", {x=0, y=0, z=0}),
+        scale           = getOptionalParameter(parameters, "scale", {x=1, y=1, z=1}),
+    })
+end
+
+
+--[[
+Get a JSON table of a Hidden Zone which can be used for [spawnObjectJSON](https://api.tabletopsimulator.com/base/#spawnobjectjson).
+
+# Args:
+<table> options:
+    <string> FogColor: [Optional, defaults to "White".] (One of the Color Names here: https://api.tabletopsimulator.com/player-color/)
+    <bool> FogHidePointers: [Optional, defaults to false.]
+    <bool> FogReverseHiding: [Optional, defaults to false.]
+    <bool> FogSeethrough: [Optional, defaults to true.]
+--]]
+function SpawnObject._getHiddenZoneJson(options)
+    local obj = SpawnObject._getDefaultObjectJson()
+    obj["Name"] = "FogOfWarTrigger"
+    obj["Locked"] = true
+    obj["FogColor"] = getOptionalParameter(options, "FogColor", "White")
+    obj["FogHidePointers"] = getOptionalParameter(options, "FogHidePointers", false)
+    obj["FogReverseHiding"] = getOptionalParameter(options, "FogReverseHiding", false)
+    obj["FogSeethrough"] = getOptionalParameter(options, "FogSeethrough", true)
+    return obj
+end
+
+
+--[[
+Get a JSON table of a default object which can be used for [spawnObjectJSON](https://api.tabletopsimulator.com/base/#spawnobjectjson).
+
+The returned table is a deep copy, so it is safe to overwrite its values.
+--]]
+function SpawnObject._getDefaultObjectJson()
+    -- TODO: Make a new GUID --> Hashcode of length 12.
+    return {
+        GUID = "",
+
+        Name = "",
+        Nickname = "",
+        Description = "",
+        GMNotes = "",
+
+        Transform = {
+            -- Position, Rotation, and Scale are overridden by "spawnObjectJSON" if their corresponding parameter is supplied.
+            posX = 0,
+            posY = 3,
+            posZ = 0,
+            rotX = 0,
+            rotY = 0,
+            rotZ = 0,
+            scaleX = 1,
+            scaleY = 1,
+            scaleZ = 1
+        },
+        ColorDiffuse = {
+            r = 1.0,
+            g = 1.0,
+            b = 1.0
+        },
+
+        -- Toggles:
+        Locked = false,
+        DragSelectable = true,
+        Snap = true,
+        Grid = true,
+        Autoraise = true,
+        Sticky = true,
+        Hands = false,
+        HideWhenFaceDown = false,
+        IgnoreFoW = false,
+        MeasureMovement = false,
+        Tooltip = true,
+        GridProjection = false,
+        -- missing: Reveal Fog of Wawr
+        -- missing: Persistent
+
+        -- Scripting:
+        LuaScript = "",
+        LuaScriptState = "",
+        XmlUI = "",
+    }
+end
+
+
+function getOptionalParameter(parameters, key, defaultValue)
+    if parameters[key] == nil then
+        return defaultValue
+    else
+        return parameters[key]
+    end
+end
+
+
+return SpawnObject

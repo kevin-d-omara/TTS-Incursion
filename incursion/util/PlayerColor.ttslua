@@ -1,0 +1,24 @@
+local function PlayerColor(name, rgb)
+    return {
+        Name=name,
+        RGB=rgb,
+    }
+end
+
+
+return {
+    -- See: https://api.tabletopsimulator.com/player-color/
+    -- See: https://api.tabletopsimulator.com/color/
+    White   = PlayerColor("White",   Color(1, 1, 1)),
+    Brown   = PlayerColor("Brown",   Color(0.443, 0.231, 0.09)),
+    Red     = PlayerColor("Red",     Color(0.856, 0.1, 0.094)),
+    Orange  = PlayerColor("Orange",  Color(0.956, 0.392, 0.113)),
+    Yellow  = PlayerColor("Yellow",  Color(0.905, 0.898, 0.172)),
+    Green   = PlayerColor("Green",   Color(0.192, 0.701, 0.168)),
+    Teal    = PlayerColor("Teal",    Color(0.129, 0.694, 0.607)),
+    Blue    = PlayerColor("Blue",    Color(0.118, 0.53, 1)),
+    Purple  = PlayerColor("Purple",  Color(0.627, 0.125, 0.941)),
+    Pink    = PlayerColor("Pink",    Color(0.96, 0.439, 0.807)),
+    Grey    = PlayerColor("Grey",    Color(0.5, 0.5, 0.5)),
+    Black   = PlayerColor("Black",   Color(0.25, 0.25, 0.25)),
+}
