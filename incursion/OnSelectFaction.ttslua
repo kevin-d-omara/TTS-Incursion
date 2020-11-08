@@ -1,0 +1,53 @@
+--[[
+Entry Points:
+
+(A) onPlayerChangeColor
+https://api.tabletopsimulator.com/event/#onplayerchangecolor
+
+(B) onSelectFaction
+from "Pick a Faction" UI
+
+--]]
+
+
+function onPlayerChangeColor(newPlayerColor)
+    -- newPlayerColor is "White", "Green", etc.
+end
+
+
+
+function OnPlayerChangeColor(player, chosenColor)
+    -- Hands:
+    --  Swap hand positions between chosen color and current center color:
+    --      Move current center hand to current location of chosen color. (X position only)
+    --      Move hand of chosen color to center spot for that seat. (X position only)
+
+    -- Hidden Zone:
+    --  Change color of Hidden Zone for seat.
+    --      Copy JSON of current hidden zone.
+    --      Change color of JSON.
+    --      Delete current hidden zone.
+    --      Spawn object by JSON.
+
+    -- Avatar:
+    --  Change avatar:
+    --      Delete current avatar.
+    --      Spawn new avatar.
+
+    -- Accessories:
+    --  Delete current accessories (bid chip, cards, dice, etc.)
+    --  Spawn accessories (bid chip, cards, dice, etc.)
+
+    -- UI:
+    --  Close the "Pick a Faction" menu (in-game UI).
+end
+
+--[[  Domain Objects
+PlayerSeat
+    HiddenZone
+Seat
+    Hand
+    HiddenZone
+    Avatar
+    Accessories
+--]]
