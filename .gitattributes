@@ -1,0 +1,5 @@
+# Check in files with Unix-style line endings.
+* text=auto
+
+# Count '.ttslua' files as Lua files for the repository language breakdown.
+*.ttslua linguist-language=Lua
