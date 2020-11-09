@@ -1,0 +1,21 @@
+local PlayerColor = require("incursion.util.PlayerColor")
+local Factions = require("incursion.database.Factions")
+
+
+local function _getMap()
+    local map = {}
+    for _,faction in pairs(Factions) do
+        local colorName = faction.PlayerColor.Name
+
+        if map[colorName] ~= nil then
+            error("The color (" .. tostring(colorName) .. ") is already in the ColorNameToFaction map. It should only be used by one faction. Please fix the script at incursion/database/Factions.ttslua")
+        end
+
+        map[colorName] = faction
+    end
+
+    return map
+end
+
+
+return _getMap()

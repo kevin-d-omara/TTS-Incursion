@@ -1,0 +1,21 @@
+local class = require("incursion.lib.30log.class")
+
+
+
+
+local Faction = class("Faction")
+
+
+function Faction:init(args)
+    self.PlayerColor = args.PlayerColor
+end
+
+
+function Faction.__tostring(this)
+    -- return string.format("Faction({PlayerColor=%s})", tostring(this.PlayerColor))
+    return string.format("Faction(%s)", tostring(this.PlayerColor.Name))
+end
+
+
+
+return Faction

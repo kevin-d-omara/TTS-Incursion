@@ -1,0 +1,21 @@
+local PlayerSeat = require("incursion.PlayerSeat")
+local Factions = require("incursion.database.Factions")
+
+
+return {
+    Allies = PlayerSeat({
+        HiddenZoneGuid = "ba2eea",
+        Factions = {
+            Factions.LuckySeventh,
+            Factions.MI13,
+            Factions.DropTroopersAllied,
+        },
+    }),
+    Axis = PlayerSeat({
+        HiddenZoneGuid = "ee6182",
+        Factions = {
+            Factions.SWD,
+            Factions.DropTroopersAxis,
+        },
+    }),
+}

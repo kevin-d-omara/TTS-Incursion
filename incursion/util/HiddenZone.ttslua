@@ -18,7 +18,10 @@ function HiddenZone.changeColor(
 
     -- After the existing hidden zone is destroyed, then we spawn a new one.
     -- This delay ensures the new hidden zone has the same GUID as the old one.
-    HiddenZone.spawnAfterDelay(zoneJson, 2)
+    --
+    -- After experimentation, it seems we don't need a delay.
+    -- I'll leave this code here in case we need it down the line.
+    HiddenZone.spawnAfterDelay(zoneJson, 0)
 end
 
 

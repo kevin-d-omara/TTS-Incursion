@@ -1,0 +1,38 @@
+local class = require("incursion.lib.30log.class")
+local HiddenZone = require("incursion.util.HiddenZone")
+
+
+local PlayerSeat = class("PlayerSeat")
+
+function PlayerSeat:init(args)
+    self.HiddenZoneGuid = args.HiddenZoneGuid
+    self.Factions = args.Factions
+
+    self.FactionsHashSet = {}
+    for _,faction in ipairs(self.Factions) do
+        self.FactionsHashSet[faction] = _
+    end
+end
+
+function PlayerSeat:setupEverything(faction)
+    if self.FactionsHashSet[faction] == nil then
+        error("The provided faction <" .. tostring(faction) .. "> doesn't sit at this seat <" .. tostring(self) .. ">.")
+    end
+
+    HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZoneGuid)
+end
+
+function PlayerSeat:clearEverything()
+end
+
+function PlayerSeat.__tostring(this)
+    local factionsStr = ""
+    for _,faction in ipairs(this.Factions) do
+        factionsStr = factionsStr .. tostring(faction) .. ","
+    end
+    factionsStr = factionsStr:sub(1, -2) -- remove trailing comma
+
+    return string.format("PlayerSeat({HiddenZoneGuid=%s,Factions=%s})", tostring(this.HiddenZoneGuid), factionsStr)
+end
+
+return PlayerSeat

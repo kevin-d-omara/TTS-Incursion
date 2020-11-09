@@ -1,8 +1,15 @@
-local function PlayerColor(name, rgb)
-    return {
-        Name=name,
-        RGB=rgb,
-    }
+local class = require("incursion.lib.30log.class")
+
+
+local PlayerColor = class("PlayerColor")
+
+function PlayerColor:init(name, rgb)
+    self.Name = name
+    self.RGB = rgb
+end
+
+function PlayerColor.__tostring(this)
+    return tostring(this.Name)
 end
 
 

@@ -1,0 +1,25 @@
+local Faction = require("incursion.Faction")
+local PlayerColor = require("incursion.util.PlayerColor")
+
+
+
+return {
+    -- Allies
+    LuckySeventh = Faction({
+        PlayerColor = PlayerColor.Green,
+    }),
+    MI13 = Faction({
+        PlayerColor = PlayerColor.Blue,
+    }),
+    DropTroopersAllied = Faction({
+        PlayerColor = PlayerColor.White,
+    }),
+
+    -- Axis
+    SWD = Faction({
+        PlayerColor = PlayerColor.Brown,
+    }),
+    DropTroopersAxis = Faction({
+        PlayerColor = PlayerColor.Red,
+    }),
+}

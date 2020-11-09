@@ -1,0 +1,21 @@
+local PlayerSeats = require("incursion.database.PlayerSeats")
+
+
+local function _getMap()
+    local map = {}
+
+    for _,playerSeat in pairs(PlayerSeats) do
+        for _,faction in ipairs(playerSeat.Factions) do
+            if map[faction] ~= nil then
+                error("The faction (" .. tostring(faction) .. ") is already in the FactionToSeat map. It should only be used by one seat. Please fix the script at incursion/database/PlayerSeats.ttslua")
+            end
+
+            map[faction] = playerSeat
+        end
+    end
+
+    return map
+end
+
+
+return _getMap()

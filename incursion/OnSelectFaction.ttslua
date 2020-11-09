@@ -7,32 +7,45 @@ https://api.tabletopsimulator.com/event/#onplayerchangecolor
 (B) onSelectFaction
 from "Pick a Faction" UI
 
+
+Hand Settings:
+    Allies
+    position: {20.12, 3.29, -33.99}
+    rotation: {0.00, 0.00, 0.00}
+    scale: {14.07, 9.17, 5.89}
+
+    Axis:
+    position: {20.12, 3.29, 33.99}
+    rotation: {0.00, 180.00, 0.00}
+    scale: {14.07, 9.17, 5.89}
+
+    Only difference -- Z position flips sign, and rotates 180 degrees.
 --]]
 
 
+
 function onPlayerChangeColor(newPlayerColor)
-    -- newPlayerColor is "White", "Green", etc.
+    -- if newPlayerColor is Grey AND oldPlayerColor was (seat A) || (seat B):
+    --      Move hand of old color to it's resting place.
+
 end
 
 
 
 function OnPlayerChangeColor(player, chosenColor)
     -- Hands:
-    --  Swap hand positions between chosen color and current center color:
-    --      Move current center hand to current location of chosen color. (X position only)
-    --      Move hand of chosen color to center spot for that seat. (X position only)
+    -- Move hand of chosen color to the seat's hand area.
 
     -- Hidden Zone:
-    --  Change color of Hidden Zone for seat.
-    --      Copy JSON of current hidden zone.
-    --      Change color of JSON.
-    --      Delete current hidden zone.
-    --      Spawn object by JSON.
+    HiddenZone.changeColor(PlayerColor.Pink.Name, GUID_HIDDEN_ZONE_ALLIES)
 
     -- Avatar:
     --  Change avatar:
     --      Delete current avatar.
     --      Spawn new avatar.
+
+    -- Announcement:
+    --  Consider sending a message to all players "PlayerFoo is playing a MI-13 (Blue)."
 
     -- Accessories:
     --  Delete current accessories (bid chip, cards, dice, etc.)
