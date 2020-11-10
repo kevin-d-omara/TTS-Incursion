@@ -7,19 +7,24 @@ return {
     -- Allies
     LuckySeventh = Faction({
         PlayerColor = PlayerColor.Green,
+        HandZonePositionX = -7.85,
     }),
     MI13 = Faction({
         PlayerColor = PlayerColor.Blue,
+        HandZonePositionX = 0.00,
     }),
     DropTroopersAllied = Faction({
         PlayerColor = PlayerColor.White,
+        HandZonePositionX = 7.85,
     }),
 
     -- Axis
     SWD = Faction({
         PlayerColor = PlayerColor.Brown,
+        HandZonePositionX = 5.94,
     }),
     DropTroopersAxis = Faction({
         PlayerColor = PlayerColor.Red,
+        HandZonePositionX = -5.94,
     }),
 }

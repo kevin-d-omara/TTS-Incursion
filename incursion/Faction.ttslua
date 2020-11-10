@@ -8,6 +8,7 @@ local Faction = class("Faction")
 
 function Faction:init(args)
     self.PlayerColor = args.PlayerColor
+    self.HandZonePositionX = args.HandZonePositionX
 end
 
 

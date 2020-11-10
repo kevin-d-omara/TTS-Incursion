@@ -9,13 +9,13 @@ return {
             Factions.LuckySeventh,
             Factions.MI13,
             Factions.DropTroopersAllied,
-        },
+        }
     }),
     Axis = PlayerSeat({
         HiddenZoneGuid = "ee6182",
         Factions = {
             Factions.SWD,
             Factions.DropTroopersAxis,
-        },
+        }
     }),
 }

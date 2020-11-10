@@ -1,0 +1,12 @@
+local Math = {}
+
+Math.EPSILON = 0.00001
+
+--[[
+A naive implementation that should work ...
+]]
+function Math.floatEquals(x, y)
+    return math.abs(x - y) < Math.EPSILON
+end
+
+return Math

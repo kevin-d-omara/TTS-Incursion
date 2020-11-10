@@ -1,11 +1,21 @@
 local ColorNameToFaction = require("incursion.database.maps.ColorNameToFaction")
 local FactionToSeat = require("incursion.database.maps.FactionToSeat")
+local PlayerColor = require("incursion.util.PlayerColor")
+local PlayerSeats = require("incursion.database.PlayerSeats")
 
 
+--[[
+This is also called with the value "Grey" when a player disconnects or when they
+click "Change Color" (because it instantly changes them to Grey).
 
--- This is also called with "Grey" when a player disconnects or when they click "Change Color" (b.c. it instantly changes them to Grey).
--- https://api.tabletopsimulator.com/event/#onplayerchangecolor
+https://api.tabletopsimulator.com/event/#onplayerchangecolor
+]]
 function onPlayerChangeColor(newPlayerColor)
+    if newPlayerColor == PlayerColor.Grey.Name then
+        resetAllVacantSeats()
+        return
+    end
+
     if ColorNameToFaction[newPlayerColor] == nil then
         -- Exit early if color doesn't correspond to a faction.
         -- This could happen if a player adds a new HandZone or changes the color of a HandZone.
@@ -15,4 +25,12 @@ function onPlayerChangeColor(newPlayerColor)
     local faction = ColorNameToFaction[newPlayerColor]
     local playerSeat = FactionToSeat[faction]
     playerSeat:setupEverything(faction)
+end
+
+function resetAllVacantSeats()
+    for _,playerSeat in pairs(PlayerSeats) do
+        if playerSeat:isVacant() then
+            playerSeat:resetSeat()
+        end
+    end
 end
