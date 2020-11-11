@@ -3,7 +3,10 @@ local Factions = require("incursion.config.Factions")
 
 return {
     Allies = PlayerSeat({
-        HiddenZoneGuid = "ba2eea",
+        HiddenZone = {
+            Guid = "ba2eea",
+            ScriptingZoneGuid = "0a78d5",
+        },
         Factions = {
             Factions.LuckySeventh,
             Factions.MI13,
@@ -27,7 +30,10 @@ return {
         },
     }),
     Axis = PlayerSeat({
-        HiddenZoneGuid = "ee6182",
+        HiddenZone = {
+            Guid = "ee6182",
+            ScriptingZoneGuid = "183634",
+        },
         Factions = {
             Factions.SWD,
             Factions.DropTroopersAxis,

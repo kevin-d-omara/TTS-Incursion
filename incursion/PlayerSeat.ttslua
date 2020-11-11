@@ -9,8 +9,11 @@ local PlayerSeat = class("PlayerSeat")
 
 PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
 
+-- At any time, there are N other states a bid chip can be switched to.
+PlayerSeat.NUMBER_OF_BID_CHIP_STATES = 9
+
 function PlayerSeat:init(args)
-    self.HiddenZoneGuid = args.HiddenZoneGuid
+    self.HiddenZone = args.HiddenZone
     self.Factions = args.Factions
     self.BidChip = args.BidChip
     self.FactionReferenceSheet = args.FactionReferenceSheet
@@ -41,7 +44,7 @@ function PlayerSeat:setupEverything(faction)
     self:_clearSeatFor(faction)
 
     self:_moveHandZone(faction, self.OCCUPIED_HAND_ZONE_X_POSITION)
-    HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZoneGuid)
+    HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZone.Guid)
     self:_placeBidChips(faction)
     self:_placeFactionReferenceSheet(faction)
 
@@ -59,6 +62,25 @@ function PlayerSeat:_clearSeatFor(newFaction)
 
     -- Delete previously placed items, like Bid Chips and Faction Reference Sheet:
     Object.tryDestroy(getObjectFromGUID(self.State.ActiveFactionReferenceSheetGuid))
+    self:_deleteBidChips()
+end
+
+--[[
+This is a hack for deleting the bid chips.
+We are deleting any multi-state object with exactly N states (N = "NUMBER_OF_BID_CHIP_STATES").
+
+The ideal solution would store the Bid Chip GUIDs in self.State, like we do for the Faction Reference Sheet.
+However, this doesn't work for multi-state objects because each state has a different GUID.
+]]
+function PlayerSeat:_deleteBidChips()
+    local scriptingZone = getObjectFromGUID(self.HiddenZone.ScriptingZoneGuid)
+    for _,obj in ipairs(scriptingZone.getObjects()) do
+        local states = obj.getStates()
+        local numStates = #states
+        if numStates == self.NUMBER_OF_BID_CHIP_STATES then
+            destroyObject(obj)
+        end
+    end
 end
 
 function PlayerSeat:_moveHandZone(faction, handZoneXPosition)
@@ -134,7 +156,7 @@ function PlayerSeat.__tostring(this)
     end
     factionsStr = factionsStr:sub(1, -2) -- remove trailing comma
 
-    return string.format("PlayerSeat({HiddenZoneGuid=%s,Factions=%s})", tostring(this.HiddenZoneGuid), factionsStr)
+    return string.format("PlayerSeat({Factions=%s})", tostring(factionsStr))
 end
 
 return PlayerSeat
