@@ -1,5 +1,5 @@
 local PlayerSeat = require("incursion.PlayerSeat")
-local Factions = require("incursion.database.Factions")
+local Factions = require("incursion.config.Factions")
 
 return {
     Allies = PlayerSeat({

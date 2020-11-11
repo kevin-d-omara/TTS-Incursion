@@ -1,7 +1,7 @@
-local ColorNameToFaction = require("incursion.database.maps.ColorNameToFaction")
-local FactionToSeat = require("incursion.database.maps.FactionToSeat")
+local ColorNameToFaction = require("incursion.config.maps.ColorNameToFaction")
+local FactionToSeat = require("incursion.config.maps.FactionToSeat")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
-local PlayerSeats = require("incursion.database.PlayerSeats")
+local PlayerSeats = require("incursion.config.PlayerSeats")
 
 
 --[[

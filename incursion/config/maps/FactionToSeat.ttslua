@@ -1,4 +1,4 @@
-local PlayerSeats = require("incursion.database.PlayerSeats")
+local PlayerSeats = require("incursion.config.PlayerSeats")
 
 
 local function _getMap()

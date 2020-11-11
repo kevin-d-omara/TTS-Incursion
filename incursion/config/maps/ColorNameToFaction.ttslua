@@ -1,5 +1,5 @@
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
-local Factions = require("incursion.database.Factions")
+local Factions = require("incursion.config.Factions")
 
 
 local function _getMap()
