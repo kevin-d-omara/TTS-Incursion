@@ -7,24 +7,29 @@ return {
     -- Allies
     LuckySeventh = Faction({
         PlayerColor = PlayerColor.Green,
-        HandZonePositionX = -7.85,
+        VacantHandZonePositionX = -7.85,
+        BidChipInfiniteBagGuid = '9cf4cf',
     }),
     MI13 = Faction({
         PlayerColor = PlayerColor.Blue,
-        HandZonePositionX = 0.00,
+        VacantHandZonePositionX = 0.00,
+        BidChipInfiniteBagGuid = '63c1ee',
     }),
     DropTroopersAllied = Faction({
         PlayerColor = PlayerColor.White,
-        HandZonePositionX = 7.85,
+        VacantHandZonePositionX = 7.85,
+        BidChipInfiniteBagGuid = 'd5282a',
     }),
 
     -- Axis
     SWD = Faction({
         PlayerColor = PlayerColor.Brown,
-        HandZonePositionX = 5.94,
+        VacantHandZonePositionX = 5.94,
+        BidChipInfiniteBagGuid = 'd5282a',
     }),
     DropTroopersAxis = Faction({
         PlayerColor = PlayerColor.Red,
-        HandZonePositionX = -5.94,
+        VacantHandZonePositionX = -5.94,
+        BidChipInfiniteBagGuid = '76faf8',
     }),
 }

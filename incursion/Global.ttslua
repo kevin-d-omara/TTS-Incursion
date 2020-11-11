@@ -11,26 +11,13 @@ click "Change Color" (because it instantly changes them to Grey).
 https://api.tabletopsimulator.com/event/#onplayerchangecolor
 ]]
 function onPlayerChangeColor(newPlayerColor)
-    if newPlayerColor == PlayerColor.Grey.Name then
-        resetAllVacantSeats()
-        return
-    end
-
     if ColorNameToFaction[newPlayerColor] == nil then
         -- Exit early if color doesn't correspond to a faction.
-        -- This could happen if a player adds a new HandZone or changes the color of a HandZone.
+        -- This could happen if a player adds a new HandZone, changes the color of a HandZone, or is Grey.
         return
     end
 
     local faction = ColorNameToFaction[newPlayerColor]
     local playerSeat = FactionToSeat[faction]
     playerSeat:setupEverything(faction)
-end
-
-function resetAllVacantSeats()
-    for _,playerSeat in pairs(PlayerSeats) do
-        if playerSeat:isVacant() then
-            playerSeat:resetSeat()
-        end
-    end
 end

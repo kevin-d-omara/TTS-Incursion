@@ -1,0 +1,16 @@
+local Object = {}
+
+--[[
+A safe wrapper for [Object.setState](https://api.tabletopsimulator.com/object/#set-function-details)
+
+The Tabletop Simulator API throws an error "The state id does not exist" if you try to set the state to the ID it's already at.
+]]
+function Object.setState(obj, stateId)
+    if obj.getStateId() == stateId then
+        return
+    end
+
+    obj.setState(stateId)
+end
+
+return Object

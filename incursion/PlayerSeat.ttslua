@@ -2,21 +2,26 @@ local class = require("incursion.lib.30log.class")
 local HiddenZone = require("incursion.util.HiddenZone")
 local Math = require("incursion.util.Math")
 local PlayerColor = require("incursion.util.PlayerColor")
+local Object = require("incursion.tts_extension.Object")
 
 
 local PlayerSeat = class("PlayerSeat")
 
-PlayerSeat.VACANT_HIDDEN_ZONE_COLOR = PlayerColor.Black.Name
 PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
+
 
 --[[
 <table> args:
     <string> HiddenZoneGuid
     <Array<Faction>> Factions
+    <table> BidChip:
+        <Array<Vector3>> Positions: Should have 6 elements, starting from Bid Chip 0 through 5.
+        <Vector3> Rotation
 ]]
 function PlayerSeat:init(args)
     self.HiddenZoneGuid = args.HiddenZoneGuid
     self.Factions = args.Factions
+    self.BidChip = args.BidChip
 
     self.FactionsHashSet = {}
     for _,faction in ipairs(self.Factions) do
@@ -29,6 +34,8 @@ function PlayerSeat:setupEverything(faction)
         error("The provided faction <" .. tostring(faction) .. "> doesn't sit at this seat <" .. tostring(self) .. ">.")
     end
 
+    self:_clearSeatFor(faction)
+
     -- Hand Zone:
     -- Only shift the X position. The rest of the transform is constant.
     local color = Player[faction.PlayerColor.Name]
@@ -39,28 +46,59 @@ function PlayerSeat:setupEverything(faction)
     -- Hidden Zone:
     HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZoneGuid)
 
-    -- Reset avatar.
-    -- Delete accessories (bid chip, cards, dice, etc.).
+    -- Place Bid Chips:
+    self:_placeBidChips(faction)
+
+    -- Place Faction Reference Sheet:
+    
+
+    -- Set Avatar:
+
 end
 
-function PlayerSeat:resetSeat()
-    local activeFaction = self:getActiveFaction()
-    if activeFaction == nil then
+function PlayerSeat:_clearSeatFor(newFaction)
+    local activeFaction = self:_getActiveFaction()
+    if activeFaction == nil or activeFaction == newFaction then
         return
     end
 
-    -- Hand Zone:
+    -- Move hand zone back to vacant position:
     -- Only shift the X position. The rest of the transform is constant.
     local color = Player[activeFaction.PlayerColor.Name]
     local handTransform = color.getHandTransform()
-    handTransform.position.x = activeFaction.HandZonePositionX
+    handTransform.position.x = activeFaction.VacantHandZonePositionX
     color.setHandTransform(handTransform)
 
-    -- Hidden Zone:
-    HiddenZone.changeColor(self.VACANT_HIDDEN_ZONE_COLOR, self.HiddenZoneGuid)
+    -- Clear bid chips:
 
-    -- Reset avatar.
-    -- Delete accessories (bid chip, cards, dice, etc.).
+    -- Clear faction reference sheet:
+    -- (definitely going to need some save_state here)
+end
+
+function PlayerSeat:_placeBidChips(faction)
+    -- Place in order 0 through 5. Chips are a multi-state object.
+    for index,position in ipairs(self.BidChip.Positions) do
+        local objectStateId = index - 1
+        if index == 1 then objectStateId = 10 end -- Chip 0 is state 10
+
+        self:_placeBidChip(faction, position, objectStateId)
+    end
+end
+
+function PlayerSeat:_placeBidChip(faction, position, objectStateId)
+    local infiniteBag = getObjectFromGUID(faction.BidChipInfiniteBagGuid)
+
+    local function setState(bidChip)
+        Object.setState(bidChip, objectStateId)
+    end
+
+    infiniteBag.takeObject({
+        position          = position,
+        rotation          = self.BidChip.Rotation,
+        smooth            = true,
+        index             = 1, -- TODO: should this be 0?
+        callback_function = setState,
+    })
 end
 
 --[[
@@ -70,7 +108,7 @@ Note: we could save the faction into a class variable inside setupEverything(),
 but then we'd need to deal with saving state:
 https://api.tabletopsimulator.com/event/#onsave
 ]]
-function PlayerSeat:getActiveFaction()
+function PlayerSeat:_getActiveFaction()
     for _,faction in ipairs(self.Factions) do
         local color = faction.PlayerColor.Name
         local handTransform = Player[color].getHandTransform()
@@ -82,44 +120,6 @@ function PlayerSeat:getActiveFaction()
 
     return nil
 end
-
-function PlayerSeat:isVacant()
-    for _,faction in ipairs(self.Factions) do
-        if Player[faction.PlayerColor.Name].seated then
-            return false
-        end
-    end
-
-    return true
-end
-
-
-
---[[
-The default Transform for a HandZone in this mod.
-
-The X position must be supplied because it is unique for every HandZone.
-
-For the Axis player, the Z position should be positive and the Y rotation 180 degrees.
-]]
-function PlayerSeat.getHandZoneTransform(xPos)
-    return {
-        Position = {xPos, 3.29, -33.99},
-        Rotation = {0.00, 0.00, 0.00},
-        Scale = {14.07, 9.17, 5.89},
-    }
-end
-
-
-
-
-
-
-
-
-
-
-
 
 function PlayerSeat.__tostring(this)
     local factionsStr = ""
