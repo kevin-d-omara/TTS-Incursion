@@ -9,19 +9,11 @@ local PlayerSeat = class("PlayerSeat")
 
 PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
 
-
---[[
-<table> args:
-    <string> HiddenZoneGuid
-    <Array<Faction>> Factions
-    <table> BidChip:
-        <Array<Vector3>> Positions: Should have 6 elements, starting from Bid Chip 0 through 5.
-        <Vector3> Rotation
-]]
 function PlayerSeat:init(args)
     self.HiddenZoneGuid = args.HiddenZoneGuid
     self.Factions = args.Factions
     self.BidChip = args.BidChip
+    self.FactionReferenceSheet = args.FactionReferenceSheet
 
     self.FactionsHashSet = {}
     for _,faction in ipairs(self.Factions) do
@@ -36,21 +28,10 @@ function PlayerSeat:setupEverything(faction)
 
     self:_clearSeatFor(faction)
 
-    -- Hand Zone:
-    -- Only shift the X position. The rest of the transform is constant.
-    local color = Player[faction.PlayerColor.Name]
-    local handTransform = color.getHandTransform()
-    handTransform.position.x = self.OCCUPIED_HAND_ZONE_X_POSITION
-    color.setHandTransform(handTransform)
-
-    -- Hidden Zone:
+    self:_moveHandZone(faction, self.OCCUPIED_HAND_ZONE_X_POSITION)
     HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZoneGuid)
-
-    -- Place Bid Chips:
     self:_placeBidChips(faction)
-
-    -- Place Faction Reference Sheet:
-    
+    self:_placeFactionReferenceSheet(faction)
 
     -- Set Avatar:
 
@@ -62,17 +43,19 @@ function PlayerSeat:_clearSeatFor(newFaction)
         return
     end
 
-    -- Move hand zone back to vacant position:
-    -- Only shift the X position. The rest of the transform is constant.
-    local color = Player[activeFaction.PlayerColor.Name]
-    local handTransform = color.getHandTransform()
-    handTransform.position.x = activeFaction.VacantHandZonePositionX
-    color.setHandTransform(handTransform)
+    self:_moveHandZone(activeFaction, activeFaction.VacantHandZonePositionX)
 
     -- Clear bid chips:
-
     -- Clear faction reference sheet:
     -- (definitely going to need some save_state here)
+end
+
+function PlayerSeat:_moveHandZone(faction, handZoneXPosition)
+    -- Only shift the X position. The rest of the transform is constant.
+    local color = Player[faction.PlayerColor.Name]
+    local handTransform = color.getHandTransform()
+    handTransform.position.x = handZoneXPosition
+    color.setHandTransform(handTransform)
 end
 
 function PlayerSeat:_placeBidChips(faction)
@@ -86,7 +69,7 @@ function PlayerSeat:_placeBidChips(faction)
 end
 
 function PlayerSeat:_placeBidChip(faction, position, objectStateId)
-    local infiniteBag = getObjectFromGUID(faction.BidChipInfiniteBagGuid)
+    local infiniteBag = getObjectFromGUID(faction.InfiniteBagGuids.BidChip)
 
     local function setState(bidChip)
         Object.setState(bidChip, objectStateId)
@@ -96,8 +79,19 @@ function PlayerSeat:_placeBidChip(faction, position, objectStateId)
         position          = position,
         rotation          = self.BidChip.Rotation,
         smooth            = true,
-        index             = 1, -- TODO: should this be 0?
+        index             = 1,
         callback_function = setState,
+    })
+end
+
+function PlayerSeat:_placeFactionReferenceSheet(faction)
+    local infiniteBag = getObjectFromGUID(faction.InfiniteBagGuids.FactionReferenceSheet)
+
+    infiniteBag.takeObject({
+        position          = self.FactionReferenceSheet.Position,
+        rotation          = self.FactionReferenceSheet.Rotation,
+        smooth            = true,
+        index             = 1,
     })
 end
 

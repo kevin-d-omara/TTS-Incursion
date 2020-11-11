@@ -9,7 +9,7 @@ local Faction = class("Faction")
 function Faction:init(args)
     self.PlayerColor = args.PlayerColor
     self.VacantHandZonePositionX = args.VacantHandZonePositionX
-    self.BidChipInfiniteBagGuid = args.BidChipInfiniteBagGuid
+    self.InfiniteBagGuids = args.InfiniteBagGuids
 end
 
 

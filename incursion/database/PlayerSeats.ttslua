@@ -1,7 +1,6 @@
 local PlayerSeat = require("incursion.PlayerSeat")
 local Factions = require("incursion.database.Factions")
 
-
 return {
     Allies = PlayerSeat({
         HiddenZoneGuid = "ba2eea",
@@ -22,6 +21,10 @@ return {
             },
             Rotation = {0.00, 180.00, 180.00},
         },
+        FactionReferenceSheet = {
+            Position = {20.00, 1.01, -23.75},
+            Rotation = {0.00, 180.00, 0.00},
+        },
     }),
     Axis = PlayerSeat({
         HiddenZoneGuid = "ee6182",
@@ -39,6 +42,10 @@ return {
                 {44.83, 1.72, 39.10},
             },
             Rotation = {0.00, 0.00, 180.00},
+        },
+        FactionReferenceSheet = {
+            Position = {20.00, 1.01, 23.75},
+            Rotation = {0.00, 0.00, 0.00},
         },
     }),
 }
