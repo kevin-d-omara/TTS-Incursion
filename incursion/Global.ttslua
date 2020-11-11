@@ -21,3 +21,27 @@ function onPlayerChangeColor(newPlayerColor)
     local playerSeat = FactionToSeat[faction]
     playerSeat:setupEverything(faction)
 end
+
+function onLoad(savedJson)
+    if savedJson ~= "" and savedJson ~= nil then
+        load(JSON.decode(savedJson))
+    end
+end
+
+function load(savedData)
+    for name,playerSeat in pairs(PlayerSeats) do
+        playerSeat:load(savedData.PlayerSeats[name])
+    end
+end
+
+function onSave()
+    local dataToSave = {
+        PlayerSeats = {}
+    }
+
+    for name,playerSeat in pairs(PlayerSeats) do
+        dataToSave.PlayerSeats[name] = playerSeat:save()
+    end
+
+    return JSON.encode_pretty(dataToSave)
+end

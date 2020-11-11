@@ -19,6 +19,18 @@ function PlayerSeat:init(args)
     for _,faction in ipairs(self.Factions) do
         self.FactionsHashSet[faction] = _
     end
+
+    self.State = {
+        ActiveFactionReferenceSheetGuid = ''
+    }
+end
+
+function PlayerSeat:load(savedData)
+    self.State = savedData
+end
+
+function PlayerSeat:save()
+    return self.State
 end
 
 function PlayerSeat:setupEverything(faction)
@@ -45,9 +57,8 @@ function PlayerSeat:_clearSeatFor(newFaction)
 
     self:_moveHandZone(activeFaction, activeFaction.VacantHandZonePositionX)
 
-    -- Clear bid chips:
-    -- Clear faction reference sheet:
-    -- (definitely going to need some save_state here)
+    -- Delete previously placed items, like Bid Chips and Faction Reference Sheet:
+    Object.tryDestroy(getObjectFromGUID(self.State.ActiveFactionReferenceSheetGuid))
 end
 
 function PlayerSeat:_moveHandZone(faction, handZoneXPosition)
@@ -92,6 +103,7 @@ function PlayerSeat:_placeFactionReferenceSheet(faction)
         rotation          = self.FactionReferenceSheet.Rotation,
         smooth            = true,
         index             = 1,
+        callback_function = function(obj) self.State.ActiveFactionReferenceSheetGuid = obj.getGUID() end,
     })
 end
 

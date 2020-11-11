@@ -13,4 +13,18 @@ function Object.setState(obj, stateId)
     obj.setState(stateId)
 end
 
+--[[
+A safe wrapper for [destroyObject](https://api.tabletopsimulator.com/base/#destroyobject)
+
+Call this wrapper if there's a chance players have already deleted the object.
+
+Otherwise, you get the following error from trying to delete a non-existant object:
+"Object reference not set to an instance of an object"
+]]
+function Object.tryDestroy(obj)
+    if obj ~= nil then
+        destroyObject(obj)
+    end
+end
+
 return Object
