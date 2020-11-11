@@ -1,8 +1,8 @@
 local class = require("incursion.lib.30log.class")
-local HiddenZone = require("incursion.util.HiddenZone")
+local HiddenZone = require("incursion.tts_api.util.HiddenZone")
 local Math = require("incursion.util.Math")
-local PlayerColor = require("incursion.util.PlayerColor")
-local Object = require("incursion.tts_extension.Object")
+local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
+local Object = require("incursion.tts_api.extension.Object")
 
 
 local PlayerSeat = class("PlayerSeat")

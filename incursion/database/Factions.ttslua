@@ -1,5 +1,5 @@
 local Faction = require("incursion.Faction")
-local PlayerColor = require("incursion.util.PlayerColor")
+local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 
 
 
