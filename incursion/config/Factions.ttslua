@@ -1,4 +1,5 @@
 local Faction = require("incursion.Faction")
+local Avatars = require("incursion.config.Avatars")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 
 
@@ -12,6 +13,7 @@ return {
             BidChip = '9cf4cf',
             FactionReferenceSheet = '0c3f74',
         },
+        Avatar = Avatars.SluggerMurphy,
     }),
     MI13 = Faction({
         PlayerColor = PlayerColor.Blue,
@@ -20,6 +22,7 @@ return {
             BidChip = '63c1ee',
             FactionReferenceSheet = 'e7d868',
         },
+        Avatar = Avatars.PaddyMayne,
     }),
     DropTroopersAllied = Faction({
         PlayerColor = PlayerColor.White,
@@ -28,23 +31,26 @@ return {
             BidChip = 'd5282a',
             FactionReferenceSheet = 'cf815c',
         },
+        Avatar = Avatars.HildeBeckerAllied,
     }),
 
     -- Axis
-    SWD = Faction({
+    DropTroopersAxis = Faction({
         PlayerColor = PlayerColor.Brown,
         VacantHandZonePositionX = 5.94,
         InfiniteBagGuids = {
             BidChip = 'd5282a',
             FactionReferenceSheet = 'cf815c',
         },
+        Avatar = Avatars.HildeBeckerAxis,
     }),
-    DropTroopersAxis = Faction({
+    SWD = Faction({
         PlayerColor = PlayerColor.Red,
         VacantHandZonePositionX = -5.94,
         InfiniteBagGuids = {
             BidChip = '76faf8',
             FactionReferenceSheet = '15d63a',
         },
+        Avatar = Avatars.Gretel,
     }),
 }

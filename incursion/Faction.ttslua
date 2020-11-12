@@ -10,6 +10,7 @@ function Faction:init(args)
     self.PlayerColor = args.PlayerColor
     self.VacantHandZonePositionX = args.VacantHandZonePositionX
     self.InfiniteBagGuids = args.InfiniteBagGuids
+    self.Avatar = args.Avatar
 end
 
 

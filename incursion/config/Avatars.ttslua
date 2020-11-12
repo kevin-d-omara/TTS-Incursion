@@ -1,0 +1,52 @@
+return {
+    -- LuckySeventh
+    SluggerMurphy = {
+        -- Allied
+        Position = {0.00, 4.00, 0.00},
+        Rotation = {0.00, 0.00, 0.00},
+        Scale = {1.00, 1.00, 1.00},
+        InfiniteBagGuid = 'f8b06d',
+    },
+
+    -- MI-13
+    PaddyMayne = {
+        -- Allied
+        Position = {-14.92, -2.57, -73.85},   -- on Axis side: {24.71, -2.57, 73.05}  (i.e. +39.63 on X axis)
+        Rotation = {0.00, 180.00, 0.00},
+        Scale = {100.00, 100.00, 100.00},
+        InfiniteBagGuid = '39d4c9',
+        -- headOffset = 19.815
+    },
+
+    -- Drop Troopers
+    HildeBeckerAllied = {
+        -- Allies
+        Position = {6.83, 11.78, -73.85},
+        Rotation = {0.00, 180.00, 0.00},
+        Scale = {135.00, 135.00, 135.00},
+        InfiniteBagGuid = '898801',
+    },
+
+    -- SWD
+    Gretel = {
+        -- Axis
+        Position = {1.70, -18.98, -73.85},
+        Rotation = {0.00, 180.00, 0.00},
+        Scale = {138.00, 138.00, 138.00},
+        InfiniteBagGuid = '34f5ef',
+    },
+
+    -- Drop Troopers
+    HildeBeckerAxis = {
+        -- Axis
+        Position = {-2.51, 11.78, -73.85},
+        Rotation = {0.00, 180.00, 0.00},
+        Scale = {135.00, 135.00, 135.00},
+        InfiniteBagGuid = '898801',
+    },
+
+    -- For Axis side:
+    -- Add +180 degrees Y rotation.
+    -- Flip sign of Z position.
+    -- (?) <if Axis: subtract headOffset from X>
+}

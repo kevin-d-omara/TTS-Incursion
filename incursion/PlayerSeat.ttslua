@@ -17,6 +17,7 @@ function PlayerSeat:init(args)
     self.Factions = args.Factions
     self.BidChip = args.BidChip
     self.FactionReferenceSheet = args.FactionReferenceSheet
+    self.Avatar = args.Avatar
 
     self.FactionsHashSet = {}
     for _,faction in ipairs(self.Factions) do
@@ -24,7 +25,8 @@ function PlayerSeat:init(args)
     end
 
     self.State = {
-        ActiveFactionReferenceSheetGuid = ''
+        ActiveFactionReferenceSheetGuid = '',
+        ActiveAvatarGuid = '',
     }
 end
 
@@ -47,9 +49,7 @@ function PlayerSeat:setupEverything(faction)
     HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZone.Guid)
     self:_placeBidChips(faction)
     self:_placeFactionReferenceSheet(faction)
-
-    -- Set Avatar:
-
+    self:_placeAvatar(faction)
 end
 
 function PlayerSeat:_clearSeatFor(newFaction)
@@ -62,6 +62,8 @@ function PlayerSeat:_clearSeatFor(newFaction)
 
     -- Delete previously placed items, like Bid Chips and Faction Reference Sheet:
     Object.tryDestroy(getObjectFromGUID(self.State.ActiveFactionReferenceSheetGuid))
+    print("Clearing Avatar: "..tostring(self.State.ActiveAvatarGuid))
+    Object.tryDestroy(getObjectFromGUID(self.State.ActiveAvatarGuid))
     self:_deleteBidChips()
 end
 
@@ -126,6 +128,28 @@ function PlayerSeat:_placeFactionReferenceSheet(faction)
         smooth            = true,
         index             = 1,
         callback_function = function(obj) self.State.ActiveFactionReferenceSheetGuid = obj.getGUID() end,
+    })
+end
+
+function PlayerSeat:_placeAvatar(faction)
+    local infiniteBag = getObjectFromGUID(faction.Avatar.InfiniteBagGuid)
+
+    local rotation = Vector(faction.Avatar.Rotation):add(Vector(0, self.Avatar.ExtraRotationDegrees, 0))
+    local position = Vector(faction.Avatar.Position):scale(Vector(1, 1, self.Avatar.DepthMultiplier))
+    -- TODO: something about the X position
+
+    local callback = function(obj)
+        obj.setLock(true)
+        -- HACK: Wait 1 frame before capturing GUID because otherwise it will be duplicate w/ the other Drop Trooper player.
+        Wait.frames(function() self.State.ActiveAvatarGuid = obj.getGUID() end, 1)
+    end
+
+    infiniteBag.takeObject({
+        position          = position,
+        rotation          = rotation,
+        smooth            = false,
+        index             = 1,
+        callback_function = callback,
     })
 end
 

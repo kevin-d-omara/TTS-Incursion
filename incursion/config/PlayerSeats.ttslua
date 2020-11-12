@@ -28,6 +28,11 @@ return {
             Position = {20.00, 1.01, -23.75},
             Rotation = {0.00, 180.00, 0.00},
         },
+        Avatar = {
+            ExtraRotationDegrees = 0.00,
+            DepthMultiplier = 1.00,
+            -- TODO: something about the X position
+        },
     }),
     Axis = PlayerSeat({
         HiddenZone = {
@@ -52,6 +57,11 @@ return {
         FactionReferenceSheet = {
             Position = {20.00, 1.01, 23.75},
             Rotation = {0.00, 0.00, 0.00},
+        },
+        Avatar = {
+            ExtraRotationDegrees = 180.00,
+            DepthMultiplier = -1.00,
+            -- TODO: something about the X position
         },
     }),
 }
