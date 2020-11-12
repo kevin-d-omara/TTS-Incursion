@@ -31,7 +31,6 @@ return {
         Avatar = {
             ExtraRotationDegrees = 0.00,
             DepthMultiplier = 1.00,
-            -- TODO: something about the X position
         },
     }),
     Axis = PlayerSeat({
@@ -61,7 +60,6 @@ return {
         Avatar = {
             ExtraRotationDegrees = 180.00,
             DepthMultiplier = -1.00,
-            -- TODO: something about the X position
         },
     }),
 }

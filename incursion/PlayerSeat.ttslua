@@ -62,7 +62,6 @@ function PlayerSeat:_clearSeatFor(newFaction)
 
     -- Delete previously placed items, like Bid Chips and Faction Reference Sheet:
     Object.tryDestroy(getObjectFromGUID(self.State.ActiveFactionReferenceSheetGuid))
-    print("Clearing Avatar: "..tostring(self.State.ActiveAvatarGuid))
     Object.tryDestroy(getObjectFromGUID(self.State.ActiveAvatarGuid))
     self:_deleteBidChips()
 end
@@ -136,7 +135,6 @@ function PlayerSeat:_placeAvatar(faction)
 
     local rotation = Vector(faction.Avatar.Rotation):add(Vector(0, self.Avatar.ExtraRotationDegrees, 0))
     local position = Vector(faction.Avatar.Position):scale(Vector(1, 1, self.Avatar.DepthMultiplier))
-    -- TODO: something about the X position
 
     local callback = function(obj)
         obj.setLock(true)
