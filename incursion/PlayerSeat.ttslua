@@ -43,7 +43,12 @@ function PlayerSeat:setupEverything(faction)
         error("The provided faction <" .. tostring(faction) .. "> doesn't sit at this seat <" .. tostring(self) .. ">.")
     end
 
-    self:_clearSeatFor(faction)
+    local activeFaction = self:_getActiveFaction()
+    if activeFaction == faction then
+        return
+    end
+
+    self:_clearSeatFor(activeFaction)
 
     self:_moveHandZone(faction, self.OCCUPIED_HAND_ZONE_X_POSITION)
     HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZone.Guid)
@@ -52,9 +57,8 @@ function PlayerSeat:setupEverything(faction)
     self:_placeAvatar(faction)
 end
 
-function PlayerSeat:_clearSeatFor(newFaction)
-    local activeFaction = self:_getActiveFaction()
-    if activeFaction == nil or activeFaction == newFaction then
+function PlayerSeat:_clearSeatFor(activeFaction)
+    if activeFaction == nil then
         return
     end
 
