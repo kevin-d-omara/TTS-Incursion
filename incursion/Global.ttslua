@@ -2,7 +2,52 @@ local ColorNameToFaction = require("incursion.config.maps.ColorNameToFaction")
 local FactionToSeat = require("incursion.config.maps.FactionToSeat")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 local PlayerSeats = require("incursion.config.PlayerSeats")
+local Factions = require("incursion.config.Factions")
+local Avatars = require("incursion.config.Avatars")
 
+
+function onLoad(savedJson)
+    if savedJson ~= "" and savedJson ~= nil then
+        load(JSON.decode(savedJson))
+    end
+
+    _disableInteractivity()
+end
+
+function load(savedData)
+    for name,playerSeat in pairs(PlayerSeats) do
+        playerSeat:load(savedData.PlayerSeats[name])
+    end
+end
+
+function _disableInteractivity()
+    local guidsToFreeze = {}
+    for _,avatar in pairs(Avatars) do
+        table.insert(guidsToFreeze, avatar.InfiniteBagGuid)
+    end
+    for _,faction in pairs(Factions) do
+        table.insert(guidsToFreeze, faction.InfiniteBagGuids.BidChip)
+        table.insert(guidsToFreeze, faction.InfiniteBagGuids.FactionReferenceSheet)
+    end
+
+    for _,guid in ipairs(guidsToFreeze) do
+        local obj = getObjectFromGUID(guid)
+        obj.interactable = false
+        obj.setColorTint(Color(0,0,0))
+    end
+end
+
+function onSave()
+    local dataToSave = {
+        PlayerSeats = {}
+    }
+
+    for name,playerSeat in pairs(PlayerSeats) do
+        dataToSave.PlayerSeats[name] = playerSeat:save()
+    end
+
+    return JSON.encode_pretty(dataToSave)
+end
 
 --[[
 This is also called with the value "Grey" when a player disconnects or when they
@@ -20,28 +65,4 @@ function onPlayerChangeColor(newPlayerColor)
     local faction = ColorNameToFaction[newPlayerColor]
     local playerSeat = FactionToSeat[faction]
     playerSeat:setupEverything(faction)
-end
-
-function onLoad(savedJson)
-    if savedJson ~= "" and savedJson ~= nil then
-        load(JSON.decode(savedJson))
-    end
-end
-
-function load(savedData)
-    for name,playerSeat in pairs(PlayerSeats) do
-        playerSeat:load(savedData.PlayerSeats[name])
-    end
-end
-
-function onSave()
-    local dataToSave = {
-        PlayerSeats = {}
-    }
-
-    for name,playerSeat in pairs(PlayerSeats) do
-        dataToSave.PlayerSeats[name] = playerSeat:save()
-    end
-
-    return JSON.encode_pretty(dataToSave)
 end

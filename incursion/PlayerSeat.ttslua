@@ -116,7 +116,7 @@ function PlayerSeat:_placeBidChip(faction, position, objectStateId)
     infiniteBag.takeObject({
         position          = position,
         rotation          = self.BidChip.Rotation,
-        smooth            = true,
+        smooth            = false,
         index             = 1,
         callback_function = setState,
     })
@@ -128,7 +128,7 @@ function PlayerSeat:_placeFactionReferenceSheet(faction)
     infiniteBag.takeObject({
         position          = self.FactionReferenceSheet.Position,
         rotation          = self.FactionReferenceSheet.Rotation,
-        smooth            = true,
+        smooth            = false,
         index             = 1,
         callback_function = function(obj) self.State.ActiveFactionReferenceSheetGuid = obj.getGUID() end,
     })
