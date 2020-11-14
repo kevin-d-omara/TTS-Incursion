@@ -1,3 +1,4 @@
+require("incursion.GlobalCallbacks")
 local ColorNameToFaction = require("incursion.config.maps.ColorNameToFaction")
 local FactionToSeat = require("incursion.config.maps.FactionToSeat")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
@@ -65,4 +66,8 @@ function onPlayerChangeColor(newPlayerColor)
     local faction = ColorNameToFaction[newPlayerColor]
     local playerSeat = FactionToSeat[faction]
     playerSeat:setupEverything(faction)
+end
+
+function getPlayerSeats()
+    return PlayerSeats
 end

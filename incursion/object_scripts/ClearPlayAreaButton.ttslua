@@ -1,0 +1,11 @@
+--[[
+This script is attached to the "DANGER!! Clear Off Table" buttons.
+]]
+function onLoad()
+    self.createButton({
+        tooltip        = "[FFFF00]DANGER!! Clear Play Area",
+        click_function = "ClearTable",
+        function_owner = Global,
+        scale          = vector(1, 1, 1):scale(10.25),
+    })
+end
