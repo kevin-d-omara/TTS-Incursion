@@ -9,6 +9,11 @@ local PlayerSeat = class("PlayerSeat")
 
 PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
 
+-- We have to shrink the vacant hand zones, otherwise the Allied player's hand zone
+-- overlaps with the default player color (white).
+PlayerSeat.VACANT_HAND_ZONE_X_SCALE = 5.00
+PlayerSeat.OCCUPIED_HAND_ZONE_X_SCALE = 14.07
+
 -- At any time, there are N other states a bid chip can be switched to.
 PlayerSeat.NUMBER_OF_BID_CHIP_STATES = 9
 
@@ -43,14 +48,14 @@ function PlayerSeat:setupEverything(faction)
         error("The provided faction <" .. tostring(faction) .. "> doesn't sit at this seat <" .. tostring(self) .. ">.")
     end
 
-    local activeFaction = self:_getActiveFaction()
+    local activeFaction = self:getActiveFaction()
     if activeFaction == faction then
         return
     end
 
     self:_clearSeatFor(activeFaction)
 
-    self:_moveHandZone(faction, self.OCCUPIED_HAND_ZONE_X_POSITION)
+    self:_moveHandZone(faction, self.OCCUPIED_HAND_ZONE_X_POSITION, self.OCCUPIED_HAND_ZONE_X_SCALE)
     HiddenZone.changeColor(faction.PlayerColor.Name, self.HiddenZone.Guid)
     self:_placeBidChips(faction)
     self:_placeFactionReferenceSheet(faction)
@@ -62,7 +67,7 @@ function PlayerSeat:_clearSeatFor(activeFaction)
         return
     end
 
-    self:_moveHandZone(activeFaction, activeFaction.VacantHandZonePositionX)
+    self:_moveHandZone(activeFaction, activeFaction.VacantHandZonePositionX, self.VACANT_HAND_ZONE_X_SCALE)
 
     -- Delete previously placed items, like Bid Chips and Faction Reference Sheet:
     Object.tryDestroy(getObjectFromGUID(self.State.ActiveFactionReferenceSheetGuid))
@@ -88,11 +93,12 @@ function PlayerSeat:_deleteBidChips()
     end
 end
 
-function PlayerSeat:_moveHandZone(faction, handZoneXPosition)
+function PlayerSeat:_moveHandZone(faction, handZoneXPosition, handZoneXScale)
     -- Only shift the X position. The rest of the transform is constant.
     local color = Player[faction.PlayerColor.Name]
     local handTransform = color.getHandTransform()
     handTransform.position.x = handZoneXPosition
+    handTransform.scale.x = handZoneXScale
     color.setHandTransform(handTransform)
 end
 
@@ -162,7 +168,7 @@ Note: we could save the faction into a class variable inside setupEverything(),
 but then we'd need to deal with saving state:
 https://api.tabletopsimulator.com/event/#onsave
 ]]
-function PlayerSeat:_getActiveFaction()
+function PlayerSeat:getActiveFaction()
     for _,faction in ipairs(self.Factions) do
         local color = faction.PlayerColor.Name
         local handTransform = Player[color].getHandTransform()

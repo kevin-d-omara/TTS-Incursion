@@ -22,7 +22,18 @@ function load(savedData)
 end
 
 function _disableInteractivity()
-    local guidsToFreeze = {}
+    for _,guid in ipairs(_getGuidsToFreeze()) do
+        local obj = getObjectFromGUID(guid)
+        obj.interactable = false
+        obj.tooltip = false
+        obj.setColorTint(Color(0,0,0))
+    end
+end
+
+function _getGuidsToFreeze()
+    local guidsToFreeze = {
+        'fc34bd', -- Memory Bag for Intro Mission
+    }
     for _,avatar in pairs(Avatars) do
         table.insert(guidsToFreeze, avatar.InfiniteBagGuid)
     end
@@ -31,11 +42,7 @@ function _disableInteractivity()
         table.insert(guidsToFreeze, faction.InfiniteBagGuids.FactionReferenceSheet)
     end
 
-    for _,guid in ipairs(guidsToFreeze) do
-        local obj = getObjectFromGUID(guid)
-        obj.interactable = false
-        obj.setColorTint(Color(0,0,0))
-    end
+    return guidsToFreeze
 end
 
 function onSave()

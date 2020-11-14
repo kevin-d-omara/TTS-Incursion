@@ -1,0 +1,160 @@
+local PlayerSeats = require("incursion.config.PlayerSeats")
+local PlayerSeat = require("incursion.PlayerSeat")
+
+
+local BATTLE_CARDS_DECK_GUID = '4f04f0'
+local BATTLE_CARDS_SPACING = 2.46
+local BATTLE_CARDS_CENTER = PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION
+
+function onLoad()
+    createText()
+    createButtons()
+end
+
+function createText()
+    self.UI.setXmlTable({
+        {
+            tag="Text",
+            attributes={
+                text="Play Introductory Mission?",
+                color="#FFFFFF",
+                alignment="MiddleCenter",
+                fontSize="140",
+                offsetXY="0 0",
+                fontStyle="Bold",
+            },
+        }
+    })
+end
+
+function createButtons()
+    local color = {1,1,1}
+    local fontColor = {0,0,0}
+
+    local _multiplier = 3
+    local fontSize = 250 * _multiplier*2
+    local width = 800 * _multiplier
+    local height = 350 * _multiplier
+
+
+    local buttonGap = 1.0 * _multiplier
+    local buttonHeight = 0.0
+    local buttonDownOffset = -2.8
+    local buttonRotation = {0,180,0}
+
+
+    self.createButton({
+        label="Yes",
+        click_function="buttonClick_yes",
+        function_owner=self,
+        position={buttonGap,buttonHeight,buttonDownOffset},
+        rotation=buttonRotation,
+        height=height,
+        width=width,
+        font_size=fontSize,
+        color=color,
+        font_color=fontColor,
+    })
+    self.createButton({
+        label="No",
+        click_function="buttonClick_no",
+        function_owner=self,
+        position={-buttonGap,buttonHeight,buttonDownOffset},
+        rotation=buttonRotation,
+        height=height,
+        width=width,
+        font_size=fontSize,
+        color=color,
+        font_color=fontColor,
+    })
+end
+
+function buttonClick_no()
+    destroyObject(self)
+end
+
+function buttonClick_yes()
+    local memoryBag = getObjectFromGUID("fc34bd")
+    memoryBag.call("buttonClick_place")
+
+    local battleCards = getObjectFromGUID(BATTLE_CARDS_DECK_GUID)
+    battleCards.shuffle()
+
+    -- Delete commands points 5 thru 9, since each player only gets 4 CP in the intro mission.
+    local extraCommandPoints = {
+        -- Allied
+        '659d76',
+        '59feea',
+        '8ed952',
+        '7f095c',
+        'e280f8',
+
+        -- Axis
+        '8e05fa',
+        'c725a8',
+        'dd86b9',
+        '04fc34',
+        '37015e',
+    }
+    for _,guid in ipairs(extraCommandPoints) do
+        destroyObject(getObjectFromGUID(guid))
+    end
+
+    -- Messages are displayed in reverse order:
+    broadcastToAll("Mission 1: Recon")
+
+    startLuaCoroutine(self, "_finishSettingUpIntroMission")
+end
+
+function _finishSettingUpIntroMission()
+    -- Wait 1 frame for the deck to finish shuffling.
+    coroutine.yield(0)
+
+    local battleCards = getObjectFromGUID(BATTLE_CARDS_DECK_GUID)
+
+    -- Deal cards:
+    if not _tryDealCardsToSeat(PlayerSeats.Allies, battleCards) then
+        local depth = -33.99
+        local rotationY = 180.0
+        _dealCardsToVacantSeat(battleCards, depth, rotationY)
+    end
+
+    if not _tryDealCardsToSeat(PlayerSeats.Axis, battleCards) then
+        -- Axis:
+        -- left: {22.58, 3.57, 33.99}
+        -- right: {17.66, 3.67, 33.99}
+        -- rotation: {0.00, 0.00, 0.00}
+        local depth = 33.99
+        local rotationY = 0
+        _dealCardsToVacantSeat(battleCards, depth, rotationY)
+    end
+
+    destroyObject(self)
+    return 1
+end
+
+function _tryDealCardsToSeat(playerSeat, battleCards)
+    local activeFaction = playerSeat:getActiveFaction()
+    if activeFaction ~= nil and Player[activeFaction.PlayerColor.Name].seated then
+        battleCards.deal(2, activeFaction.PlayerColor.Name)
+        return true
+    else
+        return false
+    end
+end
+
+-- Place cards face down into the vacant seat's hand area.
+function _dealCardsToVacantSeat(battleCards, depth, rotationY)
+    battleCards.takeObject({
+        position          = {BATTLE_CARDS_CENTER - BATTLE_CARDS_SPACING, 3, depth},
+        rotation          = {0.00, rotationY, 180.00},
+        smooth            = true,
+        index             = 1,
+    })
+    battleCards.takeObject({
+        position          = {BATTLE_CARDS_CENTER + BATTLE_CARDS_SPACING, 3, depth},
+        rotation          = {0.00, rotationY, 180.00},
+        smooth            = true,
+        index             = 1,
+    })
+end
