@@ -5,6 +5,7 @@ local PlayerSeat = require("incursion.PlayerSeat")
 local BATTLE_CARDS_DECK_GUID = '4f04f0'
 local BATTLE_CARDS_SPACING = 2.46
 local BATTLE_CARDS_CENTER = PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION
+local TEXT_ID = "MyText"
 
 function onLoad()
     createText()
@@ -16,6 +17,7 @@ function createText()
         {
             tag="Text",
             attributes={
+                id=TEXT_ID,
                 text="Play Introductory Mission?",
                 color="#FFFFFF",
                 alignment="MiddleCenter",
@@ -74,6 +76,10 @@ function buttonClick_no()
 end
 
 function buttonClick_yes()
+    self.UI.hide(TEXT_ID)
+    self.removeButton(0)
+    self.removeButton(1)
+
     local memoryBag = getObjectFromGUID("fc34bd")
     memoryBag.call("buttonClick_place")
 
@@ -100,10 +106,15 @@ function buttonClick_yes()
         destroyObject(getObjectFromGUID(guid))
     end
 
-    -- Messages are displayed in reverse order:
-    broadcastToAll("Mission 1: Recon")
-
     startLuaCoroutine(self, "_finishSettingUpIntroMission")
+
+
+    Wait.time(function() broadcastToAll("Mission 1: Recon") end, 1.75)
+    -- Messages are displayed in reverse order if called multiple times within same frame.
+    Wait.time(function() broadcastToAll("Player Red: German SWD", Color.Red) end, 3.5)
+    Wait.time(function() broadcastToAll("Player Green: US Lucky Seventh", Color.Green) end, 3.5)
+    Wait.time(function() broadcastToAll("Choose a color:") end, 3.5)
+    Wait.time(function() destroyObject(self) end, 4)
 end
 
 function _finishSettingUpIntroMission()
@@ -129,7 +140,6 @@ function _finishSettingUpIntroMission()
         _dealCardsToVacantSeat(battleCards, depth, rotationY)
     end
 
-    destroyObject(self)
     return 1
 end
 
