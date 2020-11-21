@@ -2,7 +2,7 @@ local PlayerSeats = require("incursion.config.PlayerSeats")
 local PlayerSeat = require("incursion.PlayerSeat")
 
 
-local BATTLE_CARDS_DECK_GUID = '4f04f0'
+local BATTLE_CARDS_DECK_GUID = '8170fe'
 local BATTLE_CARDS_SPACING = 2.46
 local BATTLE_CARDS_CENTER = PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION
 local TEXT_ID = "MyText"
