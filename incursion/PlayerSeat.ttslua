@@ -35,11 +35,13 @@ function PlayerSeat:init(args)
     }
 end
 
-function PlayerSeat:load(savedData)
-    self.State = savedData
+function PlayerSeat:onLoad(savedData)
+    if savedData ~= nil then
+        self.State = savedData
+    end
 end
 
-function PlayerSeat:save()
+function PlayerSeat:onSave()
     return self.State
 end
 

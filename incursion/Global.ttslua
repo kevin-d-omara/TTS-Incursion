@@ -5,20 +5,28 @@ local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 local PlayerSeats = require("incursion.config.PlayerSeats")
 local Factions = require("incursion.config.Factions")
 local Avatars = require("incursion.config.Avatars")
+local SaveState = require("incursion.tts_api.util.SaveState")
 
 
-function onLoad(savedJson)
-    if savedJson ~= "" and savedJson ~= nil then
-        load(JSON.decode(savedJson))
+function CreateSavedState()
+    local objectsToSave = {}
+
+    for name,playerSeat in pairs(PlayerSeats) do
+        local key = "PlayerSeat."..name
+        objectsToSave[key]=playerSeat
     end
 
-    _disableInteractivity()
+    return SaveState(objectsToSave)
+end
+local SavedState = CreateSavedState()
+
+function onSave()
+    return SavedState:onSave()
 end
 
-function load(savedData)
-    for name,playerSeat in pairs(PlayerSeats) do
-        playerSeat:load(savedData.PlayerSeats[name])
-    end
+function onLoad(savedJson)
+    SavedState:onLoad(savedJson)
+    _disableInteractivity()
 end
 
 function _disableInteractivity()
@@ -43,18 +51,6 @@ function _getGuidsToFreeze()
     end
 
     return guidsToFreeze
-end
-
-function onSave()
-    local dataToSave = {
-        PlayerSeats = {}
-    }
-
-    for name,playerSeat in pairs(PlayerSeats) do
-        dataToSave.PlayerSeats[name] = playerSeat:save()
-    end
-
-    return JSON.encode_pretty(dataToSave)
 end
 
 --[[
