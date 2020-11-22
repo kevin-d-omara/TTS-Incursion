@@ -1,0 +1,46 @@
+-- Extension methods for https://api.tabletopsimulator.com/grid/
+local GridX = {}
+
+GridX.Enum = {
+    GridShape = {
+        Rectangles = 1,
+        HorizontalHexes = 2,
+        VerticalHexes = 3,
+    },
+    LineThickness = {
+        Thin = false,
+        Thick = true,
+    },
+    SnapMode = {
+        Off = 1,
+        Lines = 2,
+        Center = 3,
+        Both = 4
+    },
+}
+
+--[[
+Updates the Grid settings by using the key/values in the provided table.
+
+https://api.tabletopsimulator.com/grid/
+
+# Args:
+<table> settings: All keys are optional. By default the setting will be unchanged.
+    <int|GridX.Enum.GridShape> type
+    <bool> show_lines
+    <color> color
+    <float> opacity
+    <bool|GridX.Enum.LineThickness> thick_lines
+    <int|GridX.Enum.SnapMode> snapping
+    <float> offsetX
+    <float> offsetY
+    <float> sizeX
+    <float> sizeY
+]]
+function GridX.applySettings(settings)
+    for key,value in pairs(settings) do
+        Grid[key] = value
+    end
+end
+
+return GridX

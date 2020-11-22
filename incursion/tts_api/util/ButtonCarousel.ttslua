@@ -1,0 +1,87 @@
+local class = require("incursion.lib.30log.class")
+
+
+--[[
+This is a multi-state button which cycles to the next state each time it is clicked.
+
+For example, a button for "Difficulty" may cycle between "Easy", "Medium", and "Hard" each time it is clicked.
+
+# Requirements
+(1) Set XML
+The user must add this button to it's UI by calling myInstance:GetXmlTable() and myObject.UI.setXmlTable().
+
+(2) Save State
+The user must save this object's state by using the onSave() and onLoad() methods.
+
+(3) OnClick
+The user must supply a global onClick function for each ButtonCarousel instance.
+The function name must match the provided UI.GlobalOnClickFunctionName parameter.
+The function signature and body must be a copy of this:
+    function MyButtonCarouselInstance_onClick(player, value, id)
+        ButtonCarousel:OnClick(player, value, id)
+    end
+]]
+local ButtonCarousel = class("ButtonCarousel")
+
+function ButtonCarousel:init(args)
+    self.SaveState = args.SaveState
+    self.GameObject = args.GameObject
+    self.UI = args.UI
+    self.Buttons = args.Buttons
+end
+
+function ButtonCarousel:onSave()
+    return self.SaveState
+end
+
+function ButtonCarousel:onLoad(savedData)
+    if savedData ~= nil then
+        self.SaveState = savedData
+    end
+
+    self:TriggerActiveButton()
+end
+
+function ButtonCarousel:TriggerActiveButton()
+    local onClick = self.Buttons[self.SaveState.activeButtonIndex].OnClick
+    onClick.Function(onClick.Parameters)
+end
+
+function ButtonCarousel:GetXmlTable()
+    local xml = {
+        tag="Button",
+        attributes={
+            id=self.UI.Id,
+            onClick=self.UI.GlobalOnClickFunctionName,
+        }
+    }
+    for k,v in pairs(self.UI.Attributes) do
+        xml.attributes[k] = v
+    end
+    local activeButton = self.Buttons[self.SaveState.activeButtonIndex]
+    for k,v in pairs(activeButton.Attributes) do
+        xml.attributes[k] = v
+    end
+
+    return xml
+end
+
+function ButtonCarousel:OnClick(player, value, id)
+    local nextIndex = self:_GetNextIndex()
+    local nextButton = self.Buttons[nextIndex]
+    self.SaveState.activeButtonIndex = nextIndex
+    self.GameObject.UI.setAttributes(self.UI.Id, nextButton.Attributes)
+    self:TriggerActiveButton()
+end
+
+function ButtonCarousel:_GetNextIndex()
+    local index = self.SaveState.activeButtonIndex
+    local numButtons = #self.Buttons
+    if index >= numButtons then
+        return 1
+    else
+        return index + 1
+    end
+end
+
+return ButtonCarousel

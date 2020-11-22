@@ -1,0 +1,128 @@
+local GridX = require("incursion.tts_api.extension.GridX")
+local SaveState = require("incursion.tts_api.util.SaveState")
+local ButtonCarousel = require("incursion.tts_api.util.ButtonCarousel")
+
+local GridSettings = {
+    ModularBoardHorizontal = {
+        BroadcastName = "Modular Boards (Horizontal)",
+        Settings = {
+            type = GridX.Enum.GridShape.Rectangles,
+            snapping = GridX.Enum.SnapMode.Lines,
+            offsetX = 0.00,
+            offsetY = 1.25,
+            sizeX = 2.50,
+            sizeY = 2.50,
+        },
+    },
+    ModularBoardVertical = {
+        BroadcastName = "Modular Boards (Vertical)",
+        Settings = {
+            type = GridX.Enum.GridShape.Rectangles,
+            snapping = GridX.Enum.SnapMode.Lines,
+            offsetX = 1.25,
+            offsetY = 0.00,
+            sizeX = 2.50,
+            sizeY = 2.50,
+        },
+    },
+    EverythingElse = {
+        BroadcastName = "Everything Else",
+        Settings = {
+            type = GridX.Enum.GridShape.Rectangles,
+            snapping = GridX.Enum.SnapMode.Center,
+            offsetX = 0.00,
+            offsetY = 0.00,
+            sizeX = 2.50,
+            sizeY = 2.50,
+        },
+    },
+    ChangeTo = function(tbl)
+        GridX.applySettings(tbl.Settings)
+        broadcastToAll("Changed Grid Snapping to: "..tbl.BroadcastName)
+    end
+}
+
+local buttonCarousel = ButtonCarousel({
+    SaveState = {
+        activeButtonIndex = 3,
+    },
+    GameObject = self,
+    UI = {
+        Id = "GridSnappingButton",
+        Attributes = {
+            fontSize="50",
+            fontStyle="Bold",
+        },
+        GlobalOnClickFunctionName = "ButtonCarousel_onClick",
+    },
+    Buttons = {
+        {
+            Attributes = {
+                text="Modular Boards\n(Horizontal)",
+            },
+            OnClick = {
+                Function = GridSettings.ChangeTo,
+                Parameters = GridSettings.ModularBoardHorizontal,
+            },
+        },
+        {
+            Attributes = {
+                text="Modular Boards\n(Vertical)",
+            },
+            OnClick = {
+                Function = GridSettings.ChangeTo,
+                Parameters = GridSettings.ModularBoardVertical,
+            },
+        },
+        {
+            Attributes = {
+                text="Everything Else",
+            },
+            OnClick = {
+                Function = GridSettings.ChangeTo,
+                Parameters = GridSettings.EverythingElse,
+            },
+        },
+    },
+})
+
+function ButtonCarousel_onClick(player, value, id)
+    buttonCarousel:OnClick(player, value, id)
+end
+
+local SavedState = SaveState({
+    buttonCarousel = buttonCarousel
+})
+
+function onSave()
+    return SavedState:onSave()
+end
+
+function onLoad(savedJson)
+    SavedState:onLoad(savedJson)
+    self.UI.setXmlTable({
+        {
+            tag="VerticalLayout",
+            attributes={
+                spacing=20,
+                position="0 420 -35",
+                rotation="0 0 180",
+                height=400,
+                width=440,
+            },
+            children={
+                {
+                    tag="Text",
+                    attributes = {
+                        text="Grid Snapping:",
+                        color="#FFFFFF",
+                        fontSize="66",
+                        fontStyle="Bold",
+                        preferredHeight=10,
+                    },
+                },
+                buttonCarousel:GetXmlTable(),
+            },
+        },
+    })
+end

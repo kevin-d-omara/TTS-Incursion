@@ -1,0 +1,32 @@
+local class = require("incursion.lib.30log.class")
+
+
+local Saveable = class("Saveable")
+
+function Saveable:init()
+end
+
+function Saveable:onSave()
+    local dataToSave = {}
+
+    for name,object in pairs(self.Objects) do
+        dataToSave[name] = object:onSave()
+    end
+
+    return JSON.encode_pretty(dataToSave)
+end
+
+function Saveable:onLoad(savedJson)
+    local savedData
+    if savedJson == "" or savedJson == nil then
+        savedData = {}
+    else
+        savedData = JSON.decode(savedJson)
+    end
+
+    for name,object in pairs(self.Objects) do
+        object:onLoad(savedData[name])
+    end
+end
+
+return Saveable

@@ -1,0 +1,78 @@
+local class = require("incursion.lib.30log.class")
+
+
+--[[
+Use this class when you have a Tabletop Simulator Object which needs to manage
+save_state for multiple components.
+
+Each component must implement this interface:
+ISaveable
+    <table> onSave()
+    <nil> onLoad(savedData <Optional[table]>)
+
+The Object must call SaveState.onSave() and SaveState.onLoad() in it's corresponding methods:
+function onSave()
+    return SavedState:onSave()
+end
+
+function onLoad(savedJson)
+    SavedState:onLoad(savedJson)
+end
+
+# Example
+MyObject.ttslua
+---------------
+local SaveState = require("path.to.SaveState")
+local Scoreboard = require("path.to.Scoreboard")
+local PlayerInfo = require("path.to.PlayerInfo")
+
+-- Components:
+local scoreboard = Scoreboard()
+local playerOne = PlayerInfo()
+local playerTwo = PlayerInfo()
+
+-- State:
+local SavedState = SaveState({
+    scoreboard = scoreboard,
+    playerOne = playerOne,
+    playerTwo = playerTwo,
+})
+
+function onSave()
+    return SavedState:onSave()
+end
+
+function onLoad(savedJson)
+    SavedState:onLoad(savedJson)
+end
+]]
+local SaveState = class("SaveState")
+
+function SaveState:init(objects)
+    self.Objects = objects -- A dictionary: keys are names, values are objects which implement ISaveable (see description at top of file).
+end
+
+function SaveState:onSave()
+    local dataToSave = {}
+
+    for name,object in pairs(self.Objects) do
+        dataToSave[name] = object:onSave()
+    end
+
+    return JSON.encode_pretty(dataToSave)
+end
+
+function SaveState:onLoad(savedJson)
+    local savedData
+    if savedJson == "" or savedJson == nil then
+        savedData = {}
+    else
+        savedData = JSON.decode(savedJson)
+    end
+
+    for name,object in pairs(self.Objects) do
+        object:onLoad(savedData[name])
+    end
+end
+
+return SaveState
