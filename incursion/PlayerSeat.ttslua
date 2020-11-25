@@ -150,6 +150,7 @@ function PlayerSeat:_placeAvatar(faction)
 
     local callback = function(obj)
         obj.setLock(true)
+        obj.interactable = false
         -- HACK: Wait 1 frame before capturing GUID because otherwise it will be duplicate w/ the other Drop Trooper player.
         Wait.frames(function() self.State.ActiveAvatarGuid = obj.getGUID() end, 1)
     end

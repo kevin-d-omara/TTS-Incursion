@@ -34,11 +34,29 @@ function _disableInteractivity()
         local obj = getObjectFromGUID(guid)
         obj.interactable = false
         obj.tooltip = false
+    end
+
+    for _,guid in ipairs(_getGuidsUnderTable()) do
+        local obj = getObjectFromGUID(guid)
+        obj.interactable = false
+        obj.tooltip = false
         obj.setColorTint(Color(0,0,0))
     end
 end
 
 function _getGuidsToFreeze()
+    return {
+        'd02800', -- Avatar: Slugger Murphy
+        '8e23de', -- Avatar: Gretel
+        'a13d1f', -- Table
+        '27fa45', -- Left Table Sleeve
+        '3161c7', -- Left Table Sleeve Divider
+        '2b1761', -- Right Table Sleeve
+        'fb5e0f', -- Right Table Sleeve Divider
+    }
+end
+
+function _getGuidsUnderTable()
     local guidsToFreeze = {
         'fc34bd', -- Memory Bag for Intro Mission
     }
