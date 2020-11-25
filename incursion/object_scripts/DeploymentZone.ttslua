@@ -1,0 +1,29 @@
+-- Values to be set in user script:
+ZONE_TEXT = ""
+
+
+function onLoad()
+    self.UI.setXmlTable({
+        {
+            tag="Text",
+            id="DeploymentZoneText",
+            attributes = {
+                text=ZONE_TEXT,
+                color="#FFFFFF",
+                fontSize="112",
+                fontStyle="Bold",
+                outline="#000000",
+                outlineSize="4 4",
+                scale=_getTextScale(self),
+            },
+        },
+    })
+end
+
+-- We want the text to be crisp, no matter the how large/small the deployment zone object is:
+function _getTextScale(obj)
+    local objectScale = obj.getScale()
+    local textScaleX = 1.0/objectScale.x
+    local textScaleY = 1.0/objectScale.z
+    return tostring(textScaleX).." "..tostring(textScaleY).." 1"
+end
