@@ -34,6 +34,36 @@ Features/Enhancements:
     * Fixed bug which disabled the "Set New" and "Remove" buttons when loading the save.
 --]]
 
+--[[
+Ideas for faster JSON loading (i.e. reducing mod load time):
+Try lazy loading the JSON save_state string, i.e. only decode it when is used.
+
+local encoded_json_save_string = nil
+local decoded_save_state = nil
+
+function getSaveState()
+    if decoded_save_state == nil and (encoded_json_save_string ~= "" and encoded_json_save_string ~= nil) then
+        decoded_save_state = rxi_json.decode(encoded_json_save_string)
+    end
+
+    return decoded_save_state
+end
+
+function onLoad(json_save_state)
+    if json_save_state ~= "" and json_save_state ~= nil then
+        encoded_json_save_string = json_save_state
+    end
+end
+
+function onSave()
+    if decoded_save_state ~= nil then
+        return rxi_json.encode(decoded_save_state)
+    elif encoded_json_save_string ~= "" and encoded_json_save_string ~= nil
+        return encoded_json_save_string
+    end
+end
+]]
+
 
 --[[ User Configuration ]]------------------------------------------------------
 Config = {}
