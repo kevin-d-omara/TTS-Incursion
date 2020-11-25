@@ -1,6 +1,9 @@
 local PlayerSeat = require("incursion.PlayerSeat")
 local Factions = require("incursion.config.Factions")
 
+local CARD_WIDTH = 4.8
+local TOTAL_WIDTH = CARD_WIDTH * 3.8
+
 return {
     Allies = PlayerSeat({
         Factions = {
@@ -31,6 +34,13 @@ return {
                 [9] = {38.75, 1.56, -41.25},
             },
             TokenRotation = {0.00, 180.00, 0.00},
+        },
+        BattleCardHand = {
+            TotalWidth = TOTAL_WIDTH,
+            CardWidth = CARD_WIDTH,
+            CardRotation = {0.00, 180.00, 0.00},
+            CenterTransform = {20.12, 1.60, -33.99},
+            LeftToRight = {1.0, 0.0, 0.0},
         },
         BidChip = {
             Positions = {
@@ -81,6 +91,13 @@ return {
                 [9] = {33.75, 1.56, 41.25},
             },
             TokenRotation = {0.00, 0.00, 0.00},
+        },
+        BattleCardHand = {
+            TotalWidth = TOTAL_WIDTH,
+            CardWidth = CARD_WIDTH,
+            CardRotation = {0.00, 0.00, 0.00},
+            CenterTransform = {20.12, 1.60, 33.99},
+            LeftToRight = {1.0, 0.0, 0.0},
         },
         BidChip = {
             Positions = {

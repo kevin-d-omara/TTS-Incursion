@@ -8,6 +8,7 @@ local Object = require("incursion.tts_api.extension.Object")
 local PlayerSeat = class("PlayerSeat")
 
 PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
+PlayerSeat.INCREMENTAL_HEIGHT_INCREASE_FOR_CARDS_IN_HAND = 0.10
 
 -- We have to shrink the vacant hand zones, otherwise the Allied player's hand zone
 -- overlaps with the default player color (white).
@@ -18,8 +19,11 @@ PlayerSeat.OCCUPIED_HAND_ZONE_X_SCALE = 14.07
 PlayerSeat.NUMBER_OF_BID_CHIP_STATES = 9
 
 function PlayerSeat:init(args)
-    self.HiddenZone = args.HiddenZone
     self.Factions = args.Factions
+    self.HiddenZone = args.HiddenZone
+    self.ScriptingZoneGuids = args.ScriptingZoneGuids
+    self.CommandPoint = args.CommandPoint
+    self.BattleCardHand = args.BattleCardHand
     self.BidChip = args.BidChip
     self.FactionReferenceSheet = args.FactionReferenceSheet
     self.Avatar = args.Avatar
@@ -182,6 +186,50 @@ function PlayerSeat:getActiveFaction()
     end
 
     return nil
+end
+
+--[[
+Deal cards to seated player through TTS API, or deal manually if color is not seated.
+]]
+function PlayerSeat:dealCards(numCards, deckGuid)
+    local deck = getObjectFromGUID(deckGuid)
+    local activeFaction = self:getActiveFaction()
+    if activeFaction ~= nil and Player[activeFaction.PlayerColor.Name].seated then
+        deck.deal(numCards, activeFaction.PlayerColor.Name)
+    else
+        self:_manuallyDealCards(numCards, deck)
+    end
+end
+
+function PlayerSeat:_manuallyDealCards(numCards, deckObj)
+    if numCards == 0 then
+        return
+    elseif numCards < 0 then
+        error("numCards cannot be negative; receieved value: "..tostring(numCards))
+    end
+
+    local hand = self.BattleCardHand
+    local totalWidth = hand.TotalWidth
+    local cardWidth = hand.CardWidth
+    local centerTransform = Vector(hand.CenterTransform)
+    local leftToRight = Vector(hand.LeftToRight)
+
+    local allottedCardWidth = math.min(cardWidth, totalWidth/(numCards))
+    local leftOffset = (numCards-1)/2 * allottedCardWidth
+    local leftmostTransform = centerTransform - leftToRight:normalized() * leftOffset
+
+    for cardNum=1,numCards do
+        local transform = leftmostTransform + leftToRight:normalized() * (cardNum - 1) * allottedCardWidth
+        local up = Vector(0.0, 1.0, 0.0)
+        local height = self.INCREMENTAL_HEIGHT_INCREASE_FOR_CARDS_IN_HAND*cardNum
+        transform:add(up * height)
+        deckObj.takeObject({
+            position          = transform,
+            rotation          = hand.CardRotation,
+            smooth            = true,
+            index             = 0,
+        })
+    end
 end
 
 function PlayerSeat.__tostring(this)

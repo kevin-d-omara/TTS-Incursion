@@ -3,8 +3,6 @@ local PlayerSeat = require("incursion.PlayerSeat")
 
 
 local BATTLE_CARDS_DECK_GUID = '8170fe'
-local BATTLE_CARDS_SPACING = 2.46
-local BATTLE_CARDS_CENTER = PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION
 local TEXT_ID = "MyText"
 
 function onLoad()
@@ -111,8 +109,8 @@ function buttonClick_yes()
 
     Wait.time(function() broadcastToAll("Mission 1: Recon") end, 1.75)
     -- Messages are displayed in reverse order if called multiple times within same frame.
-    Wait.time(function() broadcastToAll("Player Red: German SWD", Color.Red) end, 3.5)
-    Wait.time(function() broadcastToAll("Player Green: US Lucky Seventh", Color.Green) end, 3.5)
+    Wait.time(function() broadcastToAll("Red: German SWD", Color.Red) end, 3.5)
+    Wait.time(function() broadcastToAll("Green: US Lucky Seventh", Color.Green) end, 3.5)
     Wait.time(function() broadcastToAll("Choose a color:") end, 3.5)
     Wait.time(function() destroyObject(self) end, 4)
 end
@@ -121,50 +119,8 @@ function _finishSettingUpIntroMission()
     -- Wait 1 frame for the deck to finish shuffling.
     coroutine.yield(0)
 
-    local battleCards = getObjectFromGUID(BATTLE_CARDS_DECK_GUID)
-
-    -- Deal cards:
-    if not _tryDealCardsToSeat(PlayerSeats.Allies, battleCards) then
-        local depth = -33.99
-        local rotationY = 180.0
-        _dealCardsToVacantSeat(battleCards, depth, rotationY)
-    end
-
-    if not _tryDealCardsToSeat(PlayerSeats.Axis, battleCards) then
-        -- Axis:
-        -- left: {22.58, 3.57, 33.99}
-        -- right: {17.66, 3.67, 33.99}
-        -- rotation: {0.00, 0.00, 0.00}
-        local depth = 33.99
-        local rotationY = 0
-        _dealCardsToVacantSeat(battleCards, depth, rotationY)
-    end
+    PlayerSeats.Allies:dealCards(2, BATTLE_CARDS_DECK_GUID)
+    PlayerSeats.Axis:dealCards(2, BATTLE_CARDS_DECK_GUID)
 
     return 1
-end
-
-function _tryDealCardsToSeat(playerSeat, battleCards)
-    local activeFaction = playerSeat:getActiveFaction()
-    if activeFaction ~= nil and Player[activeFaction.PlayerColor.Name].seated then
-        battleCards.deal(2, activeFaction.PlayerColor.Name)
-        return true
-    else
-        return false
-    end
-end
-
--- Place cards face down into the vacant seat's hand area.
-function _dealCardsToVacantSeat(battleCards, depth, rotationY)
-    battleCards.takeObject({
-        position          = {BATTLE_CARDS_CENTER - BATTLE_CARDS_SPACING, 3, depth},
-        rotation          = {0.00, rotationY, 180.00},
-        smooth            = true,
-        index             = 1,
-    })
-    battleCards.takeObject({
-        position          = {BATTLE_CARDS_CENTER + BATTLE_CARDS_SPACING, 3, depth},
-        rotation          = {0.00, rotationY, 180.00},
-        smooth            = true,
-        index             = 1,
-    })
 end
