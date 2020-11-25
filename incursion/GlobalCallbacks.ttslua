@@ -5,45 +5,39 @@ This file exposes functions which may be called by other game objects through:
     https://api.tabletopsimulator.com/object/#call
     https://api.tabletopsimulator.com/object/#createbutton
 ]]
-local SCRIPTING_ZONE_GUID = '8ac490'
-local GUIDS_TO_PRESERVE = {
-    ['189799'] = 'Rules Summary',
-    ['d68f81'] = 'Incursion Rulebook',
-    ['46cabb'] = 'SNAFU Expansion',
-    ['194859'] = 'Assets Expansion',
-    ['63e526'] = 'Allied Rules Reference 1',
-    ['c52c19'] = 'Allied Rules Reference 2',
-    ['9c8077'] = 'Axis Rules Reference 1',
-    ['cda2e5'] = 'Axis Rules Reference 2',
-    ['066fb7'] = "Allied Clear Play Area Button",
-    ['b52626'] = "Axis Clear Play Area Button",
-
-}
+local Object = require("incursion.tts_api.extension.Object")
+local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
 
 
-local function _getGuidsToPreserve()
-    local guidsToPreserve = {}
+local PLAY_AREA_SCRIPTING_ZONE = ScriptingZone({
+    zoneGuid = '8ac490',
+    guidsToPreserve = {
+        ['189799'] = 'Rules Summary',
+        ['d68f81'] = 'Incursion Rulebook',
+        ['46cabb'] = 'SNAFU Expansion',
+        ['194859'] = 'Assets Expansion',
+        ['63e526'] = 'Allied Rules Reference 1',
+        ['c52c19'] = 'Allied Rules Reference 2',
+        ['9c8077'] = 'Axis Rules Reference 1',
+        ['cda2e5'] = 'Axis Rules Reference 2',
+        ['066fb7'] = "Allied Clear Play Area Button",
+        ['b52626'] = "Axis Clear Play Area Button",
+    },
+})
+local BATTLE_CARDS_SCRIPTING_ZONE = ScriptingZone({
+    zoneGuid = '423c18',
+    guidsToPreserve = {
+        ['10f2c7'] = "Turn Bidding Steel Plate",
+    },
+})
 
+local function _clearPlayArea(playerClickerColor)
+    local extraGuidsToPreserve = {}
     for _,playerSeat in pairs(getPlayerSeats()) do
-        guidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
+        extraGuidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
     end
 
-    for guid,name in pairs(GUIDS_TO_PRESERVE) do
-        guidsToPreserve[guid] = name
-    end
-
-    return guidsToPreserve
-end
-
-function _clearTable(playerClickerColor)
-    local guidsToPreserve = _getGuidsToPreserve()
-    local dangerZone = getObjectFromGUID(SCRIPTING_ZONE_GUID)
-
-    for _,obj in ipairs(dangerZone.getObjects()) do
-        if guidsToPreserve[obj.getGUID()] == nil then
-            destroyObject(obj)
-        end
-    end
+    PLAY_AREA_SCRIPTING_ZONE:clearZone(extraGuidsToPreserve)
 
     -- Messages are displayed in reverse order:
     broadcastToAll("Player " .. tostring(playerClickerColor), playerClickerColor)
@@ -51,6 +45,10 @@ function _clearTable(playerClickerColor)
 end
 
 -- All click function callback for [Object.createButton](https://api.tabletopsimulator.com/object/#createbutton)
-function ClearTable(buttonObject, playerClickerColor, wasAltClick)
-    _clearTable(playerClickerColor)
+function ClearPlayArea(buttonObject, playerClickerColor, wasAltClick)
+    _clearPlayArea(playerClickerColor)
+end
+
+function ClearBattleCards()
+    BATTLE_CARDS_SCRIPTING_ZONE:clearZone()
 end

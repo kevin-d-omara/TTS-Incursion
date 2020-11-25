@@ -1,0 +1,35 @@
+local class = require("incursion.lib.30log.class")
+local Object = require("incursion.tts_api.extension.Object")
+
+
+local ScriptingZone = class("ScriptingZone")
+
+--[[
+# Args
+<table> args:
+    <string> zoneGuid: The GUID of the scripting zone.
+    <Map[string, string]> guidsToPreserve: Map of GUID to arbitrary string. These GUIDs will be preserved when clearing the scripting zone.
+]]
+function ScriptingZone:init(args)
+    self.ZoneGuid = args.zoneGuid
+    self.GuidsToPreserve = args.guidsToPreserve
+end
+
+--[[
+# Args
+<Map[string, string]> extraGuidsToPreserve: Map of GUID to arbitrary string. These extra GUIDs will be preserved when clearing the scripting zone.
+]]
+function ScriptingZone:clearZone(extraGuidsToPreserve)
+    local extraGuidsToPreserve = extraGuidsToPreserve or {}
+    local dangerZone = getObjectFromGUID(self.ZoneGuid)
+
+    for _,obj in ipairs(dangerZone.getObjects()) do
+        local objGuid = obj.getGUID()
+
+        if (self.GuidsToPreserve[objGuid] == nil) and (extraGuidsToPreserve[objGuid] == nil) then
+            Object.tryDestroy(obj)
+        end
+    end
+end
+
+return ScriptingZone
