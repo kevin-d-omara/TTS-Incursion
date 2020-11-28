@@ -1,0 +1,50 @@
+local class = require("incursion.lib.30log.class")
+local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
+
+
+local BattleCardHand = class("BattleCardHand")
+
+BattleCardHand.INCREMENTAL_HEIGHT_INCREASE_FOR_CARDS_IN_HAND = 0.10
+
+function BattleCardHand:init(args)
+    self.TotalWidth = args.TotalWidth
+    self.CardWidth = args.CardWidth
+    self.CardRotation = args.CardRotation
+    self.CenterTransform = args.CenterTransform
+    self.LeftToRight = args.LeftToRight
+
+    -- TODO: clearZone + dealToColor w/ backup of manuallyDealCards
+    -- self.ScriptingZone = ScriptingZone(args.ScriptingZone)
+end
+
+function BattleCardHand:manuallyDealCards(numCards, deckObj)
+    if numCards == 0 then
+        return
+    elseif numCards < 0 then
+        error("numCards cannot be negative: "..tostring(numCards))
+    end
+
+    local totalWidth = self.TotalWidth
+    local cardWidth = self.CardWidth
+    local centerTransform = Vector(self.CenterTransform)
+    local leftToRight = Vector(self.LeftToRight)
+
+    local allottedCardWidth = math.min(cardWidth, totalWidth/(numCards))
+    local leftOffset = (numCards-1)/2 * allottedCardWidth
+    local leftmostTransform = centerTransform - leftToRight:normalized() * leftOffset
+
+    for cardNum=1,numCards do
+        local transform = leftmostTransform + leftToRight:normalized() * (cardNum - 1) * allottedCardWidth
+        local up = Vector(0.0, 1.0, 0.0)
+        local height = self.INCREMENTAL_HEIGHT_INCREASE_FOR_CARDS_IN_HAND*cardNum
+        transform:add(up * height)
+        deckObj.takeObject({
+            position          = transform,
+            rotation          = self.CardRotation,
+            smooth            = true,
+            index             = 0,
+        })
+    end
+end
+
+return BattleCardHand
