@@ -1,4 +1,5 @@
 local class = require("incursion.lib.30log.class")
+local CommandPointZone = require("incursion.player_seat.CommandPointZone")
 local HiddenZone = require("incursion.tts_api.util.HiddenZone")
 local Math = require("incursion.util.Math")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
@@ -22,7 +23,7 @@ function PlayerSeat:init(args)
     self.Factions = args.Factions
     self.HiddenZone = args.HiddenZone
     self.ScriptingZoneGuids = args.ScriptingZoneGuids
-    self.CommandPoint = args.CommandPoint
+    self.CommandPointZone = CommandPointZone(args.CommandPointZone)
     self.BattleCardHand = args.BattleCardHand
     self.BidChip = args.BidChip
     self.FactionReferenceSheet = args.FactionReferenceSheet

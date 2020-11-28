@@ -19,9 +19,14 @@ return {
             ModelCards = '4ae9c9',
             BattleCards = 'a9c885',
         },
-        CommandPoint = {
+        CommandPointZone = {
             InfiniteBagGuid = '8e32b5',
-            ScriptingZoneGuid = '50e85c',
+            ScriptingZone = {
+                ZoneGuid = '50e85c',
+                GuidsToPreserve = {
+                    ['7adb9f'] = "Metal Table Extension",
+                },
+            },
             TokenTransforms = {
                 [1] = {33.75, 1.56, -36.25},
                 [2] = {36.25, 1.56, -36.25},
@@ -76,9 +81,14 @@ return {
             ModelCards = '2480df',
             BattleCards = 'bf4750',
         },
-        CommandPoint = {
+        CommandPointZone = {
             InfiniteBagGuid = '4f4a81',
-            ScriptingZoneGuid = '9634a7',
+            ScriptingZone = {
+                ZoneGuid = '9634a7',
+                GuidsToPreserve = {
+                    ['b12a74'] = "Metal Table Extension",
+                },
+            },
             TokenTransforms = {
                 [1] = {38.75, 1.56, 36.25},
                 [2] = {36.25, 1.56, 36.25},

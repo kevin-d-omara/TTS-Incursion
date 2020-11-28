@@ -84,25 +84,8 @@ function buttonClick_yes()
     local battleCards = getObjectFromGUID(BATTLE_CARDS_DECK_GUID)
     battleCards.shuffle()
 
-    -- Delete commands points 5 thru 9, since each player only gets 4 CP in the intro mission.
-    local extraCommandPoints = {
-        -- Allied
-        '659d76',
-        '59feea',
-        '8ed952',
-        '7f095c',
-        'e280f8',
-
-        -- Axis
-        '8e05fa',
-        'c725a8',
-        'dd86b9',
-        '04fc34',
-        '37015e',
-    }
-    for _,guid in ipairs(extraCommandPoints) do
-        destroyObject(getObjectFromGUID(guid))
-    end
+    PlayerSeats.Allies.CommandPointZone:setCommandPoints(7)
+    PlayerSeats.Axis.CommandPointZone:setCommandPoints(7)
 
     startLuaCoroutine(self, "_finishSettingUpIntroMission")
 

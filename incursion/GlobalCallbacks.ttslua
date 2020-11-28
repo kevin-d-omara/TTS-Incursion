@@ -10,8 +10,8 @@ local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
 
 
 local PLAY_AREA_SCRIPTING_ZONE = ScriptingZone({
-    zoneGuid = '8ac490',
-    guidsToPreserve = {
+    ZoneGuid = '8ac490',
+    GuidsToPreserve = {
         ['189799'] = 'Rules Summary',
         ['d68f81'] = 'Incursion Rulebook',
         ['46cabb'] = 'SNAFU Expansion',
@@ -25,8 +25,8 @@ local PLAY_AREA_SCRIPTING_ZONE = ScriptingZone({
     },
 })
 local BATTLE_CARDS_SCRIPTING_ZONE = ScriptingZone({
-    zoneGuid = '423c18',
-    guidsToPreserve = {
+    ZoneGuid = '423c18',
+    GuidsToPreserve = {
         ['10f2c7'] = "Turn Bidding Steel Plate",
     },
 })

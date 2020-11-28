@@ -11,8 +11,8 @@ local ScriptingZone = class("ScriptingZone")
     <Map[string, string]> guidsToPreserve: Map of GUID to arbitrary string. These GUIDs will be preserved when clearing the scripting zone.
 ]]
 function ScriptingZone:init(args)
-    self.ZoneGuid = args.zoneGuid
-    self.GuidsToPreserve = args.guidsToPreserve
+    self.ZoneGuid = args.ZoneGuid
+    self.GuidsToPreserve = args.GuidsToPreserve
 end
 
 --[[
