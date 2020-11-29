@@ -1,0 +1,67 @@
+local class = require("incursion.lib.30log.class")
+local HiddenZone = require("incursion.tts_api.util.HiddenZone")
+local Object = require("incursion.tts_api.extension.Object")
+
+
+local BidChipHiddenZone = class("BidChipHiddenZone")
+
+-- At any time, there are N other states a bid chip can be switched to.
+BidChipHiddenZone.NUMBER_OF_BID_CHIP_STATES = 9
+
+function BidChipHiddenZone:init(args)
+    self.ChipPositions = args.ChipPositions
+    self.ChipRotation = args.ChipRotation
+    self.HiddenZoneGuid = args.HiddenZoneGuid
+    self.ScriptingZone = args.ScriptingZone
+end
+
+function BidChipHiddenZone:setColor(colorString)
+    HiddenZone.changeColor(colorString, self.HiddenZoneGuid)
+end
+
+function BidChipHiddenZone:placeBidChips(bidChipInfiniteBagGuid)
+    -- Place in order 0 through 5. Chips are a multi-state object.
+    for index,position in ipairs(self.ChipPositions) do
+        local objectStateId = index - 1
+        if index == 1 then objectStateId = 10 end -- Chip 0 is state 10
+
+        self:_placeBidChip(position, objectStateId, bidChipInfiniteBagGuid)
+    end
+end
+
+function BidChipHiddenZone:_placeBidChip(position, objectStateId, bidChipInfiniteBagGuid)
+    local infiniteBag = getObjectFromGUID(bidChipInfiniteBagGuid)
+
+    local function setState(bidChip)
+        Object.setState(bidChip, objectStateId)
+    end
+
+    infiniteBag.takeObject({
+        position          = position,
+        rotation          = self.ChipRotation,
+        smooth            = false,
+        index             = 1,
+        callback_function = setState,
+    })
+end
+
+--[[
+Deletes any multi-state object in the ScriptingZone with exactly NUMBER_OF_BID_CHIP_STATES states.
+
+This is a hack. A better approach would save the GUID of spawned BidChips and delete those GUIDS.
+However, this doesn't work for multi-state objects because each state has a different GUID and so the saved GUID won't match the GUID in play if the object has changed states.
+
+We could try saving the GUID of all possible states, but this introduces more complexity than this hack.
+]]
+function BidChipHiddenZone:clearZone()
+    local scriptingZone = getObjectFromGUID(self.ScriptingZone.ZoneGuid)
+    for _,obj in ipairs(scriptingZone.getObjects()) do
+        local states = obj.getStates()
+        local numStates = #states
+        if numStates == self.NUMBER_OF_BID_CHIP_STATES then
+            Object.tryDestroy(obj)
+        end
+    end
+end
+
+return BidChipHiddenZone
