@@ -102,8 +102,9 @@ function _finishSettingUpIntroMission()
     -- Wait 1 frame for the deck to finish shuffling.
     coroutine.yield(0)
 
-    PlayerSeats.Allies:dealCards(2, BATTLE_CARDS_DECK_GUID)
-    PlayerSeats.Axis:dealCards(2, BATTLE_CARDS_DECK_GUID)
+    local battleCards = getObjectFromGUID(BATTLE_CARDS_DECK_GUID)
+    PlayerSeats.Allies.BattleCardHand:setCards(2, battleCards)
+    PlayerSeats.Axis.BattleCardHand:setCards(2, battleCards)
 
     return 1
 end

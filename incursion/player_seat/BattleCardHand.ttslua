@@ -1,5 +1,4 @@
 local class = require("incursion.lib.30log.class")
-local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
 
 
 local BattleCardHand = class("BattleCardHand")
@@ -12,12 +11,15 @@ function BattleCardHand:init(args)
     self.CardRotation = args.CardRotation
     self.CenterTransform = args.CenterTransform
     self.LeftToRight = args.LeftToRight
-
-    -- TODO: clearZone + dealToColor w/ backup of manuallyDealCards
-    -- self.ScriptingZone = ScriptingZone(args.ScriptingZone)
+    self.ScriptingZone = args.ScriptingZone
 end
 
-function BattleCardHand:manuallyDealCards(numCards, deckObj)
+function BattleCardHand:setCards(numCards, deckObj)
+    self:clearZone()
+    self:dealCards(numCards, deckObj)
+end
+
+function BattleCardHand:dealCards(numCards, deckObj)
     if numCards == 0 then
         return
     elseif numCards < 0 then
@@ -45,6 +47,10 @@ function BattleCardHand:manuallyDealCards(numCards, deckObj)
             index             = 0,
         })
     end
+end
+
+function BattleCardHand:clearZone()
+    self.ScriptingZone:clearZone()
 end
 
 return BattleCardHand

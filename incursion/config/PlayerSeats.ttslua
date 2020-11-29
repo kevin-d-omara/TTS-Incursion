@@ -20,7 +20,6 @@ return {
         },
         ScriptingZoneGuids = {
             ModelCards = '4ae9c9',
-            BattleCards = 'a9c885',
         },
         CommandPointZone = CommandPointZone({
             InfiniteBagGuid = '8e32b5',
@@ -49,6 +48,13 @@ return {
             CardRotation = {0.00, 180.00, 0.00},
             CenterTransform = {20.12, 1.60, -33.99},
             LeftToRight = {1.0, 0.0, 0.0},
+            ScriptingZone = ScriptingZone({
+                ZoneGuid = 'a9c885',
+                GuidsToPreserve = {
+                    ['2c895f'] = "Metal Table Extension",
+                    ['2e9d7d'] = "DP Infinite Bag",
+                },
+            }),
         }),
         BidChip = {
             Positions = {
@@ -82,7 +88,6 @@ return {
         },
         ScriptingZoneGuids = {
             ModelCards = '2480df',
-            BattleCards = 'bf4750',
         },
         CommandPointZone = CommandPointZone({
             InfiniteBagGuid = '4f4a81',
@@ -111,6 +116,13 @@ return {
             CardRotation = {0.00, 0.00, 0.00},
             CenterTransform = {20.12, 1.60, 33.99},
             LeftToRight = {1.0, 0.0, 0.0},
+            ScriptingZone = ScriptingZone({
+                ZoneGuid = 'bf4750',
+                GuidsToPreserve = {
+                    ['cdaecc'] = "Metal Table Extension",
+                    ['3a8701'] = "DP Infinite Bag",
+                },
+            }),
         }),
         BidChip = {
             Positions = {
