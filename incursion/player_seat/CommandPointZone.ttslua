@@ -1,5 +1,4 @@
 local class = require("incursion.lib.30log.class")
-local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
 
 
 local CommandPointZone = class("CommandPointZone")
@@ -8,7 +7,7 @@ CommandPointZone.MAX_ALLOWED_COMMAND_POINTS = 9
 
 function CommandPointZone:init(args)
     self.InfiniteBagGuid = args.InfiniteBagGuid
-    self.ScriptingZone = ScriptingZone(args.ScriptingZone)
+    self.ScriptingZone = args.ScriptingZone
     self.TokenTransforms = args.TokenTransforms
     self.TokenRotation = args.TokenRotation
 end

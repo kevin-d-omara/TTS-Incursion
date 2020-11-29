@@ -1,5 +1,8 @@
 local PlayerSeat = require("incursion.PlayerSeat")
 local Factions = require("incursion.config.Factions")
+local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
+local CommandPointZone = require("incursion.player_seat.CommandPointZone")
+local BattleCardHand = require("incursion.player_seat.BattleCardHand")
 
 local CARD_WIDTH = 4.8
 local TOTAL_WIDTH = CARD_WIDTH * 3.8
@@ -19,14 +22,14 @@ return {
             ModelCards = '4ae9c9',
             BattleCards = 'a9c885',
         },
-        CommandPointZone = {
+        CommandPointZone = CommandPointZone({
             InfiniteBagGuid = '8e32b5',
-            ScriptingZone = {
+            ScriptingZone = ScriptingZone({
                 ZoneGuid = '50e85c',
                 GuidsToPreserve = {
                     ['7adb9f'] = "Metal Table Extension",
                 },
-            },
+            }),
             TokenTransforms = {
                 [1] = {33.75, 1.56, -36.25},
                 [2] = {36.25, 1.56, -36.25},
@@ -39,14 +42,14 @@ return {
                 [9] = {38.75, 1.56, -41.25},
             },
             TokenRotation = {0.00, 180.00, 0.00},
-        },
-        BattleCardHand = {
+        }),
+        BattleCardHand = BattleCardHand({
             TotalWidth = TOTAL_WIDTH,
             CardWidth = CARD_WIDTH,
             CardRotation = {0.00, 180.00, 0.00},
             CenterTransform = {20.12, 1.60, -33.99},
             LeftToRight = {1.0, 0.0, 0.0},
-        },
+        }),
         BidChip = {
             Positions = {
                 -- Left to right, top to bottom:
@@ -81,14 +84,14 @@ return {
             ModelCards = '2480df',
             BattleCards = 'bf4750',
         },
-        CommandPointZone = {
+        CommandPointZone = CommandPointZone({
             InfiniteBagGuid = '4f4a81',
-            ScriptingZone = {
+            ScriptingZone = ScriptingZone({
                 ZoneGuid = '9634a7',
                 GuidsToPreserve = {
                     ['b12a74'] = "Metal Table Extension",
                 },
-            },
+            }),
             TokenTransforms = {
                 [1] = {38.75, 1.56, 36.25},
                 [2] = {36.25, 1.56, 36.25},
@@ -101,14 +104,14 @@ return {
                 [9] = {33.75, 1.56, 41.25},
             },
             TokenRotation = {0.00, 0.00, 0.00},
-        },
-        BattleCardHand = {
+        }),
+        BattleCardHand = BattleCardHand({
             TotalWidth = TOTAL_WIDTH,
             CardWidth = CARD_WIDTH,
             CardRotation = {0.00, 0.00, 0.00},
             CenterTransform = {20.12, 1.60, 33.99},
             LeftToRight = {1.0, 0.0, 0.0},
-        },
+        }),
         BidChip = {
             Positions = {
                 {53.23, 1.72, 34.92},
