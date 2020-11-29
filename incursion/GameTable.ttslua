@@ -1,0 +1,44 @@
+local PlayerSeats = require("incursion.config.PlayerSeats")
+local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
+
+
+local GameTable = {}
+
+GameTable._ScriptingZones = {
+    PlayArea = ScriptingZone({
+        ZoneGuid = '8ac490',
+        GuidsToPreserve = {
+            ['189799'] = 'Rules Summary',
+            ['d68f81'] = 'Incursion Rulebook',
+            ['46cabb'] = 'SNAFU Expansion',
+            ['194859'] = 'Assets Expansion',
+            ['63e526'] = 'Allied Rules Reference 1',
+            ['c52c19'] = 'Allied Rules Reference 2',
+            ['9c8077'] = 'Axis Rules Reference 1',
+            ['cda2e5'] = 'Axis Rules Reference 2',
+            ['066fb7'] = "Allied Clear Play Area Button",
+            ['b52626'] = "Axis Clear Play Area Button",
+        },
+    }),
+    BattleCards = ScriptingZone({
+        ZoneGuid = '423c18',
+        GuidsToPreserve = {
+            ['10f2c7'] = "Turn Bidding Steel Plate",
+        },
+    }),
+}
+
+function GameTable:clearPlayArea()
+    local extraGuidsToPreserve = {}
+    for _,playerSeat in pairs(PlayerSeats) do
+        extraGuidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
+    end
+
+    self._ScriptingZones.PlayArea:clearZone({extraGuidsToPreserve=extraGuidsToPreserve})
+end
+
+function GameTable:clearBattleCards()
+    self._ScriptingZones.BattleCards:clearZone()
+end
+
+return GameTable

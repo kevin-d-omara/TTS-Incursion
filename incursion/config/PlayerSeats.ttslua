@@ -15,8 +15,13 @@ return {
             Factions.MI13,
             Factions.DropTroopersAllied,
         },
-        ScriptingZoneGuids = {
-            ModelCards = '4ae9c9',
+        ScriptingZones = {
+            ModelCards = ScriptingZone({
+                ZoneGuid = '4ae9c9',
+                GuidsToPreserve = {
+                    ['c8eb22'] = "Metal Table Extension",
+                },
+            }),
         },
         CommandPointZone = CommandPointZone({
             InfiniteBagGuid = '8e32b5',
@@ -86,8 +91,13 @@ return {
             Factions.SWD,
             Factions.DropTroopersAxis,
         },
-        ScriptingZoneGuids = {
-            ModelCards = '2480df',
+        ScriptingZones = {
+            ModelCards = ScriptingZone({
+                ZoneGuid = '2480df',
+                GuidsToPreserve = {
+                    ['0c174b'] = "Metal Table Extension",
+                },
+            }),
         },
         CommandPointZone = CommandPointZone({
             InfiniteBagGuid = '4f4a81',

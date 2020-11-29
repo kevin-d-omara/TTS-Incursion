@@ -18,7 +18,7 @@ PlayerSeat.NUMBER_OF_BID_CHIP_STATES = 9
 
 function PlayerSeat:init(args)
     self.Factions = args.Factions
-    self.ScriptingZoneGuids = args.ScriptingZoneGuids
+    self.ScriptingZones = args.ScriptingZones
     self.CommandPointZone = args.CommandPointZone
     self.BattleCardHand = args.BattleCardHand
     self.BidChipHiddenZone = args.BidChipHiddenZone

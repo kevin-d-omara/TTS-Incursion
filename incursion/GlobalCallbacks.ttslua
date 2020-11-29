@@ -5,50 +5,20 @@ This file exposes functions which may be called by other game objects through:
     https://api.tabletopsimulator.com/object/#call
     https://api.tabletopsimulator.com/object/#createbutton
 ]]
-local Object = require("incursion.tts_api.extension.Object")
-local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
+local GameTable = require("incursion.GameTable")
+
+-- Forward declarations:
+local _clearPlayArea
 
 
-local PLAY_AREA_SCRIPTING_ZONE = ScriptingZone({
-    ZoneGuid = '8ac490',
-    GuidsToPreserve = {
-        ['189799'] = 'Rules Summary',
-        ['d68f81'] = 'Incursion Rulebook',
-        ['46cabb'] = 'SNAFU Expansion',
-        ['194859'] = 'Assets Expansion',
-        ['63e526'] = 'Allied Rules Reference 1',
-        ['c52c19'] = 'Allied Rules Reference 2',
-        ['9c8077'] = 'Axis Rules Reference 1',
-        ['cda2e5'] = 'Axis Rules Reference 2',
-        ['066fb7'] = "Allied Clear Play Area Button",
-        ['b52626'] = "Axis Clear Play Area Button",
-    },
-})
-local BATTLE_CARDS_SCRIPTING_ZONE = ScriptingZone({
-    ZoneGuid = '423c18',
-    GuidsToPreserve = {
-        ['10f2c7'] = "Turn Bidding Steel Plate",
-    },
-})
+function OnClearPlayArea(buttonObject, playerClickerColor, wasAltClick)
+    _clearPlayArea(playerClickerColor)
+end
 
 local function _clearPlayArea(playerClickerColor)
-    local extraGuidsToPreserve = {}
-    for _,playerSeat in pairs(getPlayerSeats()) do
-        extraGuidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
-    end
-
-    PLAY_AREA_SCRIPTING_ZONE:clearZone({extraGuidsToPreserve=extraGuidsToPreserve})
+    GameTable:clearPlayArea()
 
     -- Messages are displayed in reverse order:
     broadcastToAll("Player " .. tostring(playerClickerColor), playerClickerColor)
     broadcastToAll("Play Area Cleared by:", Color.Yellow)
-end
-
--- All click function callback for [Object.createButton](https://api.tabletopsimulator.com/object/#createbutton)
-function ClearPlayArea(buttonObject, playerClickerColor, wasAltClick)
-    _clearPlayArea(playerClickerColor)
-end
-
-function ClearBattleCards()
-    BATTLE_CARDS_SCRIPTING_ZONE:clearZone()
 end
