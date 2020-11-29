@@ -37,7 +37,7 @@ local function _clearPlayArea(playerClickerColor)
         extraGuidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
     end
 
-    PLAY_AREA_SCRIPTING_ZONE:clearZone(extraGuidsToPreserve)
+    PLAY_AREA_SCRIPTING_ZONE:clearZone({extraGuidsToPreserve=extraGuidsToPreserve})
 
     -- Messages are displayed in reverse order:
     broadcastToAll("Player " .. tostring(playerClickerColor), playerClickerColor)

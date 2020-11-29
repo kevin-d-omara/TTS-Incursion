@@ -54,14 +54,10 @@ However, this doesn't work for multi-state objects because each state has a diff
 We could try saving the GUID of all possible states, but this introduces more complexity than this hack.
 ]]
 function BidChipHiddenZone:clearZone()
-    local scriptingZone = getObjectFromGUID(self.ScriptingZone.ZoneGuid)
-    for _,obj in ipairs(scriptingZone.getObjects()) do
-        local states = obj.getStates()
-        local numStates = #states
-        if numStates == self.NUMBER_OF_BID_CHIP_STATES then
-            Object.tryDestroy(obj)
-        end
+    local shouldDelete = function(obj)
+        return #obj.getStates() == self.NUMBER_OF_BID_CHIP_STATES
     end
+    self.ScriptingZone:clearZone({shouldDeleteFunc = shouldDelete})
 end
 
 return BidChipHiddenZone

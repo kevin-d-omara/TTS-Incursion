@@ -38,7 +38,7 @@ function CommandPointZone:clearZone()
     local extraGuidsToPreserve = {
         [self.InfiniteBagGuid] = "InfiniteBagGuid",
     }
-    self.ScriptingZone:clearZone(extraGuidsToPreserve)
+    self.ScriptingZone:clearZone({extraGuidsToPreserve=extraGuidsToPreserve})
 end
 
 return CommandPointZone

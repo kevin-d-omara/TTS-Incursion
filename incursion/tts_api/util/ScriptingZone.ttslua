@@ -17,19 +17,39 @@ end
 
 --[[
 # Args
-<Map[string, string]> extraGuidsToPreserve: Map of GUID to arbitrary string. These extra GUIDs will be preserved when clearing the scripting zone.
+[Optional] <table> args: An optional table containing these optional parameters:
+    [Optional] extraGuidsToPreserve <Map[string, string]>: Map of GUID to arbitrary string. These extra GUIDs will be preserved when clearing the scripting zone.
+    [Optional] shouldDeleteFunc <function>: An optional callback function to filter which objects should be deleted. The function takes the object as a parameter and should return a boolean value.
+
+# Example
+local extraGuidsToPreserve = {
+    '123abc' = "My Character Sheet",
+}
+local shouldDeleteFunc = function(obj)
+    return obj.held_by_color == "Blue"  -- Only delete objects in the Blue player's hand.
+end
+myScriptingZone:clearZone(extraGuidsToPreserve, shouldDeleteFunc)
 ]]
-function ScriptingZone:clearZone(extraGuidsToPreserve)
-    local extraGuidsToPreserve = extraGuidsToPreserve or {}
+function ScriptingZone:clearZone(args)
+    local args = args or {}
+    local extraGuidsToPreserve = args.extraGuidsToPreserve or {}
+    local shouldDeleteFunc = args.shouldDeleteFunc or self._alwaysTrue
     local dangerZone = getObjectFromGUID(self.ZoneGuid)
 
     for _,obj in ipairs(dangerZone.getObjects()) do
         local objGuid = obj.getGUID()
 
-        if (self.GuidsToPreserve[objGuid] == nil) and (extraGuidsToPreserve[objGuid] == nil) then
+        if (self.GuidsToPreserve[objGuid] == nil)
+            and (extraGuidsToPreserve[objGuid] == nil)
+            and (shouldDeleteFunc(obj))
+        then
             Object.tryDestroy(obj)
         end
     end
+end
+
+function ScriptingZone._alwaysTrue(obj)
+    return true
 end
 
 return ScriptingZone
