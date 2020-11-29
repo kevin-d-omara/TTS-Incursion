@@ -124,11 +124,11 @@ end
 
 function PlayerSeat:_moveHandZone(faction, handZoneXPosition, handZoneXScale)
     -- Only shift the X position. The rest of the transform is constant.
-    local color = Player[faction.PlayerColor.Name]
-    local handTransform = color.getHandTransform()
+    local player = faction.PlayerColor:Player()
+    local handTransform = player.getHandTransform()
     handTransform.position.x = handZoneXPosition
     handTransform.scale.x = handZoneXScale
-    color.setHandTransform(handTransform)
+    player.setHandTransform(handTransform)
 end
 
 function PlayerSeat:_placeFactionReferenceSheet(faction)

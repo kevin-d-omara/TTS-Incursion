@@ -31,11 +31,19 @@ end
 myScriptingZone:clearZone(extraGuidsToPreserve, shouldDeleteFunc)
 ]]
 function ScriptingZone:clearZone(args)
+    for _,obj in ipairs(self:_getObjectsToDelete(args)) do
+        Object.tryDestroy(obj)
+    end
+end
+
+-- Same args as self:clearZone()
+function ScriptingZone:_getObjectsToDelete(args)
     local args = args or {}
     local extraGuidsToPreserve = args.extraGuidsToPreserve or {}
     local shouldDeleteFunc = args.shouldDeleteFunc or self._alwaysTrue
     local dangerZone = getObjectFromGUID(self.ZoneGuid)
 
+    local objsToDelete = {}
     for _,obj in ipairs(dangerZone.getObjects()) do
         local objGuid = obj.getGUID()
 
@@ -43,9 +51,11 @@ function ScriptingZone:clearZone(args)
             and (extraGuidsToPreserve[objGuid] == nil)
             and (shouldDeleteFunc(obj))
         then
-            Object.tryDestroy(obj)
+            table.insert(objsToDelete, obj)
         end
     end
+
+    return objsToDelete
 end
 
 function ScriptingZone._alwaysTrue(obj)
