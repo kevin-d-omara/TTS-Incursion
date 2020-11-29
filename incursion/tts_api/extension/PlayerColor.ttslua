@@ -8,6 +8,11 @@ function PlayerColor:init(name, rgb)
     self.RGB = rgb
 end
 
+function PlayerColor:Player()
+    -- Warning: throws error for Grey: "cannot access field Grey of userdata<LuaGlobalPlayer>"
+    return Player[self.Name]
+end
+
 function PlayerColor.__tostring(this)
     return tostring(this.Name)
 end

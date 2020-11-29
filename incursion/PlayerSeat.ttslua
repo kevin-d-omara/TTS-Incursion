@@ -13,8 +13,7 @@ PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
 PlayerSeat.VACANT_HAND_ZONE_X_SCALE = 5.00
 PlayerSeat.OCCUPIED_HAND_ZONE_X_SCALE = 14.07
 
--- At any time, there are N other states a bid chip can be switched to.
-PlayerSeat.NUMBER_OF_BID_CHIP_STATES = 9
+PlayerSeat.TEMP_CARD_RAISE_HEIGHT = 100.0
 
 function PlayerSeat:init(args)
     self.Factions = args.Factions
@@ -58,7 +57,9 @@ function PlayerSeat:setupEverything(faction)
 
     self:_clearSeatFor(activeFaction)
 
-    self:_moveHandZone(faction, self.OCCUPIED_HAND_ZONE_X_POSITION, self.OCCUPIED_HAND_ZONE_X_SCALE)
+    Wait.frames(function()
+        self:_moveHandZone(faction, self.OCCUPIED_HAND_ZONE_X_POSITION, self.OCCUPIED_HAND_ZONE_X_SCALE)
+    end, 2)
     self.BidChipHiddenZone:setColor(faction.PlayerColor.Name)
     self.BidChipHiddenZone:placeBidChips(faction.InfiniteBagGuids.BidChip)
     self:_placeFactionReferenceSheet(faction)
@@ -70,12 +71,55 @@ function PlayerSeat:_clearSeatFor(activeFaction)
         return
     end
 
-    self:_moveHandZone(activeFaction, activeFaction.VacantHandZonePositionX, self.VACANT_HAND_ZONE_X_SCALE)
+    self:_protectCardsInHand()
+    Wait.frames(function()
+        self:_moveHandZone(activeFaction, activeFaction.VacantHandZonePositionX, self.VACANT_HAND_ZONE_X_SCALE)
+    end, 1)
 
     -- Delete previously placed items, like Bid Chips and Faction Reference Sheet:
     Object.tryDestroy(getObjectFromGUID(self.State.ActiveFactionReferenceSheetGuid))
     Object.tryDestroy(getObjectFromGUID(self.State.ActiveAvatarGuid))
     self.BidChipHiddenZone:clearZone()
+end
+
+--[[
+This function makes sure cards stay in the player's hand when they change color.
+
+Without this, the cards will teleport and fall off the table since we are moving and scaling the hand zones.
+]]
+function PlayerSeat:_protectCardsInHand()
+    local activeFaction = self:getActiveFaction()
+    if activeFaction == nil then
+        return
+    end
+
+    local cardsInHand = activeFaction.PlayerColor:Player().getHandObjects()
+    if #cardsInHand == 0 then
+        return
+    end
+
+    local currentPositions = {}
+    for _,obj in ipairs(cardsInHand) do
+        local state = {
+            position=obj.getPosition(),
+            isLocked=obj.getLock(),
+        }
+        currentPositions[obj.getGUID()] = state
+
+        -- Temporarily raise above table, and out of the player's hand.
+        obj.setPosition(obj.getPosition()+Vector(0,self.TEMP_CARD_RAISE_HEIGHT,0))
+        obj.setLock(true)
+    end
+
+    local returnCards = function()
+        for guid,state in pairs(currentPositions) do
+            local obj = getObjectFromGUID(guid)
+            obj.setPosition(state.position)
+            obj.setLock(state.isLocked)
+        end
+    end
+
+    Wait.frames(returnCards, 3)
 end
 
 function PlayerSeat:_moveHandZone(faction, handZoneXPosition, handZoneXScale)
