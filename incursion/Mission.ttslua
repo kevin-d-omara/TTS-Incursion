@@ -1,0 +1,92 @@
+local class = require("incursion.lib.30log.class")
+local PlayerSeats = require("incursion.config.PlayerSeats")
+local GameTable = require("incursion.GameTable")
+local GameRules = require("incursion.GameRules")
+
+
+local Mission = class("Mission")
+
+Mission.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID = 'd3cde6'
+
+--[[
+Enhancements:
+* If only one player in room, force them into color/seat for Solo scenarios.
+* Add override to make PlayerSeat be a specific faction.
+    * For example, "Let The Mecha In" always uses MI-13 for the Allies.
+    * For example, "The Blitz" always uses SWD for the Axis.
+    * For example, most Solo scenarios have a fixed faction.
+    * Make sure to migrate any player sitting in that seat when changing it's color!
+* Add override for avatar. For example, "The Blitz" should use a Bomberzombie.
+]]
+
+function Mission:init(args)
+    self.MemoryBagGuid = args.MemoryBagGuid
+    self.PlayerSeats = args.PlayerSeats
+        -- Allies/Axis = {}
+            -- RequisitionPoints
+            -- NumberCommandPoints [Optional]
+            -- NumberBattleCards [Optional]
+
+    -- Optional:
+    self.PostSetupCallback = args.PostSetupCallback
+    self.BattleCardDeckInfiniteBagGuid = args.BattleCardDeckInfiniteBagGuid
+end
+
+function Mission:setup()
+    self:_clearTable()
+
+    local memoryBag = getObjectFromGUID(self.MemoryBagGuid)
+    print("Setup Memory Bag for mission!")
+    -- memoryBag.call("setup")
+
+    Wait.time(function() self:_postSetup() end, 0.5)
+end
+
+function Mission:_clearTable()
+    GameTable:clearPlayArea()
+    GameTable:clearBattleCards()
+    for seatName,_ in pairs(self.PlayerSeats) do
+        local playerSeat = PlayerSeats[seatName]
+        playerSeat.CommandPointZone:clearZone()
+        playerSeat.BattleCardHand:clearZone()
+        playerSeat.ScriptingZones.ModelCards:clearZone()
+    end
+end
+
+function Mission:_postSetup()
+    self:_placeBattleCardsAndDeal()
+    self:_placeCommandPoints()
+    Wait.time(function() self:_postSetupCallback() end, 0.5)
+end
+
+function Mission:_placeBattleCardsAndDeal()
+    local dealCards = function(deckObj)
+         for seatName,config in pairs(self.PlayerSeats) do
+             local numCards = config.NumberBattleCards or GameRules.GetNumberBattleCards(config.RequisitionPoints)
+             PlayerSeats[seatName].BattleCardHand:dealCards(numCards, deckObj)
+         end
+    end
+
+    local shuffleThenDeal = function(battleCardDeckObj)
+        Wait.frames(function() battleCardDeckObj.shuffle() end, 1)
+        Wait.frames(function() dealCards(battleCardDeckObj) end, 2)
+    end
+
+    local bagGuid = self.BattleCardDeckInfiniteBagGuid or self.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID
+    GameTable:spawnBattleCards(bagGuid, shuffleThenDeal)
+end
+
+function Mission:_placeCommandPoints()
+    for seatName,config in pairs(self.PlayerSeats) do
+        local numCommandPoints = config.NumberCommandPoints or GameRules.GetNumberCommandPoints(config.RequisitionPoints)
+        PlayerSeats[seatName].CommandPointZone:setCommandPoints(numCommandPoints)
+    end
+end
+
+function Mission:_postSetupCallback()
+    if self.PostSetupCallback then
+        Wait.time(self.PostSetupCallback, 0.5)
+    end
+end
+
+return Mission

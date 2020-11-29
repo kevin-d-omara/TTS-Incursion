@@ -1,0 +1,392 @@
+return {
+    -- Core Missions
+    ["Recon"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 6,
+            },
+            Axis = {
+                RequisitionPoints = 6,
+            },
+        },
+    },
+    ["Incursion"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 14,
+            },
+            Axis = {
+                RequisitionPoints = 12,
+            },
+        },
+    },
+    ["Pinger Raid"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 10,
+            },
+            Axis = {
+                RequisitionPoints = 10,
+            },
+        },
+    },
+    ["Twitcher"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 19,
+            },
+            Axis = {
+                RequisitionPoints = 19,
+            },
+        },
+    },
+    ["Behind Enemy Lines"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 19,
+            },
+            Axis = {
+                RequisitionPoints = 16,
+            },
+        },
+    },
+    ["AC/DC"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 22,
+            },
+            Axis = {
+                RequisitionPoints = 22,
+            },
+        },
+    },
+    ["Doomsday"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 26,
+            },
+            Axis = {
+                RequisitionPoints = 26,
+            },
+        },
+    },
+
+    -- SNAFU Missions
+    ["Shell Game"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 14,
+            },
+            Axis = {
+                RequisitionPoints = 14,
+            },
+        },
+    },
+    ["Go Down Bloody"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 14,
+            },
+            Axis = {
+                RequisitionPoints = 14,
+            },
+        },
+    },
+    ["Things That Go Boom In The Night"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 16,
+            },
+            Axis = {
+                RequisitionPoints = 16,
+            },
+        },
+    },
+    ["Hit The Button"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 14,
+            },
+            Axis = {
+                RequisitionPoints = 14,
+            },
+        },
+    },
+    ["The Blitz"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 13,
+            },
+            Axis = {
+                RequisitionPoints = 12,
+                NumberCommandPoints = 7,
+                NumberBattleCards = 3,
+            },
+        },
+    },
+    ["Exfiltration"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 15,
+            },
+            Axis = {
+                RequisitionPoints = 13,
+            },
+        },
+    },
+    ["Let The Mecha In"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 18,
+            },
+            Axis = {
+                RequisitionPoints = 18,
+            },
+        },
+    },
+    ["The Special Relationship"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 17,
+            },
+            Axis = {
+                RequisitionPoints = 16,
+            },
+        },
+    },
+    ["Make It Glow"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 26,
+            },
+            Axis = {
+                RequisitionPoints = 26,
+            },
+        },
+    },
+    ["All That Glitters"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 10,
+            },
+            Axis = {
+                RequisitionPoints = 12, -- This is actually 12 RPs for MI-13,
+            },
+        },
+        PostSetupCallback = function()
+            print("MAKE AXIS PLAYER INTO MI-13!")
+        end,
+    },
+    ["No Guts, No Glory"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 25,
+            },
+            Axis = {
+                RequisitionPoints = 24,
+            },
+        },
+    },
+    ["Hold The Line"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 14,
+            },
+            Axis = {
+                RequisitionPoints = 14,
+            },
+        },
+    },
+    ["The Hive"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 24,
+            },
+            Axis = {
+                RequisitionPoints = 16,
+            },
+        },
+    },
+    ["Zombie Country"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 6,
+                NumberBattleCards = 0,
+            },
+            Axis = {
+                RequisitionPoints = 0,
+            },
+        },
+        BattleCardDeckInfiniteBagGuid = '4af2c2',
+    },
+    ["Unstoppable"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 10,
+                NumberBattleCards = 0,
+            },
+            Axis = {
+                RequisitionPoints = 0,
+            },
+        },
+        BattleCardDeckInfiniteBagGuid = 'ad9ef7',
+    },
+    ["Sisterly Love"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 0,
+            },
+            Axis = {
+                RequisitionPoints = 16,
+                NumberCommandPoints = 5,
+                NumberBattleCards = 0,
+            },
+        },
+        BattleCardDeckInfiniteBagGuid = 'e0511f',
+    },
+    ["The Killing Jar"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 14,
+                NumberBattleCards = 0,
+            },
+            Axis = {
+                RequisitionPoints = 0,
+            },
+        },
+        BattleCardDeckInfiniteBagGuid = '61f667',
+    },
+    ["No More Noise"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 10,
+                NumberBattleCards = 0,
+            },
+            Axis = {
+                RequisitionPoints = 0,
+            },
+        },
+        BattleCardDeckInfiniteBagGuid = '78b13b',
+    },
+    ["The Guns of Gibraltar"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 11,
+                NumberBattleCards = 0,
+            },
+            Axis = {
+                RequisitionPoints = 0,
+            },
+        },
+        BattleCardDeckInfiniteBagGuid = '198e2f',
+    },
+
+    -- Assets Missions
+    ["Eye-To-Eye At Armageddon"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 24,
+            },
+            Axis = {
+                RequisitionPoints = 24,
+            },
+        },
+    },
+    ["Tick Tick"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 19,
+            },
+            Axis = {
+                RequisitionPoints = 8,
+                NumberCommandPoints = 8,
+                NumberBattleCards = 4,
+            },
+        },
+    },
+    ["When The Tide Is High"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 15,
+            },
+            Axis = {
+                RequisitionPoints = 16,
+            },
+        },
+    },
+    ["Tricked And Trapped"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 6,
+                NumberBattleCards = 0,
+            },
+            Axis = {
+                RequisitionPoints = 0,
+            },
+        },
+    },
+    ["A Morning Stroll"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 6,
+                NumberBattleCards = 0,
+            },
+            Axis = {
+                RequisitionPoints = 0,
+            },
+        },
+    },
+    ["Securing Intel"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 16,
+            },
+            Axis = {
+                RequisitionPoints = 16,
+            },
+        },
+    },
+    ["Onward To Victory"] = {
+        MemoryBagGuid = '',
+        PlayerSeats = {
+            Allies = {
+                RequisitionPoints = 26,
+            },
+            Axis = {
+                RequisitionPoints = 26,
+            },
+        },
+    },
+}

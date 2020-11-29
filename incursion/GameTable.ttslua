@@ -4,8 +4,8 @@ local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
 
 local GameTable = {}
 
-GameTable._ScriptingZones = {
-    PlayArea = ScriptingZone({
+GameTable._PlayArea = {
+    ScriptingZone = ScriptingZone({
         ZoneGuid = '8ac490',
         GuidsToPreserve = {
             ['189799'] = 'Rules Summary',
@@ -20,7 +20,11 @@ GameTable._ScriptingZones = {
             ['b52626'] = "Axis Clear Play Area Button",
         },
     }),
-    BattleCards = ScriptingZone({
+}
+GameTable._BattleCardDeck = {
+    Position = {54.48, 2.50, 2.22},
+    Rotation = {0.00, 270.00, 180.00},
+    ScriptingZone = ScriptingZone({
         ZoneGuid = '423c18',
         GuidsToPreserve = {
             ['10f2c7'] = "Turn Bidding Steel Plate",
@@ -34,11 +38,22 @@ function GameTable:clearPlayArea()
         extraGuidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
     end
 
-    self._ScriptingZones.PlayArea:clearZone({extraGuidsToPreserve=extraGuidsToPreserve})
+    self._PlayArea.ScriptingZone:clearZone({extraGuidsToPreserve=extraGuidsToPreserve})
 end
 
 function GameTable:clearBattleCards()
-    self._ScriptingZones.BattleCards:clearZone()
+    self._BattleCardDeck.ScriptingZone:clearZone()
+end
+
+function GameTable:spawnBattleCards(infiniteBagGuid, callback)
+    local bag = getObjectFromGUID(infiniteBagGuid)
+    bag.takeObject({
+        position          = self._BattleCardDeck.Position,
+        rotation          = self._BattleCardDeck.Rotation,
+        callback_function = callback,
+        smooth            = true,
+        index             = 0,
+    })
 end
 
 return GameTable

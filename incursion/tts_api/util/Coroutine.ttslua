@@ -1,0 +1,38 @@
+local Coroutine = {}
+
+--[[
+Call this method inside a co-routine to pause it for N frames.
+]]
+function Coroutine.waitFrames(frames)
+    if frames < 0 then
+        error("frames cannot be negative: "..tostring(frames))
+    end
+
+    local count = 0
+    while count < frames do
+        count = count + 1
+        coroutine.yield(0)
+    end
+end
+
+--[[
+Call this method inside a co-routine to pause it for N seconds.
+]]
+function Coroutine.waitTime(seconds)
+    if seconds < 0 then
+        error("seconds cannot be negative: "..tostring(seconds))
+    end
+    if seconds == 0 then
+        return
+    end
+
+    local paused = true
+    local unpause = function() paused = false end
+    Wait.time(unpause, seconds)
+
+    while paused do
+        coroutine.yield(0)
+    end
+end
+
+return Coroutine

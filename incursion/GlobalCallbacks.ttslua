@@ -15,7 +15,7 @@ function OnClearPlayArea(buttonObject, playerClickerColor, wasAltClick)
     _clearPlayArea(playerClickerColor)
 end
 
-local function _clearPlayArea(playerClickerColor)
+function _clearPlayArea(playerClickerColor)
     GameTable:clearPlayArea()
 
     -- Messages are displayed in reverse order:
