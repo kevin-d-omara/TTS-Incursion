@@ -1,0 +1,3 @@
+function onLoad()
+    self.highlightOn(Color.Red, math.inf)
+end

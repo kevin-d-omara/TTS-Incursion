@@ -36,8 +36,7 @@ function Mission:setup()
     self:_clearTable()
 
     local memoryBag = getObjectFromGUID(self.MemoryBagGuid)
-    print("Setup Memory Bag for mission!")
-    -- memoryBag.call("setup")
+    memoryBag.call("buttonClick_place")
 
     Wait.time(function() self:_postSetup() end, 0.5)
 end

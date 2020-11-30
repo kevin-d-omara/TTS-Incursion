@@ -9,4 +9,9 @@ function Math.floatEquals(x, y)
     return math.abs(x - y) < Math.EPSILON
 end
 
+function Math.initializeRandomSeed()
+    -- Source: http://lua-users.org/wiki/MathLibraryTutorial
+    math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
+end
+
 return Math

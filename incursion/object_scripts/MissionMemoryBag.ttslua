@@ -1,0 +1,19 @@
+require("incursion.tts_api.util.UtilityMemoryBagPlus")
+
+Config.IGNORE_THESE_GUIDS_DURING_SETUP = {
+    'd02800', -- Avatar: Slugger Murphy
+    '8e23de', -- Avatar: Gretel
+    'a13d1f', -- Table
+    '27fa45', -- Metal Left Table Sleeve
+    '3161c7', -- Metal Left Table Sleeve Divider
+    '2b1761', -- Metal Right Table Sleeve
+    'fb5e0f', -- Metal Right Table Sleeve Divider
+    '10f2c7', -- Metal Turn Bidding Zone
+    'c8eb22', -- Allied Metal Model Card Zone
+    '2c895f', -- Allied Metal Hand Zone
+    '7adb9f', -- Allied Metal Bidding Zone
+    '0c174b', -- Axis Metal Model Card Zone
+    'cdaecc', -- Axis Metal Hand Zone
+    'b12a74', -- Axis Metal Bidding Zone
+    '8ac490', -- Scripting Zone: Play Area
+}

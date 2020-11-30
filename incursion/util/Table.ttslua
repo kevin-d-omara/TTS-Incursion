@@ -1,0 +1,37 @@
+local Table = {}
+
+--[[
+Return a copy of "tbl" with the elements in a random order.
+
+You can set the random seed outside of this method with "math.randomseed(mySeed)".
+
+Uses the Fisher-Yates shuffle algorithm:
+https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+
+# Source:
+https://stackoverflow.com/a/35574006
+https://rosettacode.org/wiki/Knuth_shuffle#Lua
+
+# Example:
+myTable = {1, 2, 3, 4, 5}
+shuffledTable = Table.shuffle(myTable)
+print(shuffledTable)
+-- {5, 2, 1, 4, 3}
+print(myTable)
+-- {1, 2, 3, 4, 5}
+]]
+function Table.shuffle(input)
+    local copy = Table.shallowCopy(input)
+    for index = #copy, 1, -1 do
+        local randomIndex = math.random(index)
+        copy[index], copy[randomIndex] = copy[randomIndex], copy[index]
+    end
+    return copy
+end
+
+function Table.shallowCopy(tbl)
+    return {table.unpack(tbl)}
+end
+
+
+return Table

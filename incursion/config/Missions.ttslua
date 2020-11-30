@@ -1,7 +1,11 @@
+local MissionCallbacks = require("incursion.MissionCallbacks")
+local VictoryPoints = require("incursion.config.VictoryPoints")
+
+
 return {
     -- Core Missions
     ["Recon"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'e77899',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -12,7 +16,7 @@ return {
         },
     },
     ["Incursion"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'f8a431',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -23,7 +27,7 @@ return {
         },
     },
     ["Pinger Raid"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '7fb768',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 10,
@@ -34,7 +38,7 @@ return {
         },
     },
     ["Twitcher"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '922264',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -43,6 +47,46 @@ return {
                 RequisitionPoints = 19,
             },
         },
+        PostSetupCallback = function()
+            -- Randomly place all 8 VP markers on the board at pre-defined locations:
+            local sourceGuids = VictoryPoints.InfiniteBagGuids
+            local rotation = {0.00, 180.00, 0.00}
+            local targetTransforms = {
+                {
+                    position = {-16.25, 0.97, 13.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {-1.25, 0.97, 13.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {8.75, 0.97, 13.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {18.75, 0.97, 13.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {-16.25, 0.97, -13.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {-1.25, 0.97, -13.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {1.25, 0.97, -6.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {18.75, 0.97, -13.75},
+                    rotation = rotation,
+                },
+            }
+            MissionCallbacks.randomlyPlaceObjects(sourceGuids, targetTransforms)
+        end,
     },
     ["Behind Enemy Lines"] = {
         MemoryBagGuid = '',
@@ -91,7 +135,7 @@ return {
         },
     },
     ["Go Down Bloody"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '0f4064',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -320,7 +364,7 @@ return {
         },
     },
     ["Tick Tick"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'bd8f78',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,

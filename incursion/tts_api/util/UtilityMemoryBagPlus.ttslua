@@ -87,6 +87,11 @@ Config.BROADCAST_WHEN_OBJECTS_PLACED_OR_RECALLED = false
 -- This is the default behavior of Utility Memory Bag.
 -- You should turn this off before publishing your mod, to keep things simple for your users.
 Config.ENABLE_SETUP_BUTTONS = true
+
+-- Any GUIDs in this table will be ignored during "Setup" (i.e. no clickable button will be spawned above it).
+-- Use this if your game room has objects which you never want to save into a MemoryBag, but their buttons are easy to accidentally click!
+-- Ex: Config.IGNORE_THESE_GUIDS_DURING_SETUP = {'123abc', '456xyz'}
+Config.IGNORE_THESE_GUIDS_DURING_SETUP = {}
 --------------------------------------------------------------------------------
 
 
@@ -344,8 +349,14 @@ function createButtonsOnAllObjects(move)
       objsToHaveButtons = getAllObjects()
     end
 
+    -- Create a HashSet of GUIDs to ignore:
+    local ignoreGuids = {}
+    for _,guid in ipairs(Config.IGNORE_THESE_GUIDS_DURING_SETUP) do
+        ignoreGuids[guid] = ""
+    end
+
     for _, obj in ipairs(objsToHaveButtons) do
-        if obj ~= self then
+        if (obj ~= self) and (ignoreGuids[obj.getGUID()] == nil) then
             local dummyIndex = howManyButtons
             --On a normal bag, the button positions aren't the same size as the bag.
             globalScaleFactor = 1.25 * 1/self.getScale().x

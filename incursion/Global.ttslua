@@ -5,7 +5,9 @@ local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 local PlayerSeats = require("incursion.config.PlayerSeats")
 local Factions = require("incursion.config.Factions")
 local Avatars = require("incursion.config.Avatars")
+local VictoryPoints = require("incursion.config.VictoryPoints")
 local SaveState = require("incursion.tts_api.util.SaveState")
+local Math = require("incursion.util.Math")
 
 
 function CreateSavedState()
@@ -25,6 +27,7 @@ function onSave()
 end
 
 function onLoad(savedJson)
+    Math.initializeRandomSeed()
     SavedState:onLoad(savedJson)
     _disableInteractivity()
 end
@@ -40,7 +43,6 @@ function _disableInteractivity()
         local obj = getObjectFromGUID(guid)
         obj.interactable = false
         obj.tooltip = false
-        obj.setColorTint(Color(0,0,0))
     end
 end
 
@@ -73,6 +75,9 @@ function _getGuidsUnderTable()
     for _,faction in pairs(Factions) do
         table.insert(guidsToFreeze, faction.InfiniteBagGuids.BidChip)
         table.insert(guidsToFreeze, faction.InfiniteBagGuids.FactionReferenceSheet)
+    end
+    for _,guid in ipairs(VictoryPoints.InfiniteBagGuids) do
+        table.insert(guidsToFreeze, guid)
     end
 
     return guidsToFreeze

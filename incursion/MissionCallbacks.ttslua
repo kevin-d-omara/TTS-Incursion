@@ -1,0 +1,23 @@
+local Table = require("incursion.util.Table")
+
+
+local MissionCallbacks = {}
+
+function MissionCallbacks.randomlyPlaceObjects(sourceInfiniteBagGuids, targetTransforms)
+    if #targetTransforms ~= #sourceInfiniteBagGuids then
+        error("targetTransforms and sourceInfiniteBagGuids must have same length, found: "..tostring(#targetTransforms).."~="..tostring(#sourceInfiniteBagGuids))
+    end
+
+    local shuffledTransforms = Table.shuffle(targetTransforms)
+    for i,transform in ipairs(shuffledTransforms) do
+        local bag = getObjectFromGUID(sourceInfiniteBagGuids[i])
+        bag.takeObject({
+            position          = transform.position,
+            rotation          = transform.rotation,
+            smooth            = false,
+            index             = 0,
+        })
+    end
+end
+
+return MissionCallbacks

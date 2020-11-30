@@ -18,6 +18,9 @@ function onLoad()
             },
         },
     })
+
+    local colorTint = self.getColorTint():setAt('a', 1.0)
+    self.highlightOn(colorTint, math.inf)
 end
 
 -- We want the text to be crisp, no matter the how large/small the deployment zone object is:
