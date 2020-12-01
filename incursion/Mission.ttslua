@@ -10,6 +10,8 @@ Mission.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID = 'd3cde6'
 
 --[[
 Enhancements:
+* Print name of mission after setup(). Optionally print fluff like "COMMANDOS... WE ARE LEAVING!"
+    * See if I can set the fade time for the broadcast. Take inspiration from Spirit Island.
 * If only one player in room, force them into color/seat for Solo scenarios.
 * Add override to make PlayerSeat be a specific faction.
     * For example, "Let The Mecha In" always uses MI-13 for the Allies.

@@ -1,26 +1,29 @@
 local UIx = require("incursion.tts_api.extension.UIx")
 
--- Values to be set in user script:
-ZONE_TEXT = ""
 
+-- Values to be set in user script:
+TURN_NUMBER = 0
 
 function onLoad()
+    local text = "Turn "..tostring(TURN_NUMBER)
+    local height = -15
+    print(height)
     self.UI.setXmlTable({
         {
             tag="Text",
-            id="DeploymentZoneText",
+            id="TurnNumberText",
             attributes = {
-                text=ZONE_TEXT,
+                text=text,
                 color="#FFFFFF",
-                fontSize="112",
+                fontSize="60",
+                -- fontSize="46",
                 fontStyle="Bold",
                 outline="#000000",
                 outlineSize="4 4",
+                position="0 0 "..tostring(height),
+                rotation="0 0 180",
                 scale=UIx.getTextScale(self),
             },
         },
     })
-
-    local colorTint = self.getColorTint():setAt('a', 1.0)
-    self.highlightOn(colorTint, math.inf)
 end

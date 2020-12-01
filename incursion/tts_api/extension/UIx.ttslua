@@ -1,0 +1,31 @@
+-- Extension methods for https://api.tabletopsimulator.com/ui/
+local UIx = {}
+
+--[[
+Use this method to have crisp text no matter how large/small the game object is scaled.
+
+# Example:
+-- Scale the text when loading. This is helpful when creating the mod, but not if players resize the object while playing.
+function onLoad()
+    self.UI.setXmlTable({
+        {
+            tag="Text",
+            id="MyText",
+            attributes = {
+                text=text,
+                color="#FFFFFF",
+                fontSize="60",
+                scale=UIx.getTextScale(self),
+            },
+        },
+    })
+end
+]]
+function UIx.getTextScale(obj)
+    local objectScale = obj.getScale()
+    local textScaleX = 1.0/objectScale.x
+    local textScaleY = 1.0/objectScale.z
+    return tostring(textScaleX).." "..tostring(textScaleY).." 1"
+end
+
+return UIx
