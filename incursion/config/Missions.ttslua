@@ -192,21 +192,40 @@ return {
         },
     },
     ["Let The Mecha In"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '0c1f31',
         PlayerSeats = {
             Allies = {
-                RequisitionPoints = 18,
+                RequisitionPoints = 11, -- Special mission rules: CP and BattleCards come from 11 RP instead of full 18 RP.
             },
             Axis = {
-                RequisitionPoints = 18,
+                RequisitionPoints = 11,
             },
         },
+        PostSetupCallback = function()
+            -- Randomly place VP markers #1 and #2 at the pre-defined locations:
+            local sourceGuids = {
+                VictoryPoints.InfiniteBagGuids[1],
+                VictoryPoints.InfiniteBagGuids[2],
+            }
+            local rotation = {0.00, 180.00, 0.00}
+            local targetTransforms = {
+                {
+                    position = {-16.25, 1.09, -3.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {-1.25, 1.09, 13.75},
+                    rotation = rotation,
+                },
+            }
+            MissionCallbacks.randomlyPlaceObjects(sourceGuids, targetTransforms)
+        end,
     },
     ["The Special Relationship"] = {
         MemoryBagGuid = '',
         PlayerSeats = {
             Allies = {
-                RequisitionPoints = 17,
+                RequisitionPoints = 8,
             },
             Axis = {
                 RequisitionPoints = 16,

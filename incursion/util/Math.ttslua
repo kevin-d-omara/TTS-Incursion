@@ -12,6 +12,9 @@ end
 function Math.initializeRandomSeed()
     -- Source: http://lua-users.org/wiki/MathLibraryTutorial
     math.randomseed( tonumber(tostring(os.time()):reverse():sub(1,6)) )
+
+    -- A bit of superstitious witchcraft. This ought to make it *more* random:
+    math.random(); math.random(); math.random()
 end
 
 return Math

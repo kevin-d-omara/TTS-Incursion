@@ -2,6 +2,7 @@ local UIx = require("incursion.tts_api.extension.UIx")
 
 -- Values to be set in user script:
 ZONE_TEXT = ""
+ZONE_FONT_SIZE = 112
 
 
 function onLoad()
@@ -12,7 +13,7 @@ function onLoad()
             attributes = {
                 text=ZONE_TEXT,
                 color="#FFFFFF",
-                fontSize="112",
+                fontSize=ZONE_FONT_SIZE,
                 fontStyle="Bold",
                 outline="#000000",
                 outlineSize="4 4",
