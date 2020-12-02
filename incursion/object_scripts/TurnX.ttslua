@@ -3,27 +3,32 @@ local UIx = require("incursion.tts_api.extension.UIx")
 
 -- Values to be set in user script:
 TURN_NUMBER = 0
+ATTRIBUTES = {}
 
 function onLoad()
     local text = "Turn "..tostring(TURN_NUMBER)
     local height = -15
-    print(height)
+
+    local attributes = {
+        text=text,
+        color="#FFFFFF",
+        fontSize="60",
+        fontStyle="Bold",
+        outline="#000000",
+        outlineSize="4 4",
+        position="0 0 "..tostring(height),
+        rotation="0 0 180",
+        scale=UIx.getTextScale(self),
+    }
+    for k,v in pairs(ATTRIBUTES) do
+        attributes[k] = v
+    end
+
     self.UI.setXmlTable({
         {
             tag="Text",
             id="TurnNumberText",
-            attributes = {
-                text=text,
-                color="#FFFFFF",
-                fontSize="60",
-                -- fontSize="46",
-                fontStyle="Bold",
-                outline="#000000",
-                outlineSize="4 4",
-                position="0 0 "..tostring(height),
-                rotation="0 0 180",
-                scale=UIx.getTextScale(self),
-            },
+            attributes = attributes
         },
     })
 end
