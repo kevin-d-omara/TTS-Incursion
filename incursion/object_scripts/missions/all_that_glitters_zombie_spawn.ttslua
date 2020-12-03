@@ -1,0 +1,99 @@
+local UIx = require("incursion.tts_api.extension.UIx")
+
+
+NUM_STURMZOMBIES_TO_SPAWN = 3
+INFINITE_BAG_GUID = '243355'
+
+Spawner = {
+    SpawnLocations = {
+        OneToThree = {
+            Rotation = {0.00, 0.00, 0.00},
+            Positions = {
+                {1.25, 0.96, 18.75},
+                {-1.25, 0.97, 16.25},
+                {3.75, 0.97, 16.25},
+            },
+        },
+        FourToSix = {
+            Rotation = {0.00, 180.00, 0.00},
+            Positions = {
+                {-16.25, 0.96, -18.75},
+                {-13.75, 0.96, -16.25},
+                {-18.75, 0.96, -16.25},
+            },
+        },
+    },
+    SpawnChance = {
+        [1] = "OneToThree",
+        [2] = "OneToThree",
+        [3] = "OneToThree",
+        [4] = "FourToSix",
+        [5] = "FourToSix",
+        [6] = "FourToSix",
+    },
+    SpawnDelay = 0.5,
+
+    RandomlySpawn = function(self, numModels, infiniteBag)
+        -- Initialize counter:
+        local spawnCount = {}
+        for k,location in pairs(self.SpawnLocations) do
+            spawnCount[location] = 0
+        end
+
+        local delay = 0
+
+        local upperBound = #self.SpawnChance
+        for N=1,numModels do
+            local roll = math.random(upperBound)
+            local locationKey = self.SpawnChance[roll]
+            local location = self.SpawnLocations[locationKey]
+
+            local count = spawnCount[location] + 1
+            spawnCount[location] = count
+
+            local function spawnModel()
+                infiniteBag.takeObject({
+                    position          = location.Positions[count],
+                    rotation          = location.Rotation,
+                    smooth            = true,
+                    index             = 0,
+                })
+            end
+
+            Wait.time(spawnModel, delay)
+            delay = delay + self.SpawnDelay
+        end
+    end,
+}
+
+function spawnSturmzombies()
+    Spawner:RandomlySpawn(NUM_STURMZOMBIES_TO_SPAWN, getObjectFromGUID(INFINITE_BAG_GUID))
+end
+
+function onLoad(savedJson)
+    local scale = UIx.getTextScaleTbl(self)
+    self.UI.setXmlTable({
+        {
+            tag="VerticalLayout",
+            attributes={
+                spacing=20,
+                position="0 220 -35",
+                rotation="0 0 180",
+                height=scale.x*400,
+                width=scale.z*800,
+            },
+            children={
+                {
+                    tag="Button",
+                    attributes={
+                        text="Spawn Sturmzombies",
+                        fontSize="45",
+                        fontStyle="Bold",
+                        scale=UIx.getTextScale(self),
+                        onClick="spawnSturmzombies",
+                    }
+                }
+            },
+        },
+    })
+end

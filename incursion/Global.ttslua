@@ -1,13 +1,17 @@
 require("incursion.GlobalCallbacks")
-local ColorNameToFaction = require("incursion.config.maps.ColorNameToFaction")
-local FactionToSeat = require("incursion.config.maps.FactionToSeat")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
-local PlayerSeats = require("incursion.config.PlayerSeats")
-local Factions = require("incursion.config.Factions")
-local Avatars = require("incursion.config.Avatars")
-local VictoryPoints = require("incursion.config.VictoryPoints")
 local SaveState = require("incursion.tts_api.util.SaveState")
 local Math = require("incursion.util.Math")
+
+-- Configs are global vars (instead of local) so they can be mutated by other scripts.
+-- Think of these like Singleton objects in C#/Java.
+-- This is bad programming, we shouldn't be mutating global variables in random scripts.
+ColorNameToFaction = require("incursion.config.maps.ColorNameToFaction")
+FactionToSeat = require("incursion.config.maps.FactionToSeat")
+PlayerSeats = require("incursion.config.PlayerSeats")
+Factions = require("incursion.config.Factions")
+Avatars = require("incursion.config.Avatars")
+VictoryPoints = require("incursion.config.VictoryPoints")
 
 
 function CreateSavedState()
@@ -31,6 +35,8 @@ function onLoad(savedJson)
     SavedState:onLoad(savedJson)
     _disableInteractivity()
 
+    -- Wait.time(function() testPlaceMission("No Guts, No Glory") end, 3)
+    -- Wait.time(function() testPlaceMission("All That Glitters") end, 3)
     -- Wait.time(function() testPlaceMission("Recon") end, 2)
     -- Wait.time(function() testPlaceMission("Twitcher") end, 8)
     -- Wait.time(function() testPlaceMission("Go Down Bloody") end, 14)
@@ -139,8 +145,4 @@ function onPlayerChangeColor(newPlayerColor)
     local faction = ColorNameToFaction[newPlayerColor]
     local playerSeat = FactionToSeat[faction]
     playerSeat:setupEverything(faction)
-end
-
-function getPlayerSeats()
-    return PlayerSeats
 end

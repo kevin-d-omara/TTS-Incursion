@@ -22,10 +22,18 @@ function onLoad()
 end
 ]]
 function UIx.getTextScale(obj)
+    local scale = UIx.getTextScaleTbl(obj)
+    -- The UI Y-axis is same dimension as 3D world Z-axis.
+    return tostring(scale.x).." "..tostring(scale.z).." 1"
+end
+
+function UIx.getTextScaleTbl(obj)
     local objectScale = obj.getScale()
-    local textScaleX = 1.0/objectScale.x
-    local textScaleY = 1.0/objectScale.z
-    return tostring(textScaleX).." "..tostring(textScaleY).." 1"
+    return Vector(
+        1.0/objectScale.x,
+        1.0/objectScale.y,
+        1.0/objectScale.z
+    )
 end
 
 return UIx

@@ -2,7 +2,6 @@ local MissionCallbacks = require("incursion.MissionCallbacks")
 local VictoryPoints = require("incursion.config.VictoryPoints")
 local LightingX = require("incursion.tts_api.extension.LightingX")
 
-
 return {
     -- Core Missions
     ["Recon"] = {
@@ -245,17 +244,61 @@ return {
         },
     },
     ["All That Glitters"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '9f61cb',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 10,
+                NumberCommandPoints = 3, -- Not Exactly Picked Men
             },
             Axis = {
                 RequisitionPoints = 12, -- This is actually 12 RPs for MI-13,
+                NumberCommandPoints = 4,
             },
         },
         PostSetupCallback = function()
-            print("MAKE AXIS PLAYER INTO MI-13!")
+            -- Permanently move the MI-13 player (Blue) to the Axis side:
+            -- This needs to be permanent so players can still chose the Drop Troopers.
+            -- This uses the global/singleton config objects from the Global script.
+            FactionToSeat[Factions.MI13] = PlayerSeats.Axis
+            PlayerSeats.Axis.FactionsHashSet[Factions.MI13] = ""
+            table.insert(PlayerSeats.Axis.Factions, Factions.MI13)
+            Avatars.PaddyMayne.Position = {24.71, -2.57, -73.85}
+            Factions.MI13.PlayerColor:Player().setHandTransform(Factions.SWD.PlayerColor:Player().getHandTransform())
+            PlayerSeats.Axis:setupEverything(Factions.MI13)
+            PlayerSeats.Allies:setupEverything(Factions.LuckySeventh)
+
+            -- Randomly place gold markers at the pre-defined locations:
+            local sourceGuids = {
+                '016e40', -- Gold
+                '016e40', -- Gold
+                '016e40', -- Gold
+                '4aba4b', -- Booby Trap
+                '23e38b', -- Ambush
+            }
+            local rotation = {0.00, 180.00, 180.00}
+            local targetTransforms = {
+                {
+                    position = {6.25, 1.09, 11.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {-1.25, 1.09, 3.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {1.25, 1.09, -1.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {-13.75, 1.09, -6.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {-8.75, 1.09, -13.75},
+                    rotation = rotation,
+                },
+            }
+            MissionCallbacks.randomlyPlaceObjects(sourceGuids, targetTransforms)
         end,
     },
     ["No Guts, No Glory"] = {

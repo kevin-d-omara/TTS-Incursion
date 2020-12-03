@@ -33,5 +33,4 @@ function Table.shallowCopy(tbl)
     return {table.unpack(tbl)}
 end
 
-
 return Table
