@@ -12,6 +12,7 @@ PlayerSeats = require("incursion.config.PlayerSeats")
 Factions = require("incursion.config.Factions")
 Avatars = require("incursion.config.Avatars")
 VictoryPoints = require("incursion.config.VictoryPoints")
+MissionInfiniteBags = require("incursion.config.MissionInfiniteBags")
 
 
 function CreateSavedState()
@@ -114,6 +115,7 @@ function _getGuidsUnderTable()
         '78b13b', -- Deck: No More Noise
         '198e2f', -- Deck: The Guns of Gibraltar
         -- '3a6161', -- Deck: Onward To Victory
+        -- 'fa6330', -- Deck: When The Tide Is High
     }
     for _,avatar in pairs(Avatars) do
         table.insert(guidsToFreeze, avatar.InfiniteBagGuid)
@@ -124,6 +126,11 @@ function _getGuidsUnderTable()
     end
     for _,guid in ipairs(VictoryPoints.InfiniteBagGuids) do
         table.insert(guidsToFreeze, guid)
+    end
+    for _,mission in pairs(MissionInfiniteBags) do
+        for _,guid in pairs(mission) do
+            table.insert(guidsToFreeze, guid)
+        end
     end
 
     return guidsToFreeze

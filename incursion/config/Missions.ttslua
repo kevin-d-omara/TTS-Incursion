@@ -1,5 +1,6 @@
 local MissionCallbacks = require("incursion.MissionCallbacks")
 local VictoryPoints = require("incursion.config.VictoryPoints")
+local InfiniteBags = require("incursion.config.MissionInfiniteBags")
 local LightingX = require("incursion.tts_api.extension.LightingX")
 
 return {
@@ -269,11 +270,11 @@ return {
 
             -- Randomly place gold markers at the pre-defined locations:
             local sourceGuids = {
-                '016e40', -- Gold
-                '016e40', -- Gold
-                '016e40', -- Gold
-                '4aba4b', -- Booby Trap
-                '23e38b', -- Ambush
+                InfiniteBags.AllThatGlitters.Gold,
+                InfiniteBags.AllThatGlitters.Gold,
+                InfiniteBags.AllThatGlitters.Gold,
+                InfiniteBags.AllThatGlitters.BoobyTrap,
+                InfiniteBags.AllThatGlitters.Ambush,
             }
             local rotation = {0.00, 180.00, 180.00}
             local targetTransforms = {
