@@ -2,11 +2,14 @@ local class = require("incursion.lib.30log.class")
 local PlayerSeats = require("incursion.config.PlayerSeats")
 local GameTable = require("incursion.GameTable")
 local GameRules = require("incursion.GameRules")
+local Broadcast = require("incursion.tts_api.util.Broadcast")
 
 
 local Mission = class("Mission")
 
 Mission.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID = 'd3cde6'
+Mission.DEFAULT_BROADCAST_FLAVORTEXT_TINT = Color.White
+Mission.DEFAULT_POST_SETUP_DELAY_BEFORE_BROADCASTING_TEXT = 0.5
 
 --[[
 Enhancements:
@@ -32,6 +35,8 @@ function Mission:init(args)
     -- Optional:
     self.PostSetupCallback = args.PostSetupCallback
     self.BattleCardDeckInfiniteBagGuid = args.BattleCardDeckInfiniteBagGuid
+    self.BroadcastTitle = args.BroadcastTitle
+    self.BroadcastFlavorText = args.BroadcastFlavorText
 end
 
 function Mission:setup()
@@ -58,6 +63,7 @@ function Mission:_postSetup()
     self:_placeBattleCardsAndDeal()
     self:_placeCommandPoints()
     Wait.time(function() self:_postSetupCallback() end, 0.5)
+    Wait.time(function() self:_broadcastTitleAndFlavorText() end, 3.5)
 end
 
 function Mission:_placeBattleCardsAndDeal()
@@ -86,7 +92,27 @@ end
 
 function Mission:_postSetupCallback()
     if self.PostSetupCallback then
-        Wait.time(self.PostSetupCallback, 0.5)
+        Wait.time(self.PostSetupCallback, self.DEFAULT_POST_SETUP_DELAY_BEFORE_BROADCASTING_TEXT)
+    end
+end
+
+function Mission:_broadcastTitleAndFlavorText()
+    Wait.time(function() self:_broadcastTitle() end, 0)
+    Wait.time(function() self:_broadcastFlavorText() end, Broadcast.MESSAGE_FADE_TIME)
+end
+
+function Mission:_broadcastTitle()
+    if self.BroadcastTitle then
+        broadcastToAll(tostring(self.BroadcastTitle), DEFAULT_BROADCAST_FLAVORTEXT_TINT)
+    end
+end
+
+function Mission:_broadcastFlavorText()
+    if self.BroadcastFlavorText then
+        for _,payload in ipairs(self.BroadcastFlavorText) do
+            local tint = payload.Tint or DEFAULT_BROADCAST_FLAVORTEXT_TINT
+            broadcastToAll(payload.Message, tint)
+        end
     end
 end
 
