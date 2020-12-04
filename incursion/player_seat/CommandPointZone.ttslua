@@ -12,7 +12,7 @@ function CommandPointZone:init(args)
     self.TokenRotation = args.TokenRotation
 end
 
-function CommandPointZone:setCommandPoints(numCommandPoints)
+function CommandPointZone:setCommandPoints(numCommandPoints, shouldClearZone)
     if numCommandPoints < 0 then
         error("numCommandPoints cannot be negative: "..tostring(numCommandPoints))
     end
@@ -20,7 +20,9 @@ function CommandPointZone:setCommandPoints(numCommandPoints)
         error("Cannot place more than "..tostring(self.MAX_ALLOWED_COMMAND_POINTS).." command points. numCommandPoints="..tostring(numCommandPoints))
     end
 
-    self:clearZone()
+    if shouldClearZone then
+        self:clearZone()
+    end
     local infiniteBag = getObjectFromGUID(self.InfiniteBagGuid)
     for cpNumber=1,numCommandPoints do
         local transform = self.TokenTransforms[cpNumber]

@@ -480,7 +480,16 @@ return {
         BattleCardDeckInfiniteBagGuid = 'ad9ef7',
     },
     ["Sisterly Love"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '2c5c5e',
+        BroadcastTitle = "Sisterly Love",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"How dare they. HOW DARE THEY!!\"[/i]",
+            },
+            {
+                Message = "— [b]Ilsa Von X[/b]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 0,

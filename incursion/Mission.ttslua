@@ -105,7 +105,7 @@ end
 function Mission:_placeCommandPoints()
     for seatName,config in pairs(self.PlayerSeats) do
         local numCommandPoints = config.NumberCommandPoints or GameRules.GetNumberCommandPoints(config.RequisitionPoints)
-        PlayerSeats[seatName].CommandPointZone:setCommandPoints(numCommandPoints)
+        PlayerSeats[seatName].CommandPointZone:setCommandPoints(numCommandPoints, false)
     end
 end
 
