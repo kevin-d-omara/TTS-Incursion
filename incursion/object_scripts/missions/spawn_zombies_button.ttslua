@@ -1,0 +1,39 @@
+local UIx = require("incursion.tts_api.extension.UIx")
+
+-- Values to be set in user script:
+SPAWNER = nil
+NUM_STURMZOMBIES_TO_SPAWN = 3
+INFINITE_BAG_GUID = nil
+
+
+function spawnSturmzombies()
+    SPAWNER:RandomlySpawn(NUM_STURMZOMBIES_TO_SPAWN, getObjectFromGUID(INFINITE_BAG_GUID))
+end
+
+function onLoad(savedJson)
+    local scale = UIx.getTextScaleTbl(self)
+    self.UI.setXmlTable({
+        {
+            tag="VerticalLayout",
+            attributes={
+                spacing=20,
+                position="0 220 -35",
+                rotation="0 0 180",
+                height=scale.x*400,
+                width=scale.z*800,
+            },
+            children={
+                {
+                    tag="Button",
+                    attributes={
+                        text="Spawn Sturmzombies",
+                        fontSize="45",
+                        fontStyle="Bold",
+                        scale=UIx.getTextScale(self),
+                        onClick="spawnSturmzombies",
+                    }
+                }
+            },
+        },
+    })
+end

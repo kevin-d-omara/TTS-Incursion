@@ -1,0 +1,46 @@
+local class = require("incursion.lib.30log.class")
+
+
+local Spawner = class("Spawner")
+
+Spawner.DEFAULT_SPAWN_DELAY = 0.5
+
+function Spawner:init(args)
+    self.SpawnLocations = args.SpawnLocations
+    self.SpawnChance = args.SpawnChance
+    self.SpawnDelay = args.SpawnDelay or self.DEFAULT_SPAWN_DELAY
+end
+
+function Spawner:RandomlySpawn(numModels, infiniteBag)
+    -- Initialize counter:
+    local spawnCount = {}
+    for k,location in pairs(self.SpawnLocations) do
+        spawnCount[location] = 0
+    end
+
+    local delay = 0
+
+    local upperBound = #self.SpawnChance
+    for N=1,numModels do
+        local roll = math.random(upperBound)
+        local locationKey = self.SpawnChance[roll]
+        local location = self.SpawnLocations[locationKey]
+
+        local count = spawnCount[location] + 1
+        spawnCount[location] = count
+
+        local function spawnModel()
+            infiniteBag.takeObject({
+                position          = location.Positions[count],
+                rotation          = location.Rotation,
+                smooth            = true,
+                index             = 0,
+            })
+        end
+
+        Wait.time(spawnModel, delay)
+        delay = delay + self.SpawnDelay
+    end
+end
+
+return Spawner

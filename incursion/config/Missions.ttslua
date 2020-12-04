@@ -329,11 +329,29 @@ return {
                 Lighting.apply()
             end
             local flicker = function()
+                -- 1
+                -- Wait.time(makeItDark, 0.1)
+                -- Wait.time(makeItBright, 0.15)
+                -- Wait.time(makeItDark, 0.2)
+                -- Wait.time(makeItBright, 0.25)
+                -- Wait.time(makeItDark, 0.325)
+
+                -- 2
                 Wait.time(makeItDark, 0.1)
                 Wait.time(makeItBright, 0.15)
                 Wait.time(makeItDark, 0.2)
                 Wait.time(makeItBright, 0.25)
                 Wait.time(makeItDark, 0.325)
+
+                Wait.time(makeItBright, 0.375)
+                Wait.time(makeItDark, 0.395)
+                Wait.time(makeItBright, 0.405)
+                Wait.time(makeItDark, 0.413)
+
+                Wait.time(makeItBright, 0.425)
+                Wait.time(makeItDark, 0.475)
+                Wait.time(makeItBright, 0.515)
+                Wait.time(makeItDark, 0.53)
             end
             Wait.time(flicker, 1.6)
         end,
@@ -477,7 +495,16 @@ return {
         },
     },
     ["Tricked And Trapped"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '4dcf5f',
+        BroadcastTitle = "Tricked And Trapped",
+        BroadcastFlavorText = {
+            {
+                Message = "— [b]APE 'Hotshot' Hoolahan[/b]",
+            },
+            {
+                Message = "[i]\"I've been in worse situations... I think\"[/i]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -487,9 +514,26 @@ return {
                 RequisitionPoints = 0,
             },
         },
+        NoBattleCardDeck = true,
+        PostSetupCallback = function()
+            local config = require("incursion.config.missions.spawners.tricked_and_trapped")
+            config.Spawner:RandomlySpawn(4, getObjectFromGUID(config.InfiniteBagGuid))
+        end,
     },
     ["A Morning Stroll"] = {
         MemoryBagGuid = '',
+        BroadcastTitle = "A Morning Stroll",
+        BroadcastFlavorText = {
+            {
+                Message = "turn the lights on.",
+            },
+            {
+                Message = "kinds of attention, even when they’re just going to",
+            },
+            {
+                Message = "Two APEs on a stroll in Gibraltar can attract all",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -499,6 +543,7 @@ return {
                 RequisitionPoints = 0,
             },
         },
+        NoBattleCardDeck = true,
     },
     ["Securing Intel"] = {
         MemoryBagGuid = '',

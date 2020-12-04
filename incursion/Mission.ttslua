@@ -35,6 +35,7 @@ function Mission:init(args)
     -- Optional:
     self.PostSetupCallback = args.PostSetupCallback
     self.BattleCardDeckInfiniteBagGuid = args.BattleCardDeckInfiniteBagGuid
+    self.NoBattleCardDeck = args.NoBattleCardDeck
     self.BroadcastTitle = args.BroadcastTitle
     self.BroadcastFlavorText = args.BroadcastFlavorText
 end
@@ -79,8 +80,10 @@ function Mission:_placeBattleCardsAndDeal()
         Wait.frames(function() dealCards(battleCardDeckObj) end, 2)
     end
 
-    local bagGuid = self.BattleCardDeckInfiniteBagGuid or self.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID
-    GameTable:spawnBattleCards(bagGuid, shuffleThenDeal)
+    if not self.NoBattleCardDeck then
+        local bagGuid = self.BattleCardDeckInfiniteBagGuid or self.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID
+        GameTable:spawnBattleCards(bagGuid, shuffleThenDeal)
+    end
 end
 
 function Mission:_placeCommandPoints()

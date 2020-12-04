@@ -1,0 +1,7 @@
+return {
+    AllThatGlitters = {
+        Gold = '016e40',
+        BoobyTrap = '4aba4b',
+        Ambush = '23e38b',
+    },
+}
