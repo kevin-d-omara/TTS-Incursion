@@ -1,0 +1,52 @@
+local Spawner = require("incursion.mission.Spawner")
+
+return {
+    InfiniteBagGuid = '7839ef',
+    NumModelsToSpawn = 6,
+    Spawner = Spawner({
+        SpawnDelay = 0.4,
+        SpawnLocations = {
+            OneToTwo = {
+                Rotation = {0.00, 270.00, 0.00},
+                Positions = {
+                    {-21.25, 0.96, 11.25},
+                    {-18.75, 0.97, 8.75},
+                    {-18.75, 0.97, 13.75},
+                    {-21.25, 0.96, 8.75},
+                    {-21.25, 0.96, 13.75},
+                    {-23.75, 0.96, 11.25},
+                },
+            },
+            ThreeToFour = {
+                Rotation = {0.00, 0.00, 0.00},
+                Positions = {
+                    {-11.25, 0.96, 18.75},
+                    {-13.75, 0.97, 16.25},
+                    {-8.75, 0.97, 16.25},
+                    {-13.75, 0.96, 18.75},
+                    {-8.75, 0.96, 18.75},
+                    {-13.75, 0.96, 21.25},
+                },
+            },
+            FiveToSix = {
+                Rotation = {0.00, 180.00, 0.00},
+                Positions = {
+                    {8.75, 0.96, -18.75},
+                    {11.25, 0.96, -16.25},
+                    {6.25, 0.96, -16.25},
+                    {11.25, 0.96, -18.75},
+                    {6.25, 0.96, -18.75},
+                    {11.25, 0.96, -21.25},
+                },
+            },
+        },
+        SpawnChance = {
+            [1] = "OneToTwo",
+            [2] = "OneToTwo",
+            [3] = "ThreeToFour",
+            [4] = "ThreeToFour",
+            [5] = "FiveToSix",
+            [6] = "FiveToSix",
+        },
+    }),
+}

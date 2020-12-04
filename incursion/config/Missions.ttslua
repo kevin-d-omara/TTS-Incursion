@@ -1,3 +1,5 @@
+local Mission = require("incursion.Mission")
+local Broadcast = require("incursion.tts_api.util.Broadcast")
 local MissionCallbacks = require("incursion.MissionCallbacks")
 local VictoryPoints = require("incursion.config.VictoryPoints")
 local InfiniteBags = require("incursion.config.MissionInfiniteBags")
@@ -183,7 +185,16 @@ return {
         },
     },
     ["Exfiltration"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'fc5a15',
+        BroadcastTitle = "Exfiltration",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"COMMANDOS... WE ARE LEAVING!\"[/i]",
+            },
+            {
+                Message = "— [b]Corporal Ridley[/b]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 15,
@@ -247,6 +258,15 @@ return {
     },
     ["All That Glitters"] = {
         MemoryBagGuid = '9f61cb',
+        BroadcastTitle = "All That Glitters",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"I didn't come all this way just to let some Yank swipe my retirement.[/i]",
+            },
+            {
+                Message = "[i]If they get in the way, we take care of them too.\"[/i]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 10,
@@ -305,6 +325,7 @@ return {
     },
     ["No Guts, No Glory"] = {
         MemoryBagGuid = '6ea597',
+        BroadcastTitle = "No Guts, No Glory",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 25,
@@ -330,29 +351,24 @@ return {
                 Lighting.apply()
             end
             local flicker = function()
-                -- 1
-                -- Wait.time(makeItDark, 0.1)
-                -- Wait.time(makeItBright, 0.15)
-                -- Wait.time(makeItDark, 0.2)
-                -- Wait.time(makeItBright, 0.25)
-                -- Wait.time(makeItDark, 0.325)
+                local initialDelay = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + 0.35
 
-                -- 2
-                Wait.time(makeItDark, 0.1)
-                Wait.time(makeItBright, 0.15)
-                Wait.time(makeItDark, 0.2)
-                Wait.time(makeItBright, 0.25)
-                Wait.time(makeItDark, 0.325)
+                Wait.time(makeItDark, initialDelay + 0.1)
+                Wait.time(makeItBright, initialDelay + 0.15)
+                Wait.time(makeItDark, initialDelay + 0.2)
+                Wait.time(makeItBright, initialDelay + 0.25)
+                Wait.time(makeItDark, initialDelay + 0.325)
 
-                Wait.time(makeItBright, 0.375)
-                Wait.time(makeItDark, 0.395)
-                Wait.time(makeItBright, 0.405)
-                Wait.time(makeItDark, 0.413)
+                Wait.time(makeItBright, initialDelay + 0.375)
+                Wait.time(makeItDark, initialDelay + 0.395)
+                Wait.time(makeItBright, initialDelay + 0.405)
+                Wait.time(makeItDark, initialDelay + 0.413)
 
-                Wait.time(makeItBright, 0.425)
-                Wait.time(makeItDark, 0.475)
-                Wait.time(makeItBright, 0.515)
-                Wait.time(makeItDark, 0.53)
+                Wait.time(makeItBright, initialDelay + 0.425)
+                Wait.time(makeItDark, initialDelay + 0.475)
+                Wait.time(makeItBright, initialDelay + 0.515)
+                Wait.time(makeItDark, initialDelay + 0.53)
+                Wait.time(function() broadcastToAll("[i]\"RAARRRRR!!!\"[/i]") end, initialDelay + 1.2)
             end
             Wait.time(flicker, 1.6)
         end,
@@ -380,7 +396,22 @@ return {
         },
     },
     ["Zombie Country"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'ce9dab',
+        BroadcastTitle = "Zombie Country",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"Did you just hear something?[/i]",
+            },
+            {
+                Message = "[i]A kinda whirring, ticking noise? No?[/i]",
+            },
+            {
+                Message = "[i]Okay, you can take point.\"[/i]",
+            },
+            {
+                Message = "— [b]Private 'Spook' Venkman[/b]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -391,12 +422,55 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = '4af2c2',
+        PostSetupCallback = function()
+            local sourceGuids = Table.takeRandom(VictoryPoints.InfiniteBagGuids, 6)
+            local rotation = {0.00, 180.00, 0.00}
+            local targetTransforms = {
+                -- First board:
+                {
+                    position = {-23.75, 1.02, -8.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {-8.75, 1.02, 1.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {-21.25, 1.04, 8.75},
+                    rotation = rotation,
+                },
+                -- Second board
+                {
+                    position = {11.25, 1.02, 16.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {8.75, 1.02, -1.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {23.75, 1.02, -13.75},
+                    rotation = rotation,
+                },
+            }
+            MissionCallbacks.randomlyPlaceObjects(sourceGuids, targetTransforms)
+        end,
     },
     ["Unstoppable"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '9a8e21',
+        BroadcastTitle = "Unstoppable",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"I don't think he wants to play ball...\"[/i]",
+            },
+            {
+                Message = "— [b]Sergeant 'Hammer' Greenberg[/b]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 10,
+                NumberCommandPoints = 6, -- +1 for "Sarge in Charge"
                 NumberBattleCards = 0,
             },
             Axis = {
@@ -485,7 +559,8 @@ return {
         },
     },
     ["When The Tide Is High"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '546d7e',
+        BroadcastTitle = "When The Tide Is High",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 15,
@@ -506,6 +581,7 @@ return {
                 Message = "— [b]APE 'Hotshot' Hoolahan[/b]",
             },
         },
+        BroadcastDelayAfterPostSetupCallback = 1.5, -- Give time for the Sturmzombies to be deployed.
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -520,7 +596,7 @@ return {
             local config = require("incursion.config.missions.spawners.tricked_and_trapped")
             config.Spawner:RandomlySpawn(4, getObjectFromGUID(config.InfiniteBagGuid))
 
-            -- Randomly place all 8 VP markers on the board at pre-defined locations:
+            -- Randomly place 6 of 8 markers on the board:
             local allTraps = {
                 InfiniteBags.TrickedAndTrapped.BoobyTrap,
                 InfiniteBags.TrickedAndTrapped.BoobyTrap,
@@ -531,9 +607,7 @@ return {
                 InfiniteBags.TrickedAndTrapped.Dud,
                 InfiniteBags.TrickedAndTrapped.Dud,
             }
-            local sixRandomTraps = {table.unpack(Table.shuffle(allTraps), 1, 6)}
-            local sourceGuids = sixRandomTraps
-
+            local sourceGuids = Table.takeRandom(allTraps, 6)
             local rotation = {0.00, 180.00, 0.00}
             local targetTransforms = {
                 {
@@ -569,13 +643,13 @@ return {
         BroadcastTitle = "A Morning Stroll",
         BroadcastFlavorText = {
             {
-                Message = "Two APEs on a stroll in Gibraltar can attract all",
+                Message = "[i]Two APEs on a stroll in Gibraltar can attract all[/i]",
             },
             {
-                Message = "kinds of attention, even when they’re just going to",
+                Message = "[i]kinds of attention, even when they’re just going to[/i]",
             },
             {
-                Message = "turn the lights on.",
+                Message = "[i]turn the lights on.[/i]",
             },
         },
         PlayerSeats = {

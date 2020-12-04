@@ -1,7 +1,26 @@
 local Table = {}
 
 --[[
-Return a copy of "tbl" with the elements in a random order.
+Return a table with "N" random elements from the "input" table.
+
+The returned table is a shallow copy of the "input" table.
+
+You can set the random seed outside of this method with "math.randomseed(mySeed)".
+
+# Example
+myTable = {1, 2, 3, 4, 5}
+threeRandom = Table.takeRandom(myTable, 3)
+print(threeRandom)
+-- {5, 2, 1}
+print(myTable)
+-- {1, 2, 3, 4, 5}
+]]
+function Table.takeRandom(input, N)
+    return {table.unpack(Table.shuffle(input), 1, N)}
+end
+
+--[[
+Return a shallow copy of "tbl" with the elements in a random order.
 
 You can set the random seed outside of this method with "math.randomseed(mySeed)".
 

@@ -9,7 +9,10 @@ local Mission = class("Mission")
 
 Mission.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID = 'd3cde6'
 Mission.DEFAULT_BROADCAST_FLAVORTEXT_TINT = Color.White
-Mission.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION = 1.5
+
+Mission.DELAY_BEFORE_CALLING_POST_SETUP_CALLBACK = 0.5 -- Gives some time for the CPs to settle.
+Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE = 3.5 -- This includes waiting for the deck to shuffle and the CPs to stop moving.
+Mission.TIME_IT_TAKES_FOR_SETUP_WITH_NO_DECK_TO_COMPLETE = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE - 1.2
 
 --[[
 Enhancements:
@@ -38,6 +41,9 @@ function Mission:init(args)
     self.NoBattleCardDeck = args.NoBattleCardDeck
     self.BroadcastTitle = args.BroadcastTitle
     self.BroadcastFlavorText = args.BroadcastFlavorText
+
+    -- Use this if the PostSetupCallback is not instant. For example, pulling something out of a back with smoothing enabled.
+    self.BroadcastDelayAfterPostSetupCallback = args.BroadcastDelayAfterPostSetupCallback or 0.0
 end
 
 function Mission:setup()
@@ -63,11 +69,17 @@ end
 function Mission:_postSetup()
     self:_placeBattleCardsAndDeal()
     self:_placeCommandPoints()
+
+    local broadcastDelay = self.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE
+    if self:_zeroBattleCards() then
+        broadcastDelay = self.TIME_IT_TAKES_FOR_SETUP_WITH_NO_DECK_TO_COMPLETE
+    end
+
     if self.PostSetupCallback then
-        Wait.time(function() self.PostSetupCallback() end, self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
-        Wait.time(function() self:_broadcastTitleAndFlavorText() end, 2.5 + self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
+        Wait.time(function() self.PostSetupCallback() end, self.DELAY_BEFORE_CALLING_POST_SETUP_CALLBACK)
+        Wait.time(function() self:_broadcastTitleAndFlavorText() end, self.BroadcastDelayAfterPostSetupCallback + broadcastDelay)
     else
-        Wait.time(function() self:_broadcastTitleAndFlavorText() end, self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
+        Wait.time(function() self:_broadcastTitleAndFlavorText() end, broadcastDelay)
     end
 end
 
@@ -97,10 +109,15 @@ function Mission:_placeCommandPoints()
     end
 end
 
-function Mission:_postSetupCallback()
-    if self.PostSetupCallback then
-        Wait.time(self.PostSetupCallback, self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
+function Mission:_zeroBattleCards()
+    for seatName,config in pairs(self.PlayerSeats) do
+        local numCards = config.NumberBattleCards or GameRules.GetNumberBattleCards(config.RequisitionPoints)
+        if numCards > 0 then
+            return false
+        end
     end
+
+    return true
 end
 
 function Mission:_broadcastTitleAndFlavorText()

@@ -28,7 +28,7 @@ function onLoad()
         {
             tag="Text",
             id="TurnNumberText",
-            attributes = attributes
+            attributes = attributes,
         },
     })
 end
