@@ -9,7 +9,7 @@ local Mission = class("Mission")
 
 Mission.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID = 'd3cde6'
 Mission.DEFAULT_BROADCAST_FLAVORTEXT_TINT = Color.White
-Mission.DEFAULT_POST_SETUP_DELAY_BEFORE_BROADCASTING_TEXT = 0.5
+Mission.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION = 1.5
 
 --[[
 Enhancements:
@@ -63,8 +63,12 @@ end
 function Mission:_postSetup()
     self:_placeBattleCardsAndDeal()
     self:_placeCommandPoints()
-    Wait.time(function() self:_postSetupCallback() end, 0.5)
-    Wait.time(function() self:_broadcastTitleAndFlavorText() end, 3.5)
+    if self.PostSetupCallback then
+        Wait.time(function() self.PostSetupCallback() end, self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
+        Wait.time(function() self:_broadcastTitleAndFlavorText() end, 2.5 + self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
+    else
+        Wait.time(function() self:_broadcastTitleAndFlavorText() end, self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
+    end
 end
 
 function Mission:_placeBattleCardsAndDeal()
@@ -95,7 +99,7 @@ end
 
 function Mission:_postSetupCallback()
     if self.PostSetupCallback then
-        Wait.time(self.PostSetupCallback, self.DEFAULT_POST_SETUP_DELAY_BEFORE_BROADCASTING_TEXT)
+        Wait.time(self.PostSetupCallback, self.DEFAULT_DELAY_BEFORE_POST_SETUP_ACTION)
     end
 end
 
@@ -112,7 +116,9 @@ end
 
 function Mission:_broadcastFlavorText()
     if self.BroadcastFlavorText then
-        for _,payload in ipairs(self.BroadcastFlavorText) do
+        -- Broadcast in reverse order, because the most recent message goes to the top of the screen.
+        for i=#self.BroadcastFlavorText,1,-1 do
+            local payload = self.BroadcastFlavorText[i]
             local tint = payload.Tint or DEFAULT_BROADCAST_FLAVORTEXT_TINT
             broadcastToAll(payload.Message, tint)
         end

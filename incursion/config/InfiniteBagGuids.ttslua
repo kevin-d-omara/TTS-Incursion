@@ -1,0 +1,7 @@
+return {
+    GameTable = {
+        Activated = '63d763',
+        OnFire = '90efc4',
+        ReactionFire = '0c7a4b',
+    },
+}

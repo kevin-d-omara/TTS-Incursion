@@ -4,4 +4,8 @@ return {
         BoobyTrap = '4aba4b',
         Ambush = '23e38b',
     },
+    TrickedAndTrapped = {
+        BoobyTrap = '7f4332',
+        Dud = '3602e7',
+    },
 }

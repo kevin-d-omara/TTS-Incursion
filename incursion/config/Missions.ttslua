@@ -2,6 +2,7 @@ local MissionCallbacks = require("incursion.MissionCallbacks")
 local VictoryPoints = require("incursion.config.VictoryPoints")
 local InfiniteBags = require("incursion.config.MissionInfiniteBags")
 local LightingX = require("incursion.tts_api.extension.LightingX")
+local Table = require("incursion.util.Table")
 
 return {
     -- Core Missions
@@ -499,10 +500,10 @@ return {
         BroadcastTitle = "Tricked And Trapped",
         BroadcastFlavorText = {
             {
-                Message = "— [b]APE 'Hotshot' Hoolahan[/b]",
+                Message = "[i]\"I've been in worse situations... I think\"[/i]",
             },
             {
-                Message = "[i]\"I've been in worse situations... I think\"[/i]",
+                Message = "— [b]APE 'Hotshot' Hoolahan[/b]",
             },
         },
         PlayerSeats = {
@@ -518,20 +519,63 @@ return {
         PostSetupCallback = function()
             local config = require("incursion.config.missions.spawners.tricked_and_trapped")
             config.Spawner:RandomlySpawn(4, getObjectFromGUID(config.InfiniteBagGuid))
+
+            -- Randomly place all 8 VP markers on the board at pre-defined locations:
+            local allTraps = {
+                InfiniteBags.TrickedAndTrapped.BoobyTrap,
+                InfiniteBags.TrickedAndTrapped.BoobyTrap,
+                InfiniteBags.TrickedAndTrapped.BoobyTrap,
+                InfiniteBags.TrickedAndTrapped.BoobyTrap,
+                InfiniteBags.TrickedAndTrapped.Dud,
+                InfiniteBags.TrickedAndTrapped.Dud,
+                InfiniteBags.TrickedAndTrapped.Dud,
+                InfiniteBags.TrickedAndTrapped.Dud,
+            }
+            local sixRandomTraps = {table.unpack(Table.shuffle(allTraps), 1, 6)}
+            local sourceGuids = sixRandomTraps
+
+            local rotation = {0.00, 180.00, 0.00}
+            local targetTransforms = {
+                {
+                    position = {-6.25, 0.97, 6.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {-1.25, 0.97, 6.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {3.75, 0.97, 6.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {11.25, 0.97, 6.25},
+                    rotation = rotation,
+                },
+                {
+                    position = {-6.25, 0.97, -3.75},
+                    rotation = rotation,
+                },
+                {
+                    position = {3.75, 0.97, -6.25},
+                    rotation = rotation,
+                },
+            }
+            MissionCallbacks.randomlyPlaceObjects(sourceGuids, targetTransforms)
         end,
     },
     ["A Morning Stroll"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '9cd262',
         BroadcastTitle = "A Morning Stroll",
         BroadcastFlavorText = {
             {
-                Message = "turn the lights on.",
+                Message = "Two APEs on a stroll in Gibraltar can attract all",
             },
             {
                 Message = "kinds of attention, even when they’re just going to",
             },
             {
-                Message = "Two APEs on a stroll in Gibraltar can attract all",
+                Message = "turn the lights on.",
             },
         },
         PlayerSeats = {
