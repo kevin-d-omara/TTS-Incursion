@@ -1,6 +1,5 @@
 local UIx = require("incursion.tts_api.extension.UIx")
-local Missions = require("incursion.config.Missions")
-local Mission = require("incursion.Mission")
+local MissionRunner = require("incursion.MissionRunner")
 
 
 --==============================================================================
@@ -65,12 +64,7 @@ end
 function _onClick_playMission()
     local currentPage = self.Book.getPage(true)
     local missionName = MISSION_BOOK.PageToMissionName[currentPage]
-    _playMission(missionName)
-end
-
-function _playMission(missionName)
-    local myMission = Mission(Missions[missionName])
-    myMission:setup()
+    MissionRunner.playMission(missionName)
 end
 
 -- The goal is to maintain crisp text, even when the object (and therefore UI) are scaled up or down.

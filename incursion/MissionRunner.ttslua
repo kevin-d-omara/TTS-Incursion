@@ -1,0 +1,51 @@
+local Missions = require("incursion.config.Missions")
+local Mission = require("incursion.Mission")
+local Object = require("incursion.tts_api.extension.Object")
+
+
+--[[
+This file is the entrypoint for setting up missions.
+
+Each mission has a MemoryBag, and all MemoryBags are stored in a single bag.
+This script is responsible for pulling out the correct MemoryBag, making a copy, and calling setup() for the mission.
+
+This is a "smart" way of doing the mission setup, compared to having one infinite bag for each mission's MemoryBag.
+The benefits include:
+* Faster startup (no need to call every MemoryBag's slow "onLoad()" function)
+* Faster iteration for game designer (can simply pull bag out, make changes, and put it bag - versus needing to make a new infinite bag and update the code reference every time)
+]]
+local MissionRunner = {}
+
+local BAG_WITH_ALL_MEMORY_BAGS = '190fc9'
+
+function MissionRunner.playMission(missionName)
+    local myMission = Mission(Missions[missionName])
+    local bag = getObjectFromGUID(BAG_WITH_ALL_MEMORY_BAGS)
+
+    local function callback(spawnedObj)
+        MissionRunner._makeCopyAndReturnToBag(spawnedObj, bag)
+        spawnedObj.setLock(true)
+        -- Wait 1 frame so the spawned object's GUID changes to it's final value.
+        -- The GUID changes since it shares it's GUID with the cloned object, and the spawned object is always the one to have it's GUID changed.
+        Wait.frames(function() myMission:setup(spawnedObj) end, 1)
+        Wait.frames(function() Object.tryDestroy(spawnedObj) end, 2)
+    end
+
+    bag.takeObject({
+        smooth            = false,
+        guid              = myMission.MemoryBagGuid,
+        callback_function = callback,
+    })
+end
+
+function MissionRunner._makeCopyAndReturnToBag(spawnedObj, bag)
+    -- The clone keeps the original guid (i.e. Missions[missionName].MemoryBagGuid)
+    -- This ensures we can set up the mission more than once.
+    local clone = spawnedObj.clone({
+        position = spawnedObj.getPosition() + Vector(2, 0, 0) -- slightly to the right
+    })
+    clone.setPosition(bag.getPosition())
+    bag.putObject(clone)
+end
+
+return MissionRunner

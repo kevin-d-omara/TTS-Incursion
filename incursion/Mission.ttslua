@@ -46,12 +46,9 @@ function Mission:init(args)
     self.BroadcastDelayAfterPostSetupCallback = args.BroadcastDelayAfterPostSetupCallback or 0.0
 end
 
-function Mission:setup()
+function Mission:setup(memoryBagObj)
     self:_clearTable()
-
-    local memoryBag = getObjectFromGUID(self.MemoryBagGuid)
-    memoryBag.call("buttonClick_place")
-
+    Wait.frames(function() memoryBagObj.call("buttonClick_place") end, 1)
     Wait.time(function() self:_postSetup() end, 0.5)
 end
 

@@ -93,7 +93,7 @@ return {
         end,
     },
     ["Behind Enemy Lines"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'f71a71',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -104,7 +104,7 @@ return {
         },
     },
     ["AC/DC"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '3a62e1',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 22,
@@ -115,7 +115,7 @@ return {
         },
     },
     ["Doomsday"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'fa28c5',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
@@ -128,7 +128,7 @@ return {
 
     -- SNAFU Missions
     ["Shell Game"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '80b1d3',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -139,7 +139,7 @@ return {
         },
     },
     ["Go Down Bloody"] = {
-        MemoryBagGuid = '0f4064',
+        MemoryBagGuid = '442e1c',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -150,7 +150,7 @@ return {
         },
     },
     ["Things That Go Boom In The Night"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '442e1c',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 16,
@@ -161,7 +161,7 @@ return {
         },
     },
     ["Hit The Button"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'dc9d23',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -172,7 +172,7 @@ return {
         },
     },
     ["The Blitz"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'ad072c',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 13,
@@ -235,7 +235,7 @@ return {
         end,
     },
     ["The Special Relationship"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '43b918',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 8,
@@ -246,7 +246,7 @@ return {
         },
     },
     ["Make It Glow"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'ec3358',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
@@ -374,7 +374,7 @@ return {
         end,
     },
     ["Hold The Line"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'faa800',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -385,7 +385,7 @@ return {
         },
     },
     ["The Hive"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '52c523',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 24,
@@ -571,7 +571,7 @@ return {
 
     -- Assets Missions
     ["Eye-To-Eye At Armageddon"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '43b2aa',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 24,
@@ -582,7 +582,7 @@ return {
         },
     },
     ["Tick Tick"] = {
-        MemoryBagGuid = 'bd8f78',
+        MemoryBagGuid = 'dbf06e',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -700,7 +700,7 @@ return {
         NoBattleCardDeck = true,
     },
     ["Securing Intel"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '7e6cf1',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 16,
@@ -711,7 +711,7 @@ return {
         },
     },
     ["Onward To Victory"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = '5877e6',
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
