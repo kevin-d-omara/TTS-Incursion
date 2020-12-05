@@ -62,32 +62,32 @@ function _getGuidsToFreeze()
         '3161c7', -- Left Table Sleeve Divider
         '2b1761', -- Right Table Sleeve
         'fb5e0f', -- Right Table Sleeve Divider
-        -- -- Allied Model Card Pegs (left to right):
-        -- -- Vertical:
-        -- 'c536c8',
-        -- '9a99b8',
-        -- 'e10b80',
-        -- 'caf59a',
-        -- '03b5f2',
-        -- -- Horizontal:
-        -- 'a475fc',
-        -- '585e96',
-        -- '4182a1',
-        -- '9dbc70',
-        -- '1007b7',
-        -- -- Axis Model Card Pegs:
-        -- -- Vertical:
-        -- 'afa81b',
-        -- 'bfae0f',
-        -- 'd809dc',
-        -- 'f19669',
-        -- '59e868',
-        -- -- Horizontal:
-        -- 'fa8d97',
-        -- '5c40e7',
-        -- '160051',
-        -- 'ed6d94',
-        -- '7aa6b1',
+        -- Allied Model Card Pegs (left to right):
+        -- Vertical:
+        'c536c8',
+        '9a99b8',
+        'e10b80',
+        'caf59a',
+        '03b5f2',
+        -- Horizontal:
+        'a475fc',
+        '585e96',
+        '4182a1',
+        '9dbc70',
+        '1007b7',
+        -- Axis Model Card Pegs:
+        -- Vertical:
+        'afa81b',
+        'bfae0f',
+        'd809dc',
+        'f19669',
+        '59e868',
+        -- Horizontal:
+        'fa8d97',
+        '5c40e7',
+        '160051',
+        'ed6d94',
+        '7aa6b1',
     }
 end
 
@@ -101,8 +101,8 @@ function _getGuidsUnderTable()
         '61f667', -- Deck: The Killing Jar
         '78b13b', -- Deck: No More Noise
         '198e2f', -- Deck: The Guns of Gibraltar
-        -- '3a6161', -- Deck: Onward To Victory
-        -- 'fa6330', -- Deck: When The Tide Is High
+        '3a6161', -- Deck: Onward To Victory
+        'fa6330', -- Deck: When The Tide Is High
     }
     for _,avatar in pairs(Avatars) do
         table.insert(guidsToFreeze, avatar.InfiniteBagGuid)
