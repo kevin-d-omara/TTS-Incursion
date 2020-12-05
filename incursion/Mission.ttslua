@@ -1,6 +1,6 @@
 local class = require("incursion.lib.30log.class")
 local PlayerSeats = require("incursion.config.PlayerSeats")
-local GameTable = require("incursion.GameTable")
+-- local GameTable = require("incursion.GameTable") -- Use the Global singleton instead.
 local GameRules = require("incursion.GameRules")
 local Broadcast = require("incursion.tts_api.util.Broadcast")
 
@@ -46,14 +46,17 @@ function Mission:init(args)
     self.BroadcastDelayAfterPostSetupCallback = args.BroadcastDelayAfterPostSetupCallback or 0.0
 end
 
-function Mission:setup(memoryBagObj)
-    self:_clearTable()
+function Mission:setup(args)
+    local memoryBagObj = args.memoryBagObj
+    local extraGuidsToPreserve = args.extraGuidsToPreserve
+
+    self:_clearTable(extraGuidsToPreserve)
     Wait.frames(function() memoryBagObj.call("buttonClick_place") end, 1)
     Wait.time(function() self:_postSetup() end, 0.5)
 end
 
-function Mission:_clearTable()
-    GameTable:clearPlayArea()
+function Mission:_clearTable(extraGuidsToPreserve)
+    GameTable:clearPlayArea(extraGuidsToPreserve)
     GameTable:clearBattleCards()
     for seatName,_ in pairs(self.PlayerSeats) do
         local playerSeat = PlayerSeats[seatName]

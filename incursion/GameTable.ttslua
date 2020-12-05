@@ -1,5 +1,6 @@
 local PlayerSeats = require("incursion.config.PlayerSeats")
 local ScriptingZone = require("incursion.tts_api.util.ScriptingZone")
+local Table = require("incursion.util.Table")
 
 
 local GameTable = {}
@@ -32,13 +33,14 @@ GameTable._BattleCardDeck = {
     }),
 }
 
-function GameTable:clearPlayArea()
-    local extraGuidsToPreserve = {}
+function GameTable:clearPlayArea(extraGuidsToPreserve)
+    local extraGuidsToPreserve = extraGuidsToPreserve or {}
+    local _extraGuidsToPreserve = Table.shallowCopyDict(extraGuidsToPreserve)
     for _,playerSeat in pairs(PlayerSeats) do
-        extraGuidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
+        _extraGuidsToPreserve[playerSeat.State.ActiveFactionReferenceSheetGuid] = ""
     end
 
-    self._PlayArea.ScriptingZone:clearZone({extraGuidsToPreserve=extraGuidsToPreserve})
+    self._PlayArea.ScriptingZone:clearZone({extraGuidsToPreserve=_extraGuidsToPreserve})
 end
 
 function GameTable:clearBattleCards()

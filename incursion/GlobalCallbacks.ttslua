@@ -5,7 +5,6 @@ This file exposes functions which may be called by other game objects through:
     https://api.tabletopsimulator.com/object/#call
     https://api.tabletopsimulator.com/object/#createbutton
 ]]
-local GameTable = require("incursion.GameTable")
 local MissionRunner = require("incursion.MissionRunner")
 
 -- Forward declarations:
@@ -26,5 +25,6 @@ end
 
 function PlayMission(args)
     local missionName = args.missionName
-    MissionRunner.playMission(missionName)
+    local extraGuidsToPreserve = args.extraGuidsToPreserve
+    MissionRunner.playMission(missionName, extraGuidsToPreserve)
 end

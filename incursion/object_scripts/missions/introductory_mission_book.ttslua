@@ -1,0 +1,103 @@
+require("incursion.object_scripts.missions.mission_book")
+local Object = require("incursion.tts_api.extension.Object")
+
+MISSION_BOOK = MissionBooks.Core
+
+
+--[[
+When the player clicks "Play Mission" from the oversized introductory rulebook,
+we move it over to the side and make a copy for the Axis player.
+
+Otherwise, the oversized rulebook would be stuck inside the map, or would get deleted.
+]]
+local _old_onLoad = onLoad
+local _old_onClick_playMission = _onClick_playMission
+
+local OVERSIDED_BOOK_GUIDS = {
+    '437a76', -- Recon
+    '352e9d', -- The Story So Far
+}
+
+local NEW_TRANSFORM = {
+    Allies = {
+        Position = {36.25, 0.96, -10.25},
+        Rotation = {0.00, 180.00, 0.00},
+    },
+    Axis = {
+        Position = {36.25, 0.96, 10.25},
+        Rotation = {0.00, 0.00, 0.00},
+    },
+}
+
+function onLoad(savedJson)
+    local savedData
+    if savedJson == "" or savedJson == nil then
+        -- Default values:
+        savedData = {
+            MyPlayerSeat = "Allies"
+        }
+    else
+        savedData = JSON.decode(savedJson)
+    end
+
+    -- Must be a Global var so it can be set via obj.setVar() from another object's script:
+    MY_PLAYER_SEAT = savedData.MyPlayerSeat
+
+    _old_onLoad(savedJson)
+end
+
+function onSave()
+    local dataToSave = {
+        MyPlayerSeat = MY_PLAYER_SEAT,
+    }
+
+    return JSON.encode_pretty(dataToSave)
+end
+
+function _onClick_playMission()
+    _setGuidsToPreserve()
+    _deleteOtherIntroBook()
+    _moveSelfToPosition()
+    Wait.time(_old_onClick_playMission, 1)
+    Wait.time(_makeClone, 1.2)
+end
+
+function _setGuidsToPreserve()
+    -- We have to call this inside a function to ensure the GUID is up to date.
+    -- When we clone an object, the GUID is identical to the parent for 1 frame.
+    EXTRA_GUIDS_TO_PRESERVE = {
+        [self.getGUID()] = '',
+    }
+end
+
+function _deleteOtherIntroBook()
+    for _,guid in ipairs(OVERSIDED_BOOK_GUIDS) do
+        if guid ~= self.getGUID() then
+            local otherIntroBook = getObjectFromGUID(guid)
+            Object.tryDestroy(otherIntroBook)
+        end
+    end
+end
+
+function _moveSelfToPosition()
+    local collide = false
+    local fast = false
+    self.setPositionSmooth(NEW_TRANSFORM[MY_PLAYER_SEAT].Position, collide, fast)
+    self.setRotationSmooth(NEW_TRANSFORM[MY_PLAYER_SEAT].Rotation, collide, fast)
+end
+
+function _makeClone()
+    local playerSeat = _getOtherPlayerSeat()
+    local clone = self.clone({position = NEW_TRANSFORM[playerSeat].Position})
+    clone.setPosition(NEW_TRANSFORM[playerSeat].Position) -- Ensure object goes to right position, without this is appears above the destination position in clone()
+    clone.setRotation(NEW_TRANSFORM[playerSeat].Rotation)
+    Wait.frames(function() clone.setVar("MY_PLAYER_SEAT", playerSeat) end, 1)
+end
+
+function _getOtherPlayerSeat()
+    if MY_PLAYER_SEAT == "Allies" then
+        return "Axis"
+    else
+        return "Allies"
+    end
+end

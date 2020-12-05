@@ -14,6 +14,7 @@ Factions = require("incursion.config.Factions")
 Avatars = require("incursion.config.Avatars")
 VictoryPoints = require("incursion.config.VictoryPoints")
 MissionInfiniteBags = require("incursion.config.MissionInfiniteBags")
+GameTable = require("incursion.GameTable")
 
 
 function CreateSavedState()
@@ -40,21 +41,27 @@ function onLoad(savedJson)
 end
 
 function _disableInteractivity()
-    for _,guid in ipairs(_getGuidsToFreeze()) do
-        local obj = getObjectFromGUID(guid)
-        obj.interactable = false
-        obj.tooltip = false
+    for _,guid in ipairs(_getGuidsOnTable()) do
+        _tryFreeze(guid)
     end
 
     for _,guid in ipairs(_getGuidsUnderTable()) do
-        local obj = getObjectFromGUID(guid)
-        obj.interactable = false
-        obj.tooltip = false
+        _tryFreeze(guid)
     end
 end
 
-function _getGuidsToFreeze()
-    return {
+function _tryFreeze(guid)
+    local obj = getObjectFromGUID(guid)
+    if obj then
+        obj.interactable = false
+        obj.tooltip = false
+    else
+        log("_tryFreeze(guid): Object does not exist, will not freeze GUID: "..tostring(guid))
+    end
+end
+
+function _getGuidsOnTable()
+    local guidsToFreeze = {
         'd02800', -- Avatar: Slugger Murphy
         '8e23de', -- Avatar: Gretel
         'a13d1f', -- Table
@@ -62,33 +69,15 @@ function _getGuidsToFreeze()
         '3161c7', -- Left Table Sleeve Divider
         '2b1761', -- Right Table Sleeve
         'fb5e0f', -- Right Table Sleeve Divider
-        -- Allied Model Card Pegs (left to right):
-        -- Vertical:
-        'c536c8',
-        '9a99b8',
-        'e10b80',
-        'caf59a',
-        '03b5f2',
-        -- Horizontal:
-        'a475fc',
-        '585e96',
-        '4182a1',
-        '9dbc70',
-        '1007b7',
-        -- Axis Model Card Pegs:
-        -- Vertical:
-        'afa81b',
-        'bfae0f',
-        'd809dc',
-        'f19669',
-        '59e868',
-        -- Horizontal:
-        'fa8d97',
-        '5c40e7',
-        '160051',
-        'ed6d94',
-        '7aa6b1',
     }
+
+    for _,playerSeat in pairs(PlayerSeats) do
+        for guid,_ in ipairs(playerSeat.ScriptingZones.ModelCards.GuidsToPreserve) do
+            table.insert(guidsToFreeze, guid)
+        end
+    end
+
+    return guidsToFreeze
 end
 
 function _getGuidsUnderTable()

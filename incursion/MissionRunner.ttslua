@@ -18,7 +18,7 @@ local MissionRunner = {}
 
 local BAG_WITH_ALL_MEMORY_BAGS = '190fc9'
 
-function MissionRunner.playMission(missionName)
+function MissionRunner.playMission(missionName, extraGuidsToPreserve)
     local myMission = Mission(Missions[missionName])
     local bag = getObjectFromGUID(BAG_WITH_ALL_MEMORY_BAGS)
 
@@ -27,7 +27,10 @@ function MissionRunner.playMission(missionName)
         spawnedObj.setLock(true)
         -- Wait 1 frame so the spawned object's GUID changes to it's final value.
         -- The GUID changes since it shares it's GUID with the cloned object, and the spawned object is always the one to have it's GUID changed.
-        Wait.frames(function() myMission:setup(spawnedObj) end, 1)
+        Wait.frames(function() myMission:setup({
+            memoryBagObj=spawnedObj,
+            extraGuidsToPreserve=extraGuidsToPreserve,
+        }) end, 1)
         Wait.frames(function() Object.tryDestroy(spawnedObj) end, 2)
     end
 

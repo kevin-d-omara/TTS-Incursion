@@ -40,7 +40,7 @@ print(myTable)
 -- {1, 2, 3, 4, 5}
 ]]
 function Table.shuffle(input)
-    local copy = Table.shallowCopy(input)
+    local copy = Table.shallowCopyArray(input)
     for index = #copy, 1, -1 do
         local randomIndex = math.random(index)
         copy[index], copy[randomIndex] = copy[randomIndex], copy[index]
@@ -48,8 +48,17 @@ function Table.shuffle(input)
     return copy
 end
 
-function Table.shallowCopy(tbl)
+function Table.shallowCopyArray(tbl)
     return {table.unpack(tbl)}
 end
+
+function Table.shallowCopyDict(tbl)
+    local copy = {}
+    for k,v in pairs(tbl) do
+        copy[k] = v
+    end
+    return copy
+end
+
 
 return Table

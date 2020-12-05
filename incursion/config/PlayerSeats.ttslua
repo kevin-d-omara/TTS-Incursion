@@ -20,6 +20,19 @@ return {
                 ZoneGuid = '4ae9c9',
                 GuidsToPreserve = {
                     ['c8eb22'] = "Metal Table Extension",
+                    -- Pegs (left to right):
+                    -- Vertical:
+                    ['c536c8'] = '',
+                    ['9a99b8'] = '',
+                    ['e10b80'] = '',
+                    ['caf59a'] = '',
+                    ['03b5f2'] = '',
+                    -- Horizontal:
+                    ['a475fc'] = '',
+                    ['585e96'] = '',
+                    ['4182a1'] = '',
+                    ['9dbc70'] = '',
+                    ['1007b7'] = '',
                 },
             }),
         },
@@ -96,6 +109,19 @@ return {
                 ZoneGuid = '2480df',
                 GuidsToPreserve = {
                     ['0c174b'] = "Metal Table Extension",
+                    -- Pegs (left to right):
+                    -- Vertical:
+                    ['afa81b'] = '',
+                    ['bfae0f'] = '',
+                    ['d809dc'] = '',
+                    ['f19669'] = '',
+                    ['59e868'] = '',
+                    -- Horizontal:
+                    ['fa8d97'] = '',
+                    ['5c40e7'] = '',
+                    ['160051'] = '',
+                    ['ed6d94'] = '',
+                    ['7aa6b1'] = '',
                 },
             }),
         },

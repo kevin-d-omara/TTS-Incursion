@@ -7,6 +7,7 @@ MissionBooks = require("incursion.config.missions.MissionBooks")
 
 -- Values to be set in user script:
 MISSION_BOOK = nil
+EXTRA_GUIDS_TO_PRESERVE = {} -- HashSet<str>, set of GUIDs to preserve when clearing the table
 --==============================================================================
 
 
@@ -66,6 +67,7 @@ function _onClick_playMission()
     -- We have to call this on Global since Global maintains the "Singleton" config objects, which get mutated by some missions (they are hacks).
     Global.call("PlayMission", {
         missionName=missionName,
+        extraGuidsToPreserve=EXTRA_GUIDS_TO_PRESERVE,
     })
 end
 
