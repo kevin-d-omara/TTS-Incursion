@@ -1,0 +1,74 @@
+local UIx = require("incursion.tts_api.extension.UIx")
+local Missions = require("incursion.config.Missions")
+local Mission = require("incursion.Mission")
+
+
+--==============================================================================
+-- Global variables exposed for use in user script:
+MissionBooks = require("incursion.config.missions.MissionBooks")
+
+-- Values to be set in user script:
+MISSION_BOOK = nil
+--==============================================================================
+
+
+local ROOT_ELEMENT_ID = "RootElementId"
+
+function onLoad()
+    local scale = UIx.getTextScaleTbl(self)
+    self.UI.setXmlTable({
+        {
+            tag="VerticalLayout",
+            attributes={
+                id=ROOT_ELEMENT_ID,
+                active=false,
+
+                spacing=20,
+                position="0 230 -22",
+                rotation="0 0 180",
+                height=scale.x*400,
+                width=scale.z*800,
+            },
+            children={
+                {
+                    tag="Button",
+                    attributes={
+                        text="Play Mission",
+                        fontSize="45",
+                        fontStyle="Bold",
+                        scale=UIx.getTextScale(self),
+                        onClick="_onClick_playMission",
+                    }
+                }
+            },
+        },
+    })
+
+    Wait.frames(_updateButtonVisibility, 1)
+end
+
+function onPageChange()
+    _updateButtonVisibility()
+end
+
+function _updateButtonVisibility()
+    local currentPage = self.Book.getPage(true)
+    local missionName = MISSION_BOOK.PageToMissionName[currentPage]
+
+    if missionName then
+        self.UI.setAttribute(ROOT_ELEMENT_ID, "active", "true")
+    else
+        self.UI.setAttribute(ROOT_ELEMENT_ID, "active", "false")
+    end
+end
+
+function _onClick_playMission()
+    local currentPage = self.Book.getPage(true)
+    local missionName = MISSION_BOOK.PageToMissionName[currentPage]
+    _playMission(missionName)
+end
+
+function _playMission(missionName)
+    local myMission = Mission(Missions[missionName])
+    myMission:setup()
+end
