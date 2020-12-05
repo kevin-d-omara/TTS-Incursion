@@ -11,13 +11,11 @@ Mission.DEFAULT_BATTLE_CARD_DECK_INFINITE_BAG_GUID = 'd3cde6'
 Mission.DEFAULT_BROADCAST_FLAVORTEXT_TINT = Color.White
 
 Mission.DELAY_BEFORE_CALLING_POST_SETUP_CALLBACK = 0.5 -- Gives some time for the CPs to settle.
-Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE = 3.5 -- This includes waiting for the deck to shuffle and the CPs to stop moving.
-Mission.TIME_IT_TAKES_FOR_SETUP_WITH_NO_DECK_TO_COMPLETE = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE - 1.2
+Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE = 2.1 -- This includes waiting for the deck to shuffle and the CPs to stop moving.
+Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE_WITH_NO_CARDS_IN_HAND = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE - 0.5
 
 --[[
 Enhancements:
-* Print name of mission after setup(). Optionally print fluff like "COMMANDOS... WE ARE LEAVING!"
-    * See if I can set the fade time for the broadcast. Take inspiration from Spirit Island.
 * If only one player in room, force them into color/seat for Solo scenarios.
 * Add override to make PlayerSeat be a specific faction.
     * For example, "Let The Mecha In" always uses MI-13 for the Allies.
@@ -72,13 +70,16 @@ function Mission:_postSetup()
 
     local broadcastDelay = self.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE
     if self:_zeroBattleCards() then
-        broadcastDelay = self.TIME_IT_TAKES_FOR_SETUP_WITH_NO_DECK_TO_COMPLETE
+        broadcastDelay = self.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE_WITH_NO_CARDS_IN_HAND
     end
+    log("broadcastDelay: "..tostring(broadcastDelay))
 
     if self.PostSetupCallback then
+        log("PostSetupCallback")
         Wait.time(function() self.PostSetupCallback() end, self.DELAY_BEFORE_CALLING_POST_SETUP_CALLBACK)
         Wait.time(function() self:_broadcastTitleAndFlavorText() end, self.BroadcastDelayAfterPostSetupCallback + broadcastDelay)
     else
+        log("NO PostSetupCallback")
         Wait.time(function() self:_broadcastTitleAndFlavorText() end, broadcastDelay)
     end
 end
@@ -122,7 +123,7 @@ end
 
 function Mission:_broadcastTitleAndFlavorText()
     Wait.time(function() self:_broadcastTitle() end, 0)
-    Wait.time(function() self:_broadcastFlavorText() end, Broadcast.MESSAGE_FADE_TIME)
+    Wait.time(function() self:_broadcastFlavorText() end, Broadcast.MESSAGE_FADE_TIME_FOR_CHAINED_MESSAGES)
 end
 
 function Mission:_broadcastTitle()
@@ -135,9 +136,8 @@ function Mission:_broadcastFlavorText()
     if self.BroadcastFlavorText then
         -- Broadcast in reverse order, because the most recent message goes to the top of the screen.
         for i=#self.BroadcastFlavorText,1,-1 do
-            local payload = self.BroadcastFlavorText[i]
-            local tint = payload.Tint or DEFAULT_BROADCAST_FLAVORTEXT_TINT
-            broadcastToAll(payload.Message, tint)
+            local message = self.BroadcastFlavorText[i]
+            broadcastToAll(message, DEFAULT_BROADCAST_FLAVORTEXT_TINT)
         end
     end
 end

@@ -3,4 +3,7 @@ local Broadcast = {}
 -- This is roughly the amount of time it takes before a message from broadcastToAll() has completed faded from the screen.
 Broadcast.MESSAGE_FADE_TIME = 3.25
 
+-- Use this delay before broadcasting another message if you want the messages to be related (ex: the mission's title followed by some flavor text).
+Broadcast.MESSAGE_FADE_TIME_FOR_CHAINED_MESSAGES = Broadcast.MESSAGE_FADE_TIME - 0.5
+
 return Broadcast

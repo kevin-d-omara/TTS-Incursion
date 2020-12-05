@@ -10,6 +10,7 @@ return {
     -- Core Missions
     ["Recon"] = {
         MemoryBagGuid = 'e77899',
+        BroadcastTitle = "Recon",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -21,6 +22,7 @@ return {
     },
     ["Incursion"] = {
         MemoryBagGuid = 'f8a431',
+        BroadcastTitle = "Incursion",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -32,6 +34,7 @@ return {
     },
     ["Pinger Raid"] = {
         MemoryBagGuid = '7fb768',
+        BroadcastTitle = "Pinger Raid",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 10,
@@ -43,6 +46,7 @@ return {
     },
     ["Twitcher"] = {
         MemoryBagGuid = '922264',
+        BroadcastTitle = "Twitcher",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -94,6 +98,7 @@ return {
     },
     ["Behind Enemy Lines"] = {
         MemoryBagGuid = 'f71a71',
+        BroadcastTitle = "Behind Enemy Lines",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -105,6 +110,7 @@ return {
     },
     ["AC/DC"] = {
         MemoryBagGuid = '3a62e1',
+        BroadcastTitle = "AC/DC",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 22,
@@ -116,6 +122,7 @@ return {
     },
     ["Doomsday"] = {
         MemoryBagGuid = 'fa28c5',
+        BroadcastTitle = "Doomsday",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
@@ -129,6 +136,7 @@ return {
     -- SNAFU Missions
     ["Shell Game"] = {
         MemoryBagGuid = '80b1d3',
+        BroadcastTitle = "Shell Game",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -140,6 +148,7 @@ return {
     },
     ["Go Down Bloody"] = {
         MemoryBagGuid = '442e1c',
+        BroadcastTitle = "Go Down Bloody",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -151,6 +160,7 @@ return {
     },
     ["Things That Go Boom In The Night"] = {
         MemoryBagGuid = '442e1c',
+        BroadcastTitle = "Things That Go Boom In The Night",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 16,
@@ -162,6 +172,7 @@ return {
     },
     ["Hit The Button"] = {
         MemoryBagGuid = 'dc9d23',
+        BroadcastTitle = "Hit The Button",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -173,6 +184,7 @@ return {
     },
     ["The Blitz"] = {
         MemoryBagGuid = 'ad072c',
+        BroadcastTitle = "The Blitz",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 13,
@@ -188,12 +200,7 @@ return {
         MemoryBagGuid = 'fc5a15',
         BroadcastTitle = "Exfiltration",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"COMMANDOS... WE ARE LEAVING!\"[/i]",
-            },
-            {
-                Message = "— [b]Corporal Ridley[/b]",
-            },
+            "[i]\"COMMANDOS... WE ARE LEAVING!\"[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -206,6 +213,7 @@ return {
     },
     ["Let The Mecha In"] = {
         MemoryBagGuid = '0c1f31',
+        BroadcastTitle = "Let The Mecha In",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 11, -- Special mission rules: CP and BattleCards come from 11 RP instead of full 18 RP.
@@ -236,6 +244,7 @@ return {
     },
     ["The Special Relationship"] = {
         MemoryBagGuid = '43b918',
+        BroadcastTitle = "The Special Relationship",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 8,
@@ -247,6 +256,7 @@ return {
     },
     ["Make It Glow"] = {
         MemoryBagGuid = 'ec3358',
+        BroadcastTitle = "Make It Glow",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
@@ -260,12 +270,8 @@ return {
         MemoryBagGuid = '9f61cb',
         BroadcastTitle = "All That Glitters",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"I didn't come all this way just to let some Yank swipe my retirement.[/i]",
-            },
-            {
-                Message = "[i]If they get in the way, we take care of them too.\"[/i]",
-            },
+            "[i]\"I didn't come all this way just to let some Yank swipe my retirement.[/i]",
+            "[i]If they get in the way, we take care of them too.\"[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -375,6 +381,7 @@ return {
     },
     ["Hold The Line"] = {
         MemoryBagGuid = 'faa800',
+        BroadcastTitle = "Hold The Line",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -386,6 +393,7 @@ return {
     },
     ["The Hive"] = {
         MemoryBagGuid = '52c523',
+        BroadcastTitle = "The Hive",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 24,
@@ -399,18 +407,10 @@ return {
         MemoryBagGuid = 'ce9dab',
         BroadcastTitle = "Zombie Country",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"Did you just hear something?[/i]",
-            },
-            {
-                Message = "[i]A kinda whirring, ticking noise? No?[/i]",
-            },
-            {
-                Message = "[i]Okay, you can take point.\"[/i]",
-            },
-            {
-                Message = "— [b]Private 'Spook' Venkman[/b]",
-            },
+            "[i]\"Did you just hear something?[/i]",
+            "[i]A kinda whirring, ticking noise? No?[/i]",
+            "[i]Okay, you can take point.\"[/i]",
+            "— [b]Private 'Spook' Venkman[/b]",
         },
         PlayerSeats = {
             Allies = {
@@ -460,12 +460,8 @@ return {
         MemoryBagGuid = '9a8e21',
         BroadcastTitle = "Unstoppable",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"I don't think he wants to play ball...\"[/i]",
-            },
-            {
-                Message = "— [b]Sergeant 'Hammer' Greenberg[/b]",
-            },
+            "[i]\"I don't think he wants to play ball...\"[/i]",
+            "— [b]Sergeant 'Hammer' Greenberg[/b]",
         },
         PlayerSeats = {
             Allies = {
@@ -483,12 +479,8 @@ return {
         MemoryBagGuid = '2c5c5e',
         BroadcastTitle = "Sisterly Love",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"How dare they. HOW DARE THEY!!\"[/i]",
-            },
-            {
-                Message = "— [b]Ilsa Von X[/b]",
-            },
+            "[i]\"How dare they. HOW DARE THEY!!\"[/i]",
+            "— [b]Ilsa Von X[/b]",
         },
         PlayerSeats = {
             Allies = {
@@ -506,15 +498,9 @@ return {
         MemoryBagGuid = 'edea36',
         BroadcastTitle = "The Killing Jar",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"You're in my jar now, little caterpillars.[/i]",
-            },
-            {
-                Message = "[i]And I am so looking forward to what you'll become\"[/i]",
-            },
-            {
-                Message = "— [b]Ilsa Von X[/b]",
-            },
+            "[i]\"You're in my jar now, little caterpillars.[/i]",
+            "[i]And I am so looking forward to what you'll become\"[/i]",
+            "— [b]Ilsa Von X[/b]",
         },
         PlayerSeats = {
             Allies = {
@@ -531,9 +517,7 @@ return {
         MemoryBagGuid = 'd0b6e1',
         BroadcastTitle = "No More Noise",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"Can't let the Jerries hear we're coming, can we?\"[/i]",
-            },
+            "[i]\"Can't let the Jerries hear we're coming, can we?\"[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -550,12 +534,8 @@ return {
         MemoryBagGuid = 'f85dc4',
         BroadcastTitle = "The Guns of Gibraltar",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"You need to clear the machines out — quickly,[/i]",
-            },
-            {
-                Message = "[i]before the SWD executes whatever scheme it's cooking up.\"[/i]",
-            },
+            "[i]\"You need to clear the machines out — quickly,[/i]",
+            "[i]before the SWD executes whatever scheme it's cooking up.\"[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -572,6 +552,10 @@ return {
     -- Assets Missions
     ["Eye-To-Eye At Armageddon"] = {
         MemoryBagGuid = '43b2aa',
+        BroadcastTitle = "Eye-To-Eye At Armageddon",
+        BroadcastFlavorText = {
+            "[i]As the doomsday device ticks down, the halls of Gibraltar become a meat grinder.[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 24,
@@ -583,6 +567,7 @@ return {
     },
     ["Tick Tick"] = {
         MemoryBagGuid = 'dbf06e',
+        BroadcastTitle = "Tick Tick",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -610,14 +595,10 @@ return {
         MemoryBagGuid = '4dcf5f',
         BroadcastTitle = "Tricked And Trapped",
         BroadcastFlavorText = {
-            {
-                Message = "[i]\"I've been in worse situations... I think\"[/i]",
-            },
-            {
-                Message = "— [b]APE 'Hotshot' Hoolahan[/b]",
-            },
+            "[i]\"I've been in worse situations... I think\"[/i]",
+            "— [b]APE 'Hotshot' Hoolahan[/b]",
         },
-        BroadcastDelayAfterPostSetupCallback = 1.5, -- Give time for the Sturmzombies to be deployed.
+        BroadcastDelayAfterPostSetupCallback = 1.8, -- Give time for the Sturmzombies to be deployed.
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -678,15 +659,9 @@ return {
         MemoryBagGuid = '9cd262',
         BroadcastTitle = "A Morning Stroll",
         BroadcastFlavorText = {
-            {
-                Message = "[i]Two APEs on a stroll in Gibraltar can attract all[/i]",
-            },
-            {
-                Message = "[i]kinds of attention, even when they’re just going to[/i]",
-            },
-            {
-                Message = "[i]turn the lights on.[/i]",
-            },
+            "[i]Two APEs on a stroll in Gibraltar can attract all[/i]",
+            "[i]kinds of attention, even when they’re just going to[/i]",
+            "[i]turn the lights on.[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -701,6 +676,7 @@ return {
     },
     ["Securing Intel"] = {
         MemoryBagGuid = '7e6cf1',
+        BroadcastTitle = "Securing Intel",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 16,
@@ -712,6 +688,7 @@ return {
     },
     ["Onward To Victory"] = {
         MemoryBagGuid = '5877e6',
+        BroadcastTitle = "Onward To Victory",
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
