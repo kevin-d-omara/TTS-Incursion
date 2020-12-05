@@ -6,6 +6,7 @@ This file exposes functions which may be called by other game objects through:
     https://api.tabletopsimulator.com/object/#createbutton
 ]]
 local GameTable = require("incursion.GameTable")
+local MissionRunner = require("incursion.MissionRunner")
 
 -- Forward declarations:
 local _clearPlayArea
@@ -21,4 +22,9 @@ function _clearPlayArea(playerClickerColor)
     -- Messages are displayed in reverse order:
     broadcastToAll("Player " .. tostring(playerClickerColor), playerClickerColor)
     broadcastToAll("Play Area Cleared by:", Color.Yellow)
+end
+
+function PlayMission(args)
+    local missionName = args.missionName
+    MissionRunner.playMission(missionName)
 end

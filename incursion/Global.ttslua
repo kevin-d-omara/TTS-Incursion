@@ -3,6 +3,7 @@ local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 local SaveState = require("incursion.tts_api.util.SaveState")
 local Math = require("incursion.util.Math")
 
+
 -- Configs are global vars (instead of local) so they can be mutated by other scripts.
 -- Think of these like Singleton objects in C#/Java.
 -- This is bad programming, we shouldn't be mutating global variables in random scripts.
@@ -36,28 +37,6 @@ function onLoad(savedJson)
     Math.initializeRandomSeed()
     SavedState:onLoad(savedJson)
     _disableInteractivity()
-
-    -- Wait.time(function() testPlaceMission("Zombie Country") end, 3)
-    -- Wait.time(function() testPlaceMission("Unstoppable") end, 3)
-    -- Wait.time(function() testPlaceMission("Tricked And Trapped") end, 3)
-    -- Wait.time(function() testPlaceMission("A Morning Stroll") end, 3)
-    -- Wait.time(function() testPlaceMission("No Guts, No Glory") end, 3)
-    -- Wait.time(function() testPlaceMission("When The Tide Is High") end, 3)
-    -- Wait.time(function() testPlaceMission("Exfiltration") end, 3)
-    -- Wait.time(function() testPlaceMission("All That Glitters") end, 3)
-
-    -- Wait.time(function() testPlaceMission("Recon") end, 2)
-    -- Wait.time(function() testPlaceMission("Twitcher") end, 8)
-    -- Wait.time(function() testPlaceMission("Go Down Bloody") end, 14)
-    -- Wait.time(function() testPlaceMission("Tick Tick") end, 20)
-end
-
-function testPlaceMission(missionName)
-    local Missions = require("incursion.config.Missions")
-    local Mission = require("incursion.Mission")
-
-    local myMission = Mission(Missions[missionName])
-    myMission:setup()
 end
 
 function _disableInteractivity()
