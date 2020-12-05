@@ -10,7 +10,7 @@ function spawnSturmzombies()
     SPAWNER:RandomlySpawn(NUM_STURMZOMBIES_TO_SPAWN, getObjectFromGUID(INFINITE_BAG_GUID))
 end
 
-function onLoad(savedJson)
+function onLoad()
     local scale = UIx.getTextScaleTbl(self)
     self.UI.setXmlTable({
         {

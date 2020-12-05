@@ -30,17 +30,21 @@ function Spawner:RandomlySpawn(numModels, infiniteBag)
         spawnCount[location] = count
 
         local function spawnModel()
-            infiniteBag.takeObject({
-                position          = location.Positions[count],
-                rotation          = location.Rotation,
-                smooth            = true,
-                index             = 0,
-            })
+            self:SpawnModel(infiniteBag, location.Positions[count], location.Rotation)
         end
 
         Wait.time(spawnModel, delay)
         delay = delay + self.SpawnDelay
     end
+end
+
+function Spawner:SpawnModel(infiniteBag, position, rotation)
+    infiniteBag.takeObject({
+        position          = position,
+        rotation          = rotation,
+        smooth            = true,
+        index             = 0,
+    })
 end
 
 return Spawner

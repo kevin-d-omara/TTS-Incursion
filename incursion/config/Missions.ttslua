@@ -503,7 +503,19 @@ return {
         BattleCardDeckInfiniteBagGuid = 'e0511f',
     },
     ["The Killing Jar"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'edea36',
+        BroadcastTitle = "The Killing Jar",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"You're in my jar now, little caterpillars.[/i]",
+            },
+            {
+                Message = "[i]And I am so looking forward to what you'll become\"[/i]",
+            },
+            {
+                Message = "— [b]Ilsa Von X[/b]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -516,7 +528,13 @@ return {
         BattleCardDeckInfiniteBagGuid = '61f667',
     },
     ["No More Noise"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'd0b6e1',
+        BroadcastTitle = "No More Noise",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"Can't let the Jerries hear we're coming, can we?\"[/i]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 10,
@@ -529,7 +547,16 @@ return {
         BattleCardDeckInfiniteBagGuid = '78b13b',
     },
     ["The Guns of Gibraltar"] = {
-        MemoryBagGuid = '',
+        MemoryBagGuid = 'f85dc4',
+        BroadcastTitle = "The Guns of Gibraltar",
+        BroadcastFlavorText = {
+            {
+                Message = "[i]\"You need to clear the machines out — quickly,[/i]",
+            },
+            {
+                Message = "[i]before the SWD executes whatever scheme it's cooking up.\"[/i]",
+            },
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 11,
