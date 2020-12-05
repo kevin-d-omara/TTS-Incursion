@@ -51,7 +51,7 @@ function GameTable:spawnBattleCards(infiniteBagGuid, callback)
         position          = self._BattleCardDeck.Position,
         rotation          = self._BattleCardDeck.Rotation,
         callback_function = callback,
-        smooth            = true,
+        smooth            = false,
         index             = 0,
     })
 end
