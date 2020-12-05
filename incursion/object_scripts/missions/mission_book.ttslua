@@ -15,7 +15,7 @@ MISSION_BOOK = nil
 local ROOT_ELEMENT_ID = "RootElementId"
 
 function onLoad()
-    local scale = UIx.getTextScaleTbl(self)
+    local scaleMultiplier = _getScaleMultiplier(self)
     self.UI.setXmlTable({
         {
             tag="VerticalLayout",
@@ -24,17 +24,17 @@ function onLoad()
                 active=false,
 
                 spacing=20,
-                position="0 230 -22",
+                position="0 220 -22",
                 rotation="0 0 180",
-                height=scale.x*400,
-                width=scale.z*800,
+                height=100*scaleMultiplier,
+                width=300*scaleMultiplier,
             },
             children={
                 {
                     tag="Button",
                     attributes={
                         text="Play Mission",
-                        fontSize="45",
+                        fontSize=tostring(math.floor(45*scaleMultiplier)),
                         fontStyle="Bold",
                         scale=UIx.getTextScale(self),
                         onClick="_onClick_playMission",
@@ -71,4 +71,12 @@ end
 function _playMission(missionName)
     local myMission = Mission(Missions[missionName])
     myMission:setup()
+end
+
+-- The goal is to maintain crisp text, even when the object (and therefore UI) are scaled up or down.
+-- The magic numbers correspond to the booklet PDF object. It might not scale properly for other UI elements.
+function _getScaleMultiplier(obj)
+    local scale = obj.getScale()
+    local maxComponent = math.max(scale.x, scale.y, scale.z)
+    return maxComponent - 1.8
 end
