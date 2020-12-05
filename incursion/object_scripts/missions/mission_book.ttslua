@@ -23,17 +23,17 @@ function onLoad()
                 active=false,
 
                 spacing=20,
-                position="0 220 -22",
+                position="0 240 -22",
                 rotation="0 0 180",
-                height=100*scaleMultiplier,
-                width=300*scaleMultiplier,
+                height=150*scaleMultiplier,
+                width=450*scaleMultiplier,
             },
             children={
                 {
                     tag="Button",
                     attributes={
                         text="Play Mission",
-                        fontSize=tostring(math.floor(45*scaleMultiplier)),
+                        fontSize=tostring(math.floor(60*scaleMultiplier)),
                         fontStyle="Bold",
                         scale=UIx.getTextScale(self),
                         onClick="_onClick_playMission",
@@ -72,5 +72,5 @@ end
 function _getScaleMultiplier(obj)
     local scale = obj.getScale()
     local maxComponent = math.max(scale.x, scale.y, scale.z)
-    return maxComponent - 1.8
+    return 0.3311258*maxComponent + 0.072848
 end
