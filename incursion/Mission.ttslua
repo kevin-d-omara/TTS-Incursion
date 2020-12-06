@@ -72,14 +72,11 @@ function Mission:_postSetup()
     if self:_zeroBattleCards() then
         broadcastDelay = self.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE_WITH_NO_CARDS_IN_HAND
     end
-    log("broadcastDelay: "..tostring(broadcastDelay))
 
     if self.PostSetupCallback then
-        log("PostSetupCallback")
         Wait.time(function() self.PostSetupCallback() end, self.DELAY_BEFORE_CALLING_POST_SETUP_CALLBACK)
         Wait.time(function() self:_broadcastTitleAndFlavorText() end, self.BroadcastDelayAfterPostSetupCallback + broadcastDelay)
     else
-        log("NO PostSetupCallback")
         Wait.time(function() self:_broadcastTitleAndFlavorText() end, broadcastDelay)
     end
 end

@@ -10,7 +10,11 @@ return {
     -- Core Missions
     ["Recon"] = {
         MemoryBagGuid = 'e77899',
-        BroadcastTitle = "Recon",
+        BroadcastTitle = "Mission 1: Recon",
+        BroadcastFlavorText = {
+            "[i]\"on me, ON ME, we got ZEDS!!!\"[/i]",
+            "— Corporal Vince Moretti",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 6,
@@ -22,7 +26,10 @@ return {
     },
     ["Incursion"] = {
         MemoryBagGuid = 'f8a431',
-        BroadcastTitle = "Incursion",
+        BroadcastTitle = "Mission 2: Incursion",
+        BroadcastFlavorText = {
+            "[i]Assault teams are deployed to establish a perimeter.[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -34,7 +41,10 @@ return {
     },
     ["Pinger Raid"] = {
         MemoryBagGuid = '7fb768',
-        BroadcastTitle = "Pinger Raid",
+        BroadcastTitle = "Mission 3: Pinger Raid",
+        BroadcastFlavorText = {
+            "[i]Intel reports that a nearby position is transmitting coded signals.[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 10,
@@ -46,7 +56,10 @@ return {
     },
     ["Twitcher"] = {
         MemoryBagGuid = '922264',
-        BroadcastTitle = "Twitcher",
+        BroadcastTitle = "Mission 4: Twitcher",
+        BroadcastFlavorText = {
+            "[i]Both forces rush to recover precious material from the dead scientists.[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -98,7 +111,11 @@ return {
     },
     ["Behind Enemy Lines"] = {
         MemoryBagGuid = 'f71a71',
-        BroadcastTitle = "Behind Enemy Lines",
+        BroadcastTitle = "Mission 5: Behind Enemy Lines",
+        BroadcastFlavorText = {
+            "[i]\"Courage is being scared to death but saddling up anyway.\"[/i]",
+            "— Slugger Murphy",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -110,7 +127,10 @@ return {
     },
     ["AC/DC"] = {
         MemoryBagGuid = '3a62e1',
-        BroadcastTitle = "AC/DC",
+        BroadcastTitle = "Mission 6: AC/DC",
+        BroadcastFlavorText = {
+            "[i]Every trooper feels the clock ticking and the need to succeed is paramount[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 22,
@@ -122,7 +142,10 @@ return {
     },
     ["Doomsday"] = {
         MemoryBagGuid = 'fa28c5',
-        BroadcastTitle = "Doomsday",
+        BroadcastTitle = "Mission 7: Doomsday",
+        BroadcastFlavorText = {
+            "[i]The end is nigh. The fateful hour has arrived.[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
@@ -137,6 +160,9 @@ return {
     ["Shell Game"] = {
         MemoryBagGuid = '80b1d3',
         BroadcastTitle = "Shell Game",
+        BroadcastFlavorText = {
+            "[i]Enter the Bomberzombie pens and finish off their commander — Hans the Hunter.[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -157,10 +183,36 @@ return {
                 RequisitionPoints = 14,
             },
         },
+        PostSetupCallback = function()
+            local initialDelay = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + Broadcast.MESSAGE_FADE_TIME_FOR_CHAINED_MESSAGES
+            local interDelay = 2.6
+            local Sarge = Color.White
+            local Ape1 = Color.Green
+            local Ape2 = Color.Orange
+
+            -- Each message goes to the top of the UI, so some are in reverse order:
+            Wait.time(function() broadcastToAll("[i]\"Alright, everybody hold up.\"[/i]", Sarge) end, initialDelay)
+            Wait.time(function() broadcastToAll("[i]\"Murchinson, give me the damn map.\"[/i]", Sarge) end, initialDelay + interDelay)
+
+            Wait.time(function() broadcastToAll("[i]\"It says it's the way back to the surface, Sarge.\"[/i]", Ape1) end, initialDelay + interDelay*2 + 0.5)
+
+            Wait.time(function() broadcastToAll("[i]\"If this is the way back to the surface,\"[/i]", Ape2) end, initialDelay + interDelay*3 + 1.0)
+            Wait.time(function() broadcastToAll("[i]\"then why is the tunnel sloping down?\"[/i]", Ape2) end, initialDelay + interDelay*3 + 2.5)
+
+            Wait.time(function() broadcastToAll("[i]\"Shut up, you APEs, and let me think a minute.\"[/i]", Sarge) end, initialDelay + interDelay*4 + 3.5)
+
+            Wait.time(function() broadcastToAll("[i]\"Uh, Sarge, do you hear static? ... I hear static.\"[/i]", Ape1) end, initialDelay + interDelay*5 + 3.5)
+
+            Wait.time(function() broadcastToAll("[i]\"Aw, man, WE GOT HOWLERS!\"[/i]", Ape2) end, initialDelay + interDelay*6 + 3.5)
+        end,
     },
     ["Things That Go Boom In The Night"] = {
-        MemoryBagGuid = '442e1c',
+        MemoryBagGuid = '608e8d',
         BroadcastTitle = "Things That Go Boom In The Night",
+        BroadcastFlavorText = {
+            "[i]Can we just blow them up? The ceiling in there's not very solid.[/i]",
+            "— [b]Slugger Murphy[/b]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 16,
@@ -173,6 +225,9 @@ return {
     ["Hit The Button"] = {
         MemoryBagGuid = 'dc9d23',
         BroadcastTitle = "Hit The Button",
+        BroadcastFlavorText = {
+            "[i]So you want us to go in and hit the button...[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -185,6 +240,9 @@ return {
     ["The Blitz"] = {
         MemoryBagGuid = 'ad072c',
         BroadcastTitle = "The Blitz",
+        BroadcastFlavorText = {
+            "[i]And sometimes the Germans learn where one of the armories are ...[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 13,
@@ -214,6 +272,10 @@ return {
     ["Let The Mecha In"] = {
         MemoryBagGuid = '0c1f31',
         BroadcastTitle = "Let The Mecha In",
+        BroadcastFlavorText = {
+            "[i]\"Bet Gracie could get through it.\"[/i]",
+            "— [b]Paddy Mayne[/b]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 11, -- Special mission rules: CP and BattleCards come from 11 RP instead of full 18 RP.
@@ -245,6 +307,10 @@ return {
     ["The Special Relationship"] = {
         MemoryBagGuid = '43b918',
         BroadcastTitle = "The Special Relationship",
+        BroadcastFlavorText = {
+            "[i]\"I think we should pay the Germans back for your boys and mine.\"[/i]",
+            "— [b]Slugger Murphy[/b]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 8,
@@ -257,6 +323,10 @@ return {
     ["Make It Glow"] = {
         MemoryBagGuid = 'ec3358',
         BroadcastTitle = "Make It Glow",
+        BroadcastFlavorText = {
+            "[i]\"You think you have power? I control the very origins of life!\"[/i]",
+            "— Herr Doktor Hugo Von X",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,
@@ -270,8 +340,7 @@ return {
         MemoryBagGuid = '9f61cb',
         BroadcastTitle = "All That Glitters",
         BroadcastFlavorText = {
-            "[i]\"I didn't come all this way just to let some Yank swipe my retirement.[/i]",
-            "[i]If they get in the way, we take care of them too.\"[/i]",
+            "[i]\"If they get in the way, we take care of them too.\"[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -382,6 +451,9 @@ return {
     ["Hold The Line"] = {
         MemoryBagGuid = 'faa800',
         BroadcastTitle = "Hold The Line",
+        BroadcastFlavorText = {
+            "[i]\"SUGGEST YOU DIG IN AND HOLD YOUR GROUNT UNTIL REINFORCEMENTS CAN REACH YOUR POSITION.\"[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -394,6 +466,10 @@ return {
     ["The Hive"] = {
         MemoryBagGuid = '52c523',
         BroadcastTitle = "The Hive",
+        BroadcastFlavorText = {
+            "[i]\"Oh... that is sneaky. Quite rude in fact. Eliminate them.\"[/i]",
+            "— Gretel Von X",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 24,
@@ -407,9 +483,7 @@ return {
         MemoryBagGuid = 'ce9dab',
         BroadcastTitle = "Zombie Country",
         BroadcastFlavorText = {
-            "[i]\"Did you just hear something?[/i]",
-            "[i]A kinda whirring, ticking noise? No?[/i]",
-            "[i]Okay, you can take point.\"[/i]",
+            "[i]\"Did you just hear something? No? Okay, you can take point.\"[/i]",
             "— [b]Private 'Spook' Venkman[/b]",
         },
         PlayerSeats = {
@@ -534,8 +608,7 @@ return {
         MemoryBagGuid = 'f85dc4',
         BroadcastTitle = "The Guns of Gibraltar",
         BroadcastFlavorText = {
-            "[i]\"You need to clear the machines out — quickly,[/i]",
-            "[i]before the SWD executes whatever scheme it's cooking up.\"[/i]",
+            "[i]\"You need to clear the machines out — quickly.\"[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -568,6 +641,10 @@ return {
     ["Tick Tick"] = {
         MemoryBagGuid = 'dbf06e',
         BroadcastTitle = "Tick Tick",
+        BroadcastFlavorText = {
+            "[i]\"Behold! Look upon the magnificence of my creations!\"[/i]",
+            "— Herr Doktor Hugo Von X",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 19,
@@ -582,6 +659,10 @@ return {
     ["When The Tide Is High"] = {
         MemoryBagGuid = '546d7e',
         BroadcastTitle = "When The Tide Is High",
+        BroadcastFlavorText = {
+            "[i]\"If you can't get in quietly, make it messy.\"[/i]",
+            "— Jonny Bigs, Commando MI-13",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 15,
@@ -677,6 +758,10 @@ return {
     ["Securing Intel"] = {
         MemoryBagGuid = '7e6cf1',
         BroadcastTitle = "Securing Intel",
+        BroadcastFlavorText = {
+            "[i]\"Our enemies understand the inevitability of their demise.\"[/i]",
+            "— Drop Trooper Hartmann",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 16,
@@ -689,6 +774,9 @@ return {
     ["Onward To Victory"] = {
         MemoryBagGuid = '5877e6',
         BroadcastTitle = "Onward To Victory",
+        BroadcastFlavorText = {
+            "[i]\"The time has come to push our foes off of Gibraltar. Onward!\"[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 26,

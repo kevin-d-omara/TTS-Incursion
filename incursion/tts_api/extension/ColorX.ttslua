@@ -1,0 +1,13 @@
+local ColorX = {}
+
+--[[
+Use with: https://www.w3schools.com/colors/colors_picker.asp
+
+# Example
+myColor = ColorX.rgb(102, 255, 153)
+]]
+function ColorX.rgb(r, g, b)
+    return Color(r/255.0, g/255.0, b/255.0)
+end
+
+return ColorX
