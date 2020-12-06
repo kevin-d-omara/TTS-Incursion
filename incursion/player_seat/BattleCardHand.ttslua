@@ -1,4 +1,5 @@
 local class = require("incursion.lib.30log.class")
+local Math = require("incursion.util.Math")
 
 
 local BattleCardHand = class("BattleCardHand")
@@ -26,6 +27,12 @@ function BattleCardHand:dealCards(numCards, deckObj)
         error("numCards cannot be negative: "..tostring(numCards))
     end
 
+    local seatedColor = self:_getSeatedColor()
+    if seatedColor then
+        deckObj.deal(numCards, seatedColor)
+        return
+    end
+
     local totalWidth = self.TotalWidth
     local cardWidth = self.CardWidth
     local centerTransform = Vector(self.CenterTransform)
@@ -51,6 +58,31 @@ end
 
 function BattleCardHand:clearZone()
     self.ScriptingZone:clearZone()
+end
+
+--[[
+Return the color of the player seated at the BattleCardHand's location, or nil if no player is seated.
+
+WARNING: This only works for seats across from the table on the Z axis. It won't work for seats across the table on the X axis.
+]]
+function BattleCardHand:_getSeatedColor()
+    local seatedPlayers = {}
+    for _, player in ipairs(Player.getPlayers()) do
+        if player.seated and player.getHandCount() > 0 then
+            table.insert(seatedPlayers, player)
+        end
+    end
+
+    for _,player in ipairs(seatedPlayers) do
+        local handPosition = player.getHandTransform().position
+        local centerTransform = Vector(self.CenterTransform)
+
+        if Math.floatEquals(handPosition.x, centerTransform.x) and Math.floatEquals(handPosition.z, centerTransform.z) then
+            return player.color
+        end
+    end
+
+    return nil
 end
 
 return BattleCardHand
