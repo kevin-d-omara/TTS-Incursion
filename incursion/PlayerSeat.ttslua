@@ -10,7 +10,7 @@ PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
 
 -- We have to shrink the vacant hand zones, otherwise the Allied player's hand zone
 -- overlaps with the default player color (white).
-PlayerSeat.VACANT_HAND_ZONE_X_SCALE = 5.00
+PlayerSeat.VACANT_HAND_ZONE_X_SCALE = 0.1
 PlayerSeat.OCCUPIED_HAND_ZONE_X_SCALE = 14.07
 
 function PlayerSeat:init(args)
