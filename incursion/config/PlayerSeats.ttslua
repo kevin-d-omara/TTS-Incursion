@@ -60,7 +60,7 @@ return {
         BattleCardHand = BattleCardHand({
             TotalWidth = TOTAL_WIDTH,
             CardWidth = CARD_WIDTH,
-            CardRotation = {0.00, 180.00, 0.00},
+            CardRotation = {0.00, 180.00, 180.00},
             CenterTransform = {20.12, 1.60, -33.99},
             LeftToRight = {1.0, 0.0, 0.0},
             ScriptingZone = ScriptingZone({
@@ -149,7 +149,7 @@ return {
         BattleCardHand = BattleCardHand({
             TotalWidth = TOTAL_WIDTH,
             CardWidth = CARD_WIDTH,
-            CardRotation = {0.00, 0.00, 0.00},
+            CardRotation = {0.00, 0.00, 180.00},
             CenterTransform = {20.12, 1.60, 33.99},
             LeftToRight = {1.0, 0.0, 0.0},
             ScriptingZone = ScriptingZone({
