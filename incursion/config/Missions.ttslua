@@ -413,42 +413,12 @@ return {
             },
         },
         PostSetupCallback = function()
-            local makeItDark = function()
-                Lighting.light_intensity = 0
-                Lighting.ambient_intensity = Lighting.ambient_intensity * 0.5
-                Lighting.reflection_intensity = Lighting.reflection_intensity * (0.67)
-                Lighting.setLightColor(Color.Black)
-                Lighting.apply()
+            local function callback()
+                Wait.time(function() broadcastToAll("[i]\"RAARRRRR!!!\"[/i]") end, 0.67)
             end
-            local makeItBright = function()
-                local default = LightingX.getDefaultSettings()
-                Lighting.light_intensity = default.LightIntensity
-                Lighting.ambient_intensity = default.AmbientIntensity
-                Lighting.reflection_intensity = default.ReflectionIntensity
-                Lighting.setLightColor(default.LightColor)
-                Lighting.apply()
-            end
-            local flicker = function()
-                local initialDelay = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + 0.35
 
-                Wait.time(makeItDark, initialDelay + 0.1)
-                Wait.time(makeItBright, initialDelay + 0.15)
-                Wait.time(makeItDark, initialDelay + 0.2)
-                Wait.time(makeItBright, initialDelay + 0.25)
-                Wait.time(makeItDark, initialDelay + 0.325)
-
-                Wait.time(makeItBright, initialDelay + 0.375)
-                Wait.time(makeItDark, initialDelay + 0.395)
-                Wait.time(makeItBright, initialDelay + 0.405)
-                Wait.time(makeItDark, initialDelay + 0.413)
-
-                Wait.time(makeItBright, initialDelay + 0.425)
-                Wait.time(makeItDark, initialDelay + 0.475)
-                Wait.time(makeItBright, initialDelay + 0.515)
-                Wait.time(makeItDark, initialDelay + 0.53)
-                Wait.time(function() broadcastToAll("[i]\"RAARRRRR!!!\"[/i]") end, initialDelay + 1.2)
-            end
-            Wait.time(flicker, 1.6)
+            local initialDelay = 1.6 + Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + 0.35
+            Wait.time(function() MissionCallbacks.flickerOff(callback) end, initialDelay)
         end,
     },
     ["Hold The Line"] = {

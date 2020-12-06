@@ -1,0 +1,67 @@
+local UIx = require("incursion.tts_api.extension.UIx")
+
+
+-- Values to be set in user script:
+BUTTONS = {
+    {
+        attributes = {
+            text = "Button 1",
+            onClick = "onClick1",
+        }
+    },
+    {
+        attributes = {
+            text = "Button 1",
+            onClick = "onClick1",
+        }
+    },
+}
+BUTTON_GAP_FROM_CARD = 28
+BUTTON_SPACING = 100
+
+
+function onLoad()
+    local xmlTable = {}
+    local yPosition = 192 + BUTTON_GAP_FROM_CARD
+    for i=1,#BUTTONS do
+        -- Yes, we're manually creating a vertical layout OF vertical layouts.
+        -- It would be better to use a single vertical layout, but I couldn't get it to work correctly.
+        table.insert(xmlTable, _getVerticalLayoutFor(BUTTONS[i], yPosition))
+        yPosition = yPosition + BUTTON_SPACING
+    end
+
+    self.UI.setXmlTable(xmlTable)
+end
+
+function _getVerticalLayoutFor(buttonTbl, yPosition)
+    local scale = UIx.getTextScaleTbl(self)
+    return {
+        tag="VerticalLayout",
+        attributes={
+            spacing=20,
+            position="0 "..tostring(yPosition).." -35",
+            rotation="0 0 180",
+            height=scale.x*400,
+            width=scale.z*800,
+        },
+        children=_getChild(buttonTbl),
+    }
+end
+
+function _getChild(buttonTbl)
+    local attributes = {
+        text="__PLACEHOLDER__",
+        fontSize="45",
+        fontStyle="Bold",
+        scale=UIx.getTextScale(self),
+        onClick="__PLACEHOLDER__",
+    }
+    for k,v in pairs(buttonTbl.attributes) do
+        attributes[k] = v
+    end
+
+    return {
+        tag="Button",
+        attributes=attributes
+    }
+end

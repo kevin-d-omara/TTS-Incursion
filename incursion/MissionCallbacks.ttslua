@@ -1,3 +1,5 @@
+local Mission = require("incursion.Mission")
+local LightingX = require("incursion.tts_api.extension.LightingX")
 local Table = require("incursion.util.Table")
 
 
@@ -18,6 +20,59 @@ function MissionCallbacks.randomlyPlaceObjects(sourceInfiniteBagGuids, targetTra
             index             = 0,
         })
     end
+end
+
+function MissionCallbacks.flickerOff(callback, callbackDelay)
+    MissionCallbacks.flicker(false, callback, callbackDelay)
+end
+function MissionCallbacks.flickerOn(callback, callbackDelay)
+    MissionCallbacks.flicker(true, callback, callbackDelay)
+end
+
+function MissionCallbacks.flicker(finishWithLightsOn, callback, callbackDelay)
+    Wait.time(MissionCallbacks.makeItDark, 0.1)
+    Wait.time(MissionCallbacks.makeItBright, 0.15)
+    Wait.time(MissionCallbacks.makeItDark, 0.2)
+    Wait.time(MissionCallbacks.makeItBright, 0.25)
+    Wait.time(MissionCallbacks.makeItDark, 0.325)
+
+    Wait.time(MissionCallbacks.makeItBright, 0.375)
+    Wait.time(MissionCallbacks.makeItDark, 0.395)
+    Wait.time(MissionCallbacks.makeItBright, 0.405)
+    Wait.time(MissionCallbacks.makeItDark, 0.413)
+
+    Wait.time(MissionCallbacks.makeItBright, 0.425)
+    Wait.time(MissionCallbacks.makeItDark, 0.475)
+    Wait.time(MissionCallbacks.makeItBright, 0.515)
+    Wait.time(MissionCallbacks.makeItDark, 0.53)
+
+    local finishTime = 0.53
+    if finishWithLightsOn then
+        Wait.time(MissionCallbacks.makeItBright, 0.545)
+        finishTime = 0.545
+    end
+
+    if callback ~= nil then
+        local callbackDelay = callbackDelay or 0.0
+        Wait.time(callback, finishTime + callbackDelay)
+    end
+end
+
+function MissionCallbacks.makeItDark()
+    Lighting.light_intensity = 0
+    Lighting.ambient_intensity = Lighting.ambient_intensity * 0.5
+    Lighting.reflection_intensity = Lighting.reflection_intensity * (0.67)
+    Lighting.setLightColor(Color.Black)
+    Lighting.apply()
+end
+
+function MissionCallbacks.makeItBright()
+    local default = LightingX.getDefaultSettings()
+    Lighting.light_intensity = default.LightIntensity
+    Lighting.ambient_intensity = default.AmbientIntensity
+    Lighting.reflection_intensity = default.ReflectionIntensity
+    Lighting.setLightColor(default.LightColor)
+    Lighting.apply()
 end
 
 return MissionCallbacks
