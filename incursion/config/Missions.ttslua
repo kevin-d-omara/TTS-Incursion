@@ -175,6 +175,9 @@ return {
     ["Go Down Bloody"] = {
         MemoryBagGuid = '442e1c',
         BroadcastTitle = "Go Down Bloody",
+        BroadcastFlavorText = {
+            "[i]\"Aw, man, WE GOT HOWLERS!\"[/i]",
+        },
         PlayerSeats = {
             Allies = {
                 RequisitionPoints = 14,
@@ -183,34 +186,34 @@ return {
                 RequisitionPoints = 14,
             },
         },
-        PostSetupCallback = function()
-            local initialDelay = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + Broadcast.MESSAGE_FADE_TIME_FOR_CHAINED_MESSAGES
-            local interDelay = 2.6
-            local Sarge = Color.White
-            local Ape1 = Color.Green
-            local Ape2 = Color.Orange
-
-            -- Each message goes to the top of the UI, so some are in reverse order:
-            Wait.time(function() broadcastToAll("[i]\"Alright, everybody hold up.\"[/i]", Sarge) end, initialDelay)
-            Wait.time(function() broadcastToAll("[i]\"Murchinson, give me the damn map.\"[/i]", Sarge) end, initialDelay + interDelay)
-
-            Wait.time(function() broadcastToAll("[i]\"It says it's the way back to the surface, Sarge.\"[/i]", Ape1) end, initialDelay + interDelay*2 + 0.5)
-
-            Wait.time(function() broadcastToAll("[i]\"If this is the way back to the surface,\"[/i]", Ape2) end, initialDelay + interDelay*3 + 1.0)
-            Wait.time(function() broadcastToAll("[i]\"then why is the tunnel sloping down?\"[/i]", Ape2) end, initialDelay + interDelay*3 + 2.5)
-
-            Wait.time(function() broadcastToAll("[i]\"Shut up, you APEs, and let me think a minute.\"[/i]", Sarge) end, initialDelay + interDelay*4 + 3.5)
-
-            Wait.time(function() broadcastToAll("[i]\"Uh, Sarge, do you hear static? ... I hear static.\"[/i]", Ape1) end, initialDelay + interDelay*5 + 3.5)
-
-            Wait.time(function() broadcastToAll("[i]\"Aw, man, WE GOT HOWLERS!\"[/i]", Ape2) end, initialDelay + interDelay*6 + 3.5)
-        end,
+        -- PostSetupCallback = function()
+        --     local initialDelay = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + Broadcast.MESSAGE_FADE_TIME_FOR_CHAINED_MESSAGES
+        --     local interDelay = 2.6
+        --     local Sarge = Color.White
+        --     local Ape1 = Color.Green
+        --     local Ape2 = Color.Orange
+        --
+        --     -- Each message goes to the top of the UI, so some are in reverse order:
+        --     Wait.time(function() broadcastToAll("[i]\"Alright, everybody hold up.\"[/i]", Sarge) end, initialDelay)
+        --     Wait.time(function() broadcastToAll("[i]\"Murchinson, give me the damn map.\"[/i]", Sarge) end, initialDelay + interDelay)
+        --
+        --     Wait.time(function() broadcastToAll("[i]\"It says it's the way back to the surface, Sarge.\"[/i]", Ape1) end, initialDelay + interDelay*2 + 0.5)
+        --
+        --     Wait.time(function() broadcastToAll("[i]\"If this is the way back to the surface,\"[/i]", Ape2) end, initialDelay + interDelay*3 + 1.0)
+        --     Wait.time(function() broadcastToAll("[i]\"then why is the tunnel sloping down?\"[/i]", Ape2) end, initialDelay + interDelay*3 + 2.5)
+        --
+        --     Wait.time(function() broadcastToAll("[i]\"Shut up, you APEs, and let me think a minute.\"[/i]", Sarge) end, initialDelay + interDelay*4 + 3.5)
+        --
+        --     Wait.time(function() broadcastToAll("[i]\"Uh, Sarge, do you hear static? ... I hear static.\"[/i]", Ape1) end, initialDelay + interDelay*5 + 3.5)
+        --
+        --     Wait.time(function() broadcastToAll("[i]\"Aw, man, WE GOT HOWLERS!\"[/i]", Ape2) end, initialDelay + interDelay*6 + 3.5)
+        -- end,
     },
     ["Things That Go Boom In The Night"] = {
         MemoryBagGuid = '608e8d',
         BroadcastTitle = "Things That Go Boom In The Night",
         BroadcastFlavorText = {
-            "[i]Can we just blow them up? The ceiling in there's not very solid.[/i]",
+            "[i]\"Can we just blow them up? The ceiling in there's not very solid.\"[/i]",
             "— [b]Slugger Murphy[/b]",
         },
         PlayerSeats = {
@@ -226,7 +229,7 @@ return {
         MemoryBagGuid = 'dc9d23',
         BroadcastTitle = "Hit The Button",
         BroadcastFlavorText = {
-            "[i]So you want us to go in and hit the button...[/i]",
+            "[i]\"So you want us to go in and hit the button...\"[/i]",
         },
         PlayerSeats = {
             Allies = {
@@ -572,8 +575,7 @@ return {
         MemoryBagGuid = 'edea36',
         BroadcastTitle = "The Killing Jar",
         BroadcastFlavorText = {
-            "[i]\"You're in my jar now, little caterpillars.[/i]",
-            "[i]And I am so looking forward to what you'll become\"[/i]",
+            "[i]\"I am so looking forward to what you'll become.\"[/i]",
             "— [b]Ilsa Von X[/b]",
         },
         PlayerSeats = {
