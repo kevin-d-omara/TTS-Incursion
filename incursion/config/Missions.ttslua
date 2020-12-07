@@ -643,6 +643,7 @@ return {
                 RequisitionPoints = 16,
             },
         },
+        BattleCardDeckInfiniteBagGuid = 'fa6330',
     },
     ["Tricked And Trapped"] = {
         MemoryBagGuid = '4dcf5f',
