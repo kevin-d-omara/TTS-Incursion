@@ -2,6 +2,7 @@ require("incursion.GlobalCallbacks")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 local SaveState = require("incursion.tts_api.util.SaveState")
 local Math = require("incursion.util.Math")
+local MissionRunner = require("incursion.MissionRunner")
 
 
 -- Configs are global vars (instead of local) so they can be mutated by other scripts.
@@ -15,6 +16,9 @@ Avatars = require("incursion.config.Avatars")
 VictoryPoints = require("incursion.config.VictoryPoints")
 MissionInfiniteBags = require("incursion.config.MissionInfiniteBags")
 GameTable = require("incursion.GameTable")
+
+
+EDITING_MODE = false
 
 
 function CreateSavedState()
@@ -38,6 +42,7 @@ function onLoad(savedJson)
     Math.initializeRandomSeed()
     SavedState:onLoad(savedJson)
     _disableInteractivity()
+    MissionRunner.BagWithAllMemoryBags:HideMe(not EDITING_MODE)
 end
 
 function _disableInteractivity()

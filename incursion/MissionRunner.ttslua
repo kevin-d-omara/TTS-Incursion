@@ -16,11 +16,37 @@ The benefits include:
 ]]
 local MissionRunner = {}
 
-local BAG_WITH_ALL_MEMORY_BAGS = '190fc9'
+MissionRunner.BagWithAllMemoryBags = {
+    Guid = '190fc9',
+
+    -- Pass "true" for prod/Steam workshop releases.
+    -- Pass "false" when editing the mod.
+    HideMe = function(self, shouldHideMe)
+        if shouldHideMe then self:Hide() else self:Show() end
+    end,
+
+    Hide = function(self)
+        local bag = getObjectFromGUID(self.Guid)
+        bag.interactable = false
+        bag.tooltip = false
+        bag.setLock(true)
+        bag.setScale({1.00, 0.10, 1.00})
+        bag.setPosition({29.61, -10.89, 18.75})
+    end,
+
+    Show = function(self)
+        local bag = getObjectFromGUID(self.Guid)
+        bag.interactable = true
+        bag.tooltip = true
+        bag.setLock(true)
+        bag.setScale({1.00, 1.00, 1.00})
+        bag.setPosition({51.25, 0.87, 18.75})
+    end,
+}
 
 function MissionRunner.playMission(missionName, extraGuidsToPreserve)
     local myMission = Mission(Missions[missionName])
-    local bag = getObjectFromGUID(BAG_WITH_ALL_MEMORY_BAGS)
+    local bag = getObjectFromGUID(MissionRunner.BagWithAllMemoryBags.Guid)
 
     local function callback(spawnedObj)
         MissionRunner._makeCopyAndReturnToBag(spawnedObj, bag)
