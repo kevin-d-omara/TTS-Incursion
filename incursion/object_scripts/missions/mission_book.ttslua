@@ -26,13 +26,13 @@ function onLoad()
                 position="0 240 -22",
                 rotation="0 0 180",
                 height=150*scaleMultiplier,
-                width=450*scaleMultiplier,
+                width=500*scaleMultiplier,
             },
             children={
                 {
                     tag="Button",
                     attributes={
-                        text="Play Mission",
+                        text="Accept Mission",
                         fontSize=tostring(math.floor(60*scaleMultiplier)),
                         fontStyle="Bold",
                         scale=UIx.getTextScale(self),
