@@ -1,0 +1,41 @@
+require("incursion.object_scripts.missions.card_buttons")
+local MissionCallbacks = require("incursion.MissionCallbacks")
+
+
+-- Parameters for "card_buttons" script:
+BUTTONS = {
+    {
+        attributes = {
+            text = "Roll for\nPower Surge",
+            onClick = "onClick_RollForPowerSurge",
+        }
+    },
+    {
+        attributes = {
+            text = "Kill Card\n(Engineer Only)",
+            onClick = "onClick_KillCard",
+        }
+    },
+}
+BUTTON_GAP_FROM_CARD = 18
+BUTTON_SPACING = 90
+
+-- Global vars for this script:
+BROADCAST_DELAY = 0.15
+CALLBACK_SURGE_ACTIVE = function() broadcastToAll("Power Surge: Active") end
+CALLBACK_SURGE_INACTIVE = function() broadcastToAll("Power Surge: Inctive") end
+CALLBACK_SURGE_KILLED = function() broadcastToAll("Power Surge: Card Killed") end
+
+
+function onClick_RollForPowerSurge(player, value, id)
+    local d6 = math.random(6)
+    if d6 >= 4 then
+        MissionCallbacks.flickerOff(CALLBACK_SURGE_ACTIVE, BROADCAST_DELAY)
+    else
+        MissionCallbacks.flickerOn(CALLBACK_SURGE_INACTIVE, BROADCAST_DELAY)
+    end
+end
+
+function onClick_KillCard(player, value, id)
+    MissionCallbacks.flickerOn(CALLBACK_SURGE_KILLED, BROADCAST_DELAY)
+end

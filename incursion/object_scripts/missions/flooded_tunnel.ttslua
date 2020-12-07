@@ -1,0 +1,109 @@
+require("incursion.object_scripts.missions.card_buttons")
+local MissionCallbacks = require("incursion.MissionCallbacks")
+
+-- Parameters for "card_buttons" script:
+BUTTONS = {
+    {
+        attributes = {
+            text = "Roll for\nFlooded Tunnel",
+            onClick = "onClick_RollForFloodedTunnel",
+        }
+    },
+    {
+        attributes = {
+            text = "Kill Card\n(Engineer Only)",
+            onClick = "onClick_KillCard",
+        }
+    },
+}
+BUTTON_GAP_FROM_CARD = 18
+BUTTON_SPACING = 90
+
+WATER_OBJECT = {
+    Guid = '4382f3',
+    TransitionTimeSeconds = 1.0,
+    RaisedTransform = {
+        Position = {1.25, 0.69, 0.00},
+        Rotation = {0.00, 0.00, 0.00},
+    },
+    LoweredTransform = {
+        Position = {1.25, 0.30, 0.00},
+        Rotation = {0.00, 0.00, 0.00},
+    },
+}
+
+local _old_onLoad = onLoad
+function onLoad(savedJson)
+    if savedJson == "" or savedJson == nil then
+        SaveState = {
+            WaterIsRaised = false,
+        }
+    else
+        SaveState = JSON.decode(savedJson)
+    end
+
+    local waterObj = getObjectFromGUID(WATER_OBJECT.Guid)
+    waterObj.interactable = false
+
+    _old_onLoad()
+end
+
+function onSave()
+    return JSON.encode_pretty(SaveState)
+end
+
+
+function onClick_RollForFloodedTunnel(player, value, id)
+    local d6 = math.random(6)
+    if d6 >= 4 then
+        raiseWater()
+    else
+        lowerWater(false)
+    end
+end
+
+function onClick_KillCard(player, value, id)
+    lowerWater(true)
+end
+
+function raiseWater()
+    if SaveState.WaterIsRaised then
+        -- already raised
+    else
+        raiseWaterObject()
+        SaveState.WaterIsRaised = true
+    end
+
+    broadcastToAll("Flooded Tunnel: Active")
+end
+
+function lowerWater(isKilled)
+    if not SaveState.WaterIsRaised then
+        -- already lowered
+    else
+        lowerWaterObject()
+        SaveState.WaterIsRaised = false
+    end
+
+    if isKilled then
+        broadcastToAll("Flooded Tunnel: Card Killed")
+    else
+        broadcastToAll("Flooded Tunnel: Inactive")
+    end
+end
+
+function raiseWaterObject()
+    local waterObj = getObjectFromGUID(WATER_OBJECT.Guid)
+    local collide = true
+    local fast = false
+    waterObj.setPositionSmooth(WATER_OBJECT.RaisedTransform.Position, collide, fast)
+    waterObj.setRotationSmooth(WATER_OBJECT.RaisedTransform.Rotation, collide, fast)
+end
+
+function lowerWaterObject()
+    local waterObj = getObjectFromGUID(WATER_OBJECT.Guid)
+    -- We transform instantly (instead of smoooth) when lowering the object because otherwise
+    -- the rotation sometimes stops at 359.xx degrees, which appears as a visual glitch.
+    waterObj.setPosition(WATER_OBJECT.LoweredTransform.Position)
+    waterObj.setRotation(WATER_OBJECT.LoweredTransform.Rotation)
+end
