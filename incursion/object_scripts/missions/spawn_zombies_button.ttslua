@@ -26,7 +26,7 @@ function onLoad()
                 {
                     tag="Button",
                     attributes={
-                        text="Spawn Sturmzombies",
+                        text="Enter Sturmzombies",
                         fontSize="45",
                         fontStyle="Bold",
                         scale=UIx.getTextScale(self),

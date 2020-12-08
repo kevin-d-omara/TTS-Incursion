@@ -6,7 +6,7 @@ local MissionCallbacks = require("incursion.MissionCallbacks")
 BUTTONS = {
     {
         attributes = {
-            text = "Roll for\nPower Surge",
+            text = "Check for\nPower Surge",
             onClick = "onClick_RollForPowerSurge",
         }
     },
@@ -22,8 +22,8 @@ BUTTON_SPACING = 90
 
 -- Global vars for this script:
 BROADCAST_DELAY = 0.15
-CALLBACK_SURGE_ACTIVE = function() broadcastToAll("Power Surge: Active") end
-CALLBACK_SURGE_INACTIVE = function() broadcastToAll("Power Surge: Inctive") end
+CALLBACK_SURGE_ACTIVE = function() broadcastToAll("Power Surge: In Effect") end
+CALLBACK_SURGE_INACTIVE = function() broadcastToAll("Power Surge: Not In Effect") end
 CALLBACK_SURGE_KILLED = function() broadcastToAll("Power Surge: Card Killed") end
 
 

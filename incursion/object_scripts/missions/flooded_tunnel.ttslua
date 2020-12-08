@@ -5,7 +5,7 @@ local MissionCallbacks = require("incursion.MissionCallbacks")
 BUTTONS = {
     {
         attributes = {
-            text = "Roll for\nFlooded Tunnel",
+            text = "Check for\nFlooded Tunnel",
             onClick = "onClick_RollForFloodedTunnel",
         }
     },
@@ -74,7 +74,7 @@ function raiseWater()
         SaveState.WaterIsRaised = true
     end
 
-    broadcastToAll("Flooded Tunnel: Active")
+    broadcastToAll("Flooded Tunnel: In Effect")
 end
 
 function lowerWater(isKilled)
@@ -88,7 +88,7 @@ function lowerWater(isKilled)
     if isKilled then
         broadcastToAll("Flooded Tunnel: Card Killed")
     else
-        broadcastToAll("Flooded Tunnel: Inactive")
+        broadcastToAll("Flooded Tunnel: Not In Effect")
     end
 end
 
