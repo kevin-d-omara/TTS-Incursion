@@ -1,0 +1,35 @@
+--[[
+This Mixin provides boilerplate code for classes which implement the "SaveState" interface.
+
+# Example
+MyClass.ttslua
+--------------
+
+local class = require("path.to.30log")
+local SaveStateMixin = require("path.to.SaveStateMixin")
+
+local MyClass = class("MyClass")
+MyClass:with(SaveStateMixin)
+
+function MyClass:init(args)
+    self.foo = args.foo
+    self.bar = args.bar
+
+    self.State = {
+        thingToRemember = nil,
+    }
+end
+
+return MyClass
+]]
+return {
+    onLoad = function(self, savedData)
+        if savedData ~= nil then
+            self.State = savedData
+        end
+    end,
+
+    onSave = function(self)
+        return self.State
+    end
+}

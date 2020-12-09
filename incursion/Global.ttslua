@@ -26,8 +26,11 @@ function CreateSavedState()
 
     for name,playerSeat in pairs(PlayerSeats) do
         local key = "PlayerSeat."..name
-
         objectsToSave[key]=playerSeat
+    end
+    for name,faction in pairs(Factions) do
+        local key = "Faction."..name
+        objectsToSave[key]=faction
     end
 
     return SaveState(objectsToSave)

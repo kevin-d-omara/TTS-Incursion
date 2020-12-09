@@ -1,34 +1,35 @@
 -- All values are measured while looking at the Axis seat from the Allied seat, since this view uses rotation = {0, 0, 0}
 return {
-    -- LuckySeventh
-    SluggerMurphy = {
-        PositionDelta = {2.75, 4.00, -73.85},
-        Rotation = {0.00, 180.00, 0.00},
-        Scale = {1.00, 1.00, 1.00},
-        InfiniteBagGuid = 'f8b06d',
+    LuckySeventh = {
+        SluggerMurphy = {
+            PositionDelta = {2.75, 4.00, -73.85},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {1.00, 1.00, 1.00},
+            InfiniteBagGuid = 'f8b06d',
+        },
     },
-
-    -- MI-13
-    PaddyMayne = {
-        PositionDelta = {14.35, -2.57, 0.00},
-        Rotation = {0.00, 0.00, 0.00},
-        Scale = {100.00, 100.00, 100.00},
-        InfiniteBagGuid = '39d4c9',
+    MI13 = {
+        PaddyMayne = {
+            PositionDelta = {14.35, -2.57, 0.00},
+            Rotation = {0.00, 0.00, 0.00},
+            Scale = {100.00, 100.00, 100.00},
+            InfiniteBagGuid = '39d4c9',
+        },
     },
-
-    -- SWD
-    Gretel = {
-        PositionDelta = {4.25, -18.98, 0.00},
-        Rotation = {0.00, 0.00, 0.00},
-        Scale = {138.00, 138.00, 138.00},
-        InfiniteBagGuid = '34f5ef',
+    DropTroopers = {
+        HildeBecker = {
+            PositionDelta = {-0.59, 11.78, 0.00},
+            Rotation = {0.00, 0.00, 0.00},
+            Scale = {135.00, 135.00, 135.00},
+            InfiniteBagGuid = '898801',
+        },
     },
-
-    -- Drop Troopers
-    HildeBecker = {
-        PositionDelta = {-0.59, 11.78, 0.00},
-        Rotation = {0.00, 0.00, 0.00},
-        Scale = {135.00, 135.00, 135.00},
-        InfiniteBagGuid = '898801',
+    SWD = {
+        Gretel = {
+            PositionDelta = {4.25, -18.98, 0.00},
+            Rotation = {0.00, 0.00, 0.00},
+            Scale = {138.00, 138.00, 138.00},
+            InfiniteBagGuid = '34f5ef',
+        },
     },
 }

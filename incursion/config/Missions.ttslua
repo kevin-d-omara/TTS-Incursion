@@ -3,6 +3,7 @@ local Broadcast = require("incursion.tts_api.util.Broadcast")
 local MissionCallbacks = require("incursion.MissionCallbacks")
 local VictoryPoints = require("incursion.config.VictoryPoints")
 local InfiniteBags = require("incursion.config.MissionInfiniteBags")
+local Avatars = require("incursion.config.Avatars")
 local LightingX = require("incursion.tts_api.extension.LightingX")
 local Table = require("incursion.util.Table")
 
@@ -23,6 +24,13 @@ return {
                 RequisitionPoints = 6,
             },
         },
+        -- AvatarOverrides = {
+        --     LuckySeventh = Avatars.LuckySeventh.Grunt,
+        --     MI13 = Avatars.MI13.Commando,
+        --     DropTroopersAllied = Avatars.DropTroopers.DropTrooper1,
+        --     DropTroopersAxis = Avatars.DropTroopers.DropTrooper1,
+        --     SWD = Avatars.SWD.Sturmzombie,
+        -- }
     },
     ["Incursion"] = {
         MemoryBagGuid = 'f8a431',

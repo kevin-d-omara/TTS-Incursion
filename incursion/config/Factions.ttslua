@@ -13,7 +13,7 @@ return {
             BidChip = '9cf4cf',
             FactionReferenceSheet = '0c3f74',
         },
-        Avatar = Avatars.SluggerMurphy,
+        DefaultAvatar = Avatars.LuckySeventh.SluggerMurphy,
     }),
     MI13 = Faction({
         PlayerColor = PlayerColor.Blue,
@@ -22,7 +22,7 @@ return {
             BidChip = '63c1ee',
             FactionReferenceSheet = 'e7d868',
         },
-        Avatar = Avatars.PaddyMayne,
+        DefaultAvatar = Avatars.MI13.PaddyMayne,
     }),
     DropTroopersAllied = Faction({
         PlayerColor = PlayerColor.White,
@@ -31,7 +31,7 @@ return {
             BidChip = 'd5282a',
             FactionReferenceSheet = 'cf815c',
         },
-        Avatar = Avatars.HildeBecker,
+        DefaultAvatar = Avatars.DropTroopers.HildeBecker,
     }),
 
     -- Axis
@@ -42,7 +42,7 @@ return {
             BidChip = 'd5282a',
             FactionReferenceSheet = 'cf815c',
         },
-        Avatar = Avatars.HildeBecker,
+        DefaultAvatar = Avatars.DropTroopers.HildeBecker,
     }),
     SWD = Faction({
         PlayerColor = PlayerColor.Red,
@@ -51,6 +51,6 @@ return {
             BidChip = '76faf8',
             FactionReferenceSheet = '15d63a',
         },
-        Avatar = Avatars.Gretel,
+        DefaultAvatar = Avatars.SWD.Gretel,
     }),
 }

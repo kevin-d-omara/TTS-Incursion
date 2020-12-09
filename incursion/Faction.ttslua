@@ -1,24 +1,39 @@
 local class = require("incursion.lib.30log.class")
+local SaveStateMixin = require("incursion.tts_api.util.SaveStateMixin")
 
 
-
-
-local Faction = class("Faction")
-
+local Faction = class("Faction"):with(SaveStateMixin)
 
 function Faction:init(args)
     self.PlayerColor = args.PlayerColor
     self.VacantHandZonePositionX = args.VacantHandZonePositionX
     self.InfiniteBagGuids = args.InfiniteBagGuids
-    self.Avatar = args.Avatar
+    self.DefaultAvatar = args.DefaultAvatar
+
+    self.State = {
+        OverrideAvatar = nil,
+    }
 end
 
+function Faction:GetAvatar()
+    if self.State.OverrideAvatar then
+        return self.State.OverrideAvatar
+    else
+        return self.DefaultAvatar
+    end
+end
+
+function Faction:SetOverrideAvatar(newAvatar)
+    self.State.OverrideAvatar = newAvatar
+end
+
+function Faction:ClearOverrideAvatar()
+    self.State.OverrideAvatar = nil
+end
 
 function Faction.__tostring(this)
     -- return string.format("Faction({PlayerColor=%s})", tostring(this.PlayerColor))
     return string.format("Faction(%s)", tostring(this.PlayerColor.Name))
 end
-
-
 
 return Faction

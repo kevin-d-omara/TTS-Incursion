@@ -39,6 +39,7 @@ function Mission:init(args)
     self.NoBattleCardDeck = args.NoBattleCardDeck
     self.BroadcastTitle = args.BroadcastTitle
     self.BroadcastFlavorText = args.BroadcastFlavorText
+    self.AvatarOverrides = args.AvatarOverrides or {}
 
     -- Use this if the PostSetupCallback is not instant. For example, pulling something out of a back with smoothing enabled.
     self.BroadcastDelayAfterPostSetupCallback = args.BroadcastDelayAfterPostSetupCallback or 0.0
@@ -67,6 +68,7 @@ end
 function Mission:_postSetup()
     self:_placeBattleCardsAndDeal()
     self:_placeCommandPoints()
+    self:_overrideAvatars()
 
     local broadcastDelay = self.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE
     if self:_zeroBattleCards() then
@@ -78,6 +80,21 @@ function Mission:_postSetup()
         Wait.time(function() self:_broadcastTitleAndFlavorText() end, self.BroadcastDelayAfterPostSetupCallback + broadcastDelay)
     else
         Wait.time(function() self:_broadcastTitleAndFlavorText() end, broadcastDelay)
+    end
+end
+
+function Mission:_overrideAvatars()
+    for name,faction in pairs(Factions) do
+        local overrideAvatar = self.AvatarOverrides[name]
+        if overrideAvatar then
+            faction:SetOverrideAvatar(overrideAvatar)
+        else
+            faction:ClearOverrideAvatar()
+        end
+    end
+
+    for _,playerSeat in pairs(PlayerSeats) do
+        playerSeat:refreshActiveAvatar()
     end
 end
 

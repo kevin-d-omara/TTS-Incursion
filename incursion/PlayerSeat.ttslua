@@ -2,9 +2,10 @@ local class = require("incursion.lib.30log.class")
 local Math = require("incursion.util.Math")
 local PlayerColor = require("incursion.tts_api.extension.PlayerColor")
 local Object = require("incursion.tts_api.extension.Object")
+local SaveStateMixin = require("incursion.tts_api.util.SaveStateMixin")
 
 
-local PlayerSeat = class("PlayerSeat")
+local PlayerSeat = class("PlayerSeat"):with(SaveStateMixin)
 
 PlayerSeat.OCCUPIED_HAND_ZONE_X_POSITION = 20.12
 
@@ -31,16 +32,6 @@ function PlayerSeat:init(args)
         ActiveFactionReferenceSheetGuid = '',
         ActiveAvatarGuid = '',
     }
-end
-
-function PlayerSeat:onLoad(savedData)
-    if savedData ~= nil then
-        self.State = savedData
-    end
-end
-
-function PlayerSeat:onSave()
-    return self.State
 end
 
 function PlayerSeat:setupEverything(faction)
@@ -106,15 +97,17 @@ function PlayerSeat:_placeFactionReferenceSheet(faction)
 end
 
 function PlayerSeat:_placeAvatar(faction)
-    local initialPosition = Vector(self.Avatar.Position) + Vector(faction.Avatar.PositionDelta)
-    local finalPosition = initialPosition:copy():rotateOver('y', self.Avatar.YRotation)
-    local finalRotation = Vector(faction.Avatar.Rotation) + Vector(0, self.Avatar.YRotation, 0)
+    local avatar = faction:GetAvatar()
 
-    local infiniteBag = getObjectFromGUID(faction.Avatar.InfiniteBagGuid)
+    local initialPosition = Vector(self.Avatar.Position) + Vector(avatar.PositionDelta)
+    local finalPosition = initialPosition:copy():rotateOver('y', self.Avatar.YRotation)
+    local finalRotation = Vector(avatar.Rotation) + Vector(0, self.Avatar.YRotation, 0)
+
+    local infiniteBag = getObjectFromGUID(avatar.InfiniteBagGuid)
     local callback = function(obj)
         obj.setLock(true)
         obj.interactable = false
-        obj.setScale(faction.Avatar.Scale)
+        obj.setScale(avatar.Scale)
         -- HACK: Wait 1 frame before capturing GUID because otherwise it will be duplicate w/ the other Drop Trooper player.
         Wait.frames(function() self.State.ActiveAvatarGuid = obj.getGUID() end, 1)
     end
@@ -146,6 +139,15 @@ function PlayerSeat:getActiveFaction()
     end
 
     return nil
+end
+
+function PlayerSeat:refreshActiveAvatar()
+    Object.tryDestroy(getObjectFromGUID(self.State.ActiveAvatarGuid))
+
+    local activeFaction = self:getActiveFaction()
+    if activeFaction then
+        Wait.frames(function() self:_placeAvatar(activeFaction) end, 1)
+    end
 end
 
 function PlayerSeat.__tostring(this)
