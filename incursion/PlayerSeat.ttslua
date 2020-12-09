@@ -106,21 +106,22 @@ function PlayerSeat:_placeFactionReferenceSheet(faction)
 end
 
 function PlayerSeat:_placeAvatar(faction)
+    local initialPosition = Vector(self.Avatar.Position) + Vector(faction.Avatar.PositionDelta)
+    local finalPosition = initialPosition:copy():rotateOver('y', self.Avatar.YRotation)
+    local finalRotation = Vector(faction.Avatar.Rotation) + Vector(0, self.Avatar.YRotation, 0)
+
     local infiniteBag = getObjectFromGUID(faction.Avatar.InfiniteBagGuid)
-
-    local rotation = Vector(faction.Avatar.Rotation):add(Vector(0, self.Avatar.ExtraRotationDegrees, 0))
-    local position = Vector(faction.Avatar.Position):scale(Vector(1, 1, self.Avatar.DepthMultiplier))
-
     local callback = function(obj)
         obj.setLock(true)
         obj.interactable = false
+        obj.setScale(faction.Avatar.Scale)
         -- HACK: Wait 1 frame before capturing GUID because otherwise it will be duplicate w/ the other Drop Trooper player.
         Wait.frames(function() self.State.ActiveAvatarGuid = obj.getGUID() end, 1)
     end
 
     infiniteBag.takeObject({
-        position          = position,
-        rotation          = rotation,
+        position          = finalPosition,
+        rotation          = finalRotation,
         smooth            = false,
         index             = 1,
         callback_function = callback,

@@ -95,8 +95,8 @@ return {
             Rotation = {0.00, 180.00, 0.00},
         },
         Avatar = {
-            ExtraRotationDegrees = 0.00,
-            DepthMultiplier = 1.00,
+            Position = {0.00, 0.00, 73.85},
+            YRotation = 180.00,
         },
     }),
     Axis = PlayerSeat({
@@ -183,8 +183,8 @@ return {
             Rotation = {0.00, 0.00, 0.00},
         },
         Avatar = {
-            ExtraRotationDegrees = 180.00,
-            DepthMultiplier = -1.00,
+            Position = {0.00, 0.00, 73.85},
+            YRotation = 0.00,
         },
     }),
 }

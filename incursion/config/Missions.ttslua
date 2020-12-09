@@ -362,7 +362,6 @@ return {
             FactionToSeat[Factions.MI13] = PlayerSeats.Axis
             PlayerSeats.Axis.FactionsHashSet[Factions.MI13] = ""
             table.insert(PlayerSeats.Axis.Factions, Factions.MI13)
-            Avatars.PaddyMayne.Position = {24.71, -2.57, -73.85}
             Factions.MI13.PlayerColor:Player().setHandTransform(Factions.SWD.PlayerColor:Player().getHandTransform())
             PlayerSeats.Axis:setupEverything(Factions.MI13)
             PlayerSeats.Allies:setupEverything(Factions.LuckySeventh)

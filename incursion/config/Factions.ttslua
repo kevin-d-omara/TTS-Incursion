@@ -31,7 +31,7 @@ return {
             BidChip = 'd5282a',
             FactionReferenceSheet = 'cf815c',
         },
-        Avatar = Avatars.HildeBeckerAllied,
+        Avatar = Avatars.HildeBecker,
     }),
 
     -- Axis
@@ -42,7 +42,7 @@ return {
             BidChip = 'd5282a',
             FactionReferenceSheet = 'cf815c',
         },
-        Avatar = Avatars.HildeBeckerAxis,
+        Avatar = Avatars.HildeBecker,
     }),
     SWD = Faction({
         PlayerColor = PlayerColor.Red,
