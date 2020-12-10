@@ -70,8 +70,8 @@ end
 
 function _getGuidsOnTable()
     local guidsToFreeze = {
-        'd02800', -- Avatar: Slugger Murphy
-        '8e23de', -- Avatar: Gretel
+        'c8b15c', -- Avatar: Slugger Murphy
+        'da43c3', -- Avatar: Gretel
         'a13d1f', -- Table
         '27fa45', -- Left Table Sleeve
         '3161c7', -- Left Table Sleeve Divider
@@ -101,9 +101,6 @@ function _getGuidsUnderTable()
         '3a6161', -- Deck: Onward To Victory
         'fa6330', -- Deck: When The Tide Is High
     }
-    for _,avatar in pairs(Avatars) do
-        table.insert(guidsToFreeze, avatar.InfiniteBagGuid)
-    end
     for _,faction in pairs(Factions) do
         table.insert(guidsToFreeze, faction.InfiniteBagGuids.BidChip)
         table.insert(guidsToFreeze, faction.InfiniteBagGuids.FactionReferenceSheet)

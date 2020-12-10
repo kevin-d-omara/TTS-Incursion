@@ -24,13 +24,13 @@ return {
                 RequisitionPoints = 6,
             },
         },
-        -- AvatarOverrides = {
-        --     LuckySeventh = Avatars.LuckySeventh.Grunt,
-        --     MI13 = Avatars.MI13.Commando,
-        --     DropTroopersAllied = Avatars.DropTroopers.DropTrooper1,
-        --     DropTroopersAxis = Avatars.DropTroopers.DropTrooper1,
-        --     SWD = Avatars.SWD.Sturmzombie,
-        -- }
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.Commando,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperTwo,
+            DropTroopersAxis = Avatars.DropTroopers.TrooperTwo,
+            SWD = Avatars.SWD.Sturmzombie,
+        },
     },
     ["Incursion"] = {
         MemoryBagGuid = 'f8a431',
@@ -45,6 +45,13 @@ return {
             Axis = {
                 RequisitionPoints = 12,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.HMG,
+            -- MI13 = Avatars.MI13.Grenadier,
+            DropTroopersAllied = Avatars.DropTroopers.MG42,
+            DropTroopersAxis = Avatars.DropTroopers.Panzerfaustwerfer,
+            SWD = Avatars.SWD.Bomberzombie,
         },
     },
     ["Pinger Raid"] = {
@@ -61,6 +68,13 @@ return {
                 RequisitionPoints = 10,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Corporal,
+            DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
+            DropTroopersAxis = Avatars.DropTroopers.HildeBecker,
+            SWD = Avatars.SWD.Ilsa,
+        },
     },
     ["Twitcher"] = {
         MemoryBagGuid = '922264',
@@ -75,6 +89,13 @@ return {
             Axis = {
                 RequisitionPoints = 19,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Blazer,
+            -- MI13 = Avatars.MI13.AckAck,
+            DropTroopersAllied = Avatars.DropTroopers.Flammenwerfer,
+            DropTroopersAxis = Avatars.DropTroopers.Feldwebel,
+            SWD = Avatars.SWD.Hans,
         },
         PostSetupCallback = function()
             -- Randomly place all 8 VP markers on the board at pre-defined locations:
@@ -132,6 +153,13 @@ return {
                 RequisitionPoints = 16,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.GutGunner,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperOne,
+            DropTroopersAxis = Avatars.DropTroopers.MG42,
+            SWD = Avatars.SWD.Drohne,
+        },
     },
     ["AC/DC"] = {
         MemoryBagGuid = '3a62e1',
@@ -147,6 +175,13 @@ return {
                 RequisitionPoints = 22,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Corporal,
+            DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
+            DropTroopersAxis = Avatars.DropTroopers.Feldwebel,
+            SWD = Avatars.SWD.Blitzhund,
+        },
     },
     ["Doomsday"] = {
         MemoryBagGuid = 'fa28c5',
@@ -161,6 +196,13 @@ return {
             Axis = {
                 RequisitionPoints = 26,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.SluggerMurphy,
+            -- MI13 = Avatars.MI13.PaddyMayne,
+            DropTroopersAllied = Avatars.DropTroopers.HildeBecker,
+            DropTroopersAxis = Avatars.DropTroopers.HildeBecker,
+            SWD = Avatars.SWD.Gretel,
         },
     },
 
@@ -179,6 +221,13 @@ return {
                 RequisitionPoints = 14,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Slugger,
+            -- MI13 = Avatars.MI13.PaddyMayne,
+            DropTroopersAllied = Avatars.DropTroopers.HildeBecker,
+            DropTroopersAxis = Avatars.DropTroopers.HildeBecker,
+            SWD = Avatars.SWD.Hans,
+        },
     },
     ["Go Down Bloody"] = {
         MemoryBagGuid = '442e1c',
@@ -193,6 +242,13 @@ return {
             Axis = {
                 RequisitionPoints = 14,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.HMG,
+            -- MI13 = Avatars.MI13.Grenadier,
+            DropTroopersAllied = Avatars.DropTroopers.MG42,
+            DropTroopersAxis = Avatars.DropTroopers.Flammenwerfer,
+            SWD = Avatars.SWD.Sturmzombie,
         },
         -- PostSetupCallback = function()
         --     local initialDelay = Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + Broadcast.MESSAGE_FADE_TIME_FOR_CHAINED_MESSAGES
@@ -232,6 +288,13 @@ return {
                 RequisitionPoints = 16,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.Grenadier,
+            DropTroopersAllied = Avatars.DropTroopers.Panzerfaustwerfer,
+            DropTroopersAxis = Avatars.DropTroopers.MG42,
+            SWD = Avatars.SWD.Blitzhund,
+        },
     },
     ["Hit The Button"] = {
         MemoryBagGuid = 'dc9d23',
@@ -246,6 +309,13 @@ return {
             Axis = {
                 RequisitionPoints = 14,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.Commando,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperTwo,
+            DropTroopersAxis = Avatars.DropTroopers.Hilde,
+            SWD = Avatars.SWD.Gretel,
         },
     },
     ["The Blitz"] = {
@@ -264,6 +334,13 @@ return {
                 NumberBattleCards = 3,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Blazer,
+            -- MI13 = Avatars.MI13.AckAck,
+            DropTroopersAllied = Avatars.DropTroopers.Flammenwerfer,
+            DropTroopersAxis = Avatars.DropTroopers.Flammenwerfer,
+            SWD = Avatars.SWD.Bomberzombie,
+        },
     },
     ["Exfiltration"] = {
         MemoryBagGuid = 'fc5a15',
@@ -278,6 +355,13 @@ return {
             Axis = {
                 RequisitionPoints = 13,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Corporal,
+            DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
+            DropTroopersAxis = Avatars.DropTroopers.Feldwebel,
+            SWD = Avatars.SWD.Blitzhund,
         },
     },
     ["Let The Mecha In"] = {
@@ -294,6 +378,13 @@ return {
             Axis = {
                 RequisitionPoints = 11,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Slugger,
+            -- MI13 = Avatars.MI13.Paddy,
+            DropTroopersAllied = Avatars.DropTroopers.Hilde,
+            DropTroopersAxis = Avatars.DropTroopers.MG42,
+            SWD = Avatars.SWD.Ilsa,
         },
         PostSetupCallback = function()
             -- Randomly place VP markers #1 and #2 at the pre-defined locations:
@@ -330,6 +421,13 @@ return {
                 RequisitionPoints = 16,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Slugger,
+            -- MI13 = Avatars.MI13.Paddy,
+            DropTroopersAllied = Avatars.DropTroopers.Hilde,
+            DropTroopersAxis = Avatars.DropTroopers.Hilde,
+            SWD = Avatars.SWD.Gretel,
+        },
     },
     ["Make It Glow"] = {
         MemoryBagGuid = 'ec3358',
@@ -345,6 +443,13 @@ return {
             Axis = {
                 RequisitionPoints = 26,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Corporal,
+            DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
+            DropTroopersAxis = Avatars.DropTroopers.Feldwebel,
+            SWD = Avatars.SWD.Ilsa,
         },
     },
     ["All That Glitters"] = {
@@ -362,6 +467,13 @@ return {
                 RequisitionPoints = 12, -- This is actually 12 RPs for MI-13,
                 NumberCommandPoints = 4,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.HMG,
+            -- MI13 = Avatars.MI13.GutGunner,
+            DropTroopersAllied = Avatars.DropTroopers.MG42,
+            DropTroopersAxis = Avatars.DropTroopers.MG42,
+            SWD = Avatars.SWD.Sturmzombie,
         },
         PostSetupCallback = function()
             -- Permanently move the MI-13 player (Blue) to the Axis side:
@@ -427,6 +539,13 @@ return {
             local initialDelay = 1.6 + Mission.TIME_IT_TAKES_FOR_SETUP_TO_COMPLETE + 0.35
             Wait.time(function() MissionCallbacks.flickerOff(callback) end, initialDelay)
         end,
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Grenadier,
+            DropTroopersAllied = Avatars.DropTroopers.Panzerfaustwerfer,
+            DropTroopersAxis = Avatars.DropTroopers.Flammenwerfer,
+            SWD = Avatars.SWD.Bomberzombie,
+        },
     },
     ["Hold The Line"] = {
         MemoryBagGuid = 'faa800',
@@ -441,6 +560,13 @@ return {
             Axis = {
                 RequisitionPoints = 14,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Blazer,
+            -- MI13 = Avatars.MI13.AckAck,
+            DropTroopersAllied = Avatars.DropTroopers.Flammenwerfer,
+            DropTroopersAxis = Avatars.DropTroopers.Feldwebel,
+            SWD = Avatars.SWD.Blitzhund,
         },
     },
     ["The Hive"] = {
@@ -457,6 +583,13 @@ return {
             Axis = {
                 RequisitionPoints = 16,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Slugger,
+            -- MI13 = Avatars.MI13.Paddy,
+            DropTroopersAllied = Avatars.DropTroopers.Hilde,
+            DropTroopersAxis = Avatars.DropTroopers.Panzerfaustwerfer,
+            SWD = Avatars.SWD.Drohne,
         },
     },
     ["Zombie Country"] = {
@@ -476,6 +609,13 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = '4af2c2',
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.GutGunner,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperTwo,
+            DropTroopersAxis = Avatars.DropTroopers.TrooperTwo,
+            SWD = Avatars.SWD.Sturmzombie,
+        },
         PostSetupCallback = function()
             local sourceGuids = Table.takeRandom(VictoryPoints.InfiniteBagGuids, 6)
             local rotation = {0.00, 180.00, 0.00}
@@ -528,6 +668,13 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = 'ad9ef7',
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Corporal,
+            DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
+            DropTroopersAxis = Avatars.DropTroopers.Panzerfaustwerfer,
+            SWD = Avatars.SWD.Blitzhund,
+        },
     },
     ["Sisterly Love"] = {
         MemoryBagGuid = '2c5c5e',
@@ -547,6 +694,13 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = 'e0511f',
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Corporal,
+            DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
+            DropTroopersAxis = Avatars.DropTroopers.Hilde,
+            SWD = Avatars.SWD.Ilsa,
+        },
     },
     ["The Killing Jar"] = {
         MemoryBagGuid = 'edea36',
@@ -565,6 +719,13 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = '61f667',
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.Commando,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperTwo,
+            DropTroopersAxis = Avatars.DropTroopers.Hilde,
+            SWD = Avatars.SWD.Ilsa,
+        },
     },
     ["No More Noise"] = {
         MemoryBagGuid = 'd0b6e1',
@@ -582,6 +743,13 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = '78b13b',
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.Commando,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperTwo,
+            DropTroopersAxis = Avatars.DropTroopers.TrooperTwo,
+            SWD = Avatars.SWD.Sturmzombie,
+        },
     },
     ["The Guns of Gibraltar"] = {
         MemoryBagGuid = 'f85dc4',
@@ -599,6 +767,13 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = '198e2f',
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.HMG,
+            -- MI13 = Avatars.MI13.Grenadier,
+            DropTroopersAllied = Avatars.DropTroopers.Panzerfaustwerfer,
+            DropTroopersAxis = Avatars.DropTroopers.MG42,
+            SWD = Avatars.SWD.Drohne,
+        },
     },
 
     -- Assets Missions
@@ -615,6 +790,13 @@ return {
             Axis = {
                 RequisitionPoints = 24,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Sarge,
+            -- MI13 = Avatars.MI13.Corporal,
+            DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
+            DropTroopersAxis = Avatars.DropTroopers.Feldwebel,
+            SWD = Avatars.SWD.Bomberzombie,
         },
     },
     ["Tick Tick"] = {
@@ -634,6 +816,13 @@ return {
                 NumberBattleCards = 4,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Slugger,
+            -- MI13 = Avatars.MI13.Paddy,
+            DropTroopersAllied = Avatars.DropTroopers.Hilde,
+            DropTroopersAxis = Avatars.DropTroopers.Hilde,
+            SWD = Avatars.SWD.Blitzhund,
+        },
     },
     ["When The Tide Is High"] = {
         MemoryBagGuid = '546d7e',
@@ -651,6 +840,13 @@ return {
             },
         },
         BattleCardDeckInfiniteBagGuid = 'fa6330',
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.HMG,
+            -- MI13 = Avatars.MI13.Grenadier,
+            DropTroopersAllied = Avatars.DropTroopers.MG42,
+            DropTroopersAxis = Avatars.DropTroopers.Panzerfaustwerfer,
+            SWD = Avatars.SWD.Hans,
+        },
     },
     ["Tricked And Trapped"] = {
         MemoryBagGuid = '4dcf5f',
@@ -670,6 +866,13 @@ return {
             },
         },
         NoBattleCardDeck = true,
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.Commando,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperTwo,
+            DropTroopersAxis = Avatars.DropTroopers.TrooperTwo,
+            SWD = Avatars.SWD.Blitzhund,
+        },
         PostSetupCallback = function()
             local config = require("incursion.config.missions.spawners.tricked_and_trapped")
             config.Spawner:RandomlySpawn(4, getObjectFromGUID(config.InfiniteBagGuid))
@@ -734,6 +937,13 @@ return {
             },
         },
         NoBattleCardDeck = true,
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Grunt,
+            -- MI13 = Avatars.MI13.GutGunner,
+            DropTroopersAllied = Avatars.DropTroopers.TrooperTwo,
+            DropTroopersAxis = Avatars.DropTroopers.Hilde,
+            SWD = Avatars.SWD.Ilsa,
+        },
     },
     ["Securing Intel"] = {
         MemoryBagGuid = '7e6cf1',
@@ -750,6 +960,13 @@ return {
                 RequisitionPoints = 16,
             },
         },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Slugger,
+            -- MI13 = Avatars.MI13.Paddy,
+            DropTroopersAllied = Avatars.DropTroopers.Hilde,
+            DropTroopersAxis = Avatars.DropTroopers.Hilde,
+            SWD = Avatars.SWD.Gretel,
+        },
     },
     ["Onward To Victory"] = {
         MemoryBagGuid = '5877e6',
@@ -764,6 +981,13 @@ return {
             Axis = {
                 RequisitionPoints = 26,
             },
+        },
+        AvatarOverrides = {
+            LuckySeventh = Avatars.LuckySeventh.Blazer,
+            -- MI13 = Avatars.MI13.AckAck,
+            DropTroopersAllied = Avatars.DropTroopers.Flammenwerfer,
+            DropTroopersAxis = Avatars.DropTroopers.Flammenwerfer,
+            SWD = Avatars.SWD.Drohne,
         },
     },
 }
