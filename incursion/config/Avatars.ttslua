@@ -36,6 +36,13 @@ return {
             MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229755223471078/D1A78B86D65920CECE9AAED4DEDFEABC7F7E3E80/",
             DiffuseURL= "http://cloud-3.steamusercontent.com/ugc/1661229755223471155/291E90E952ED5A842487BC8F70D24BEBB778A97F/",
         },
+        Bazooka = {
+            PositionDelta = {-3.56, 5.67, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {130.00, 130.00, 130.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246264/F7A1DABCD785DBE291119BEC3C8F561542C69B2F/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652634814/B3A0F18CA43C03907097C69377861C72EC26E0DD/",
+        },
     },
     MI13 = {
         PaddyMayne = {
@@ -44,6 +51,41 @@ return {
             Scale = {100.00, 100.00, 100.00},
             MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229755223471762/1D0D6B1B5EA76A87B7D7134775A60DF441DBC386/",
             DiffuseURL= "http://cloud-3.steamusercontent.com/ugc/1661229755223471840/5BD501B3DF086EF6AB2C73AF8E2717C43F9C2F5F/",
+        },
+        Nigel = {
+            PositionDelta = {0.00, -9.55, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {70.00, 70.00, 70.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246760/7983F094AC77E9131A0A3208EE74FE6C3C5DFB63/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652635213/47E09C6B83BC36029AA0D5AC1390B77B2053ACEE/",
+        },
+        Corporal = {
+            PositionDelta = {-3.72, -6.97, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {110.00, 110.00, 110.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246495/1C69B156778AAF0931C6F2D28796D76D62DF84A1/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652634968/FDC394339A928FE9E7C6D1FA38CC64FBD1318025/",
+        },
+        GutGunner = {
+            PositionDelta = {-2.32, -6.11, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {100.00, 100.00, 100.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246680/5646743E7957EECDB80E99B65FD811E7327AD4CA/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652635139/169709DC0A9711F3691528B0E9B5CDFFEB82F1D9/",
+        },
+        AckAck = {
+            PositionDelta = {-0.84, 11.71, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {60.00, 60.00, 60.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246397/5252F87DD421FB6B8064FAEAB80D8FA5685A6AAF/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652681493/296503BF5DE9399F60C5EA1CAC17ABC28A1DFA1B/",
+        },
+        Grenadier = {
+            PositionDelta = {11.43, -6.45, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {100.00, 100.00, 100.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246598/60F7B1691917CDB670A37320A6C77934D21705D4/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652635058/48550119351E317E3ED7A5E9FBA252D397170648/",
         },
     },
     DropTroopers = {
@@ -146,6 +188,22 @@ return {
             Scale = {75.00, 75.00, 75.00},
             MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229755223472346/EB9BDF5929522865E7430E0D5DD8DBDE082289A3/",
             DiffuseURL= "http://cloud-3.steamusercontent.com/ugc/1661229755223472436/791A04C62EEC82F57581FB86D6404CD3F313E45A/",
+        },
+        Panzeraffe = {
+            PositionDelta = {4.55, 11.22, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {160.00, 160.00, 160.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246847/1428F2A37DAC53CACA74F3D518FCD771581A8ACA/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652712444/4889FC529F573D647470333B29EF5B85DD24D817/",
+        },
+    },
+    Mercenaries = {
+        Brigitte = {
+            PositionDelta = {0.38, -9.55, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {115.00, 115.00, 115.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246945/36445C642370721058BFF3D559454747B0E53A75/",
+            DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652635484/0D88715EE4E4CAF13931EF066D6EEBE18799B79D/",
         },
     },
 }
