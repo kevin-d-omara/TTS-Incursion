@@ -1,5 +1,5 @@
 # TTS-Incursion
-Tabletop Simulator mod for Incursion with scripted 1-click setup: https://boardgamegeek.com/boardgame/40603/incursion
+Tabletop Simulator mod for Incursion with scripted 1-click setup: https://steamcommunity.com/sharedfiles/filedetails/?id=2318154373
 
 Join the Discord community to find other players: https://discord.gg/j4AyBuuFWK
 
