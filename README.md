@@ -1,5 +1,9 @@
 # TTS-Incursion
-Tabletop Simulator mod for Incursion wtih scripted 1-click setup: https://boardgamegeek.com/boardgame/40603/incursion
+Tabletop Simulator mod for Incursion with scripted 1-click setup: https://boardgamegeek.com/boardgame/40603/incursion
+
+Join the Discord community to find other players: https://discord.gg/j4AyBuuFWK
+
+Visit the official webstore to buy a physical copy and/or the exquisitely detailed miniatures: https://tabletopboardgames.us/
 
 ![Incursion Logo](github-images/banner-logo.png?raw=true "Description")
 ![Bomberzombie Banner](/github-images/banner-bomberzombie.png?raw=true)
