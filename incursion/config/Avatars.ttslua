@@ -52,12 +52,26 @@ return {
             MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229755223471762/1D0D6B1B5EA76A87B7D7134775A60DF441DBC386/",
             DiffuseURL= "http://cloud-3.steamusercontent.com/ugc/1661229755223471840/5BD501B3DF086EF6AB2C73AF8E2717C43F9C2F5F/",
         },
+        ZipKelly = {
+            PositionDelta = {-10.35, 1.21, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {95.00, 95.00, 95.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661230131594347955/957E10E111808198794ECB51082450E205D919EC/",
+            DiffuseURL= "http://cloud-3.steamusercontent.com/ugc/1661230131594348363/4F906B77DBAA30680823FCBAC5CB99D9291C4FD1/",
+        },
         Nigel = {
             PositionDelta = {0.00, -9.55, 0.00},
             Rotation = {0.00, 180.00, 0.00},
             Scale = {70.00, 70.00, 70.00},
             MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246760/7983F094AC77E9131A0A3208EE74FE6C3C5DFB63/",
             DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652635213/47E09C6B83BC36029AA0D5AC1390B77B2053ACEE/",
+        },
+        Gracie = {
+            PositionDelta = {6.48, 24.15, 0.00},
+            Rotation = {0.00, 180.00, 0.00},
+            Scale = {180.00, 180.00, 180.00},
+            MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661230059053832981/B4A9C0322AC4151FFB8840ABB4470540B0667D5A/",
+            DiffuseURL= "http://cloud-3.steamusercontent.com/ugc/1661230059053833903/E0AC9D341847D51496BBFCD6233945DE961419A0/",
         },
         Corporal = {
             PositionDelta = {-3.72, -6.97, 0.00},
@@ -190,9 +204,10 @@ return {
             DiffuseURL= "http://cloud-3.steamusercontent.com/ugc/1661229755223472436/791A04C62EEC82F57581FB86D6404CD3F313E45A/",
         },
         Panzeraffe = {
-            PositionDelta = {4.55, 11.22, 0.00},
+            PositionDelta = {4.55, 23.00, 0.00},
             Rotation = {0.00, 180.00, 0.00},
-            Scale = {160.00, 160.00, 160.00},
+            -- Scale = {200.00, 200.00, 200.00} -- For some reason, once the scale is >= 177, the avatar disappears when the player is not red or black.
+            Scale = {176.75, 176.75, 176.75},
             MeshURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652246847/1428F2A37DAC53CACA74F3D518FCD771581A8ACA/",
             DiffuseURL = "http://cloud-3.steamusercontent.com/ugc/1661229829652712444/4889FC529F573D647470333B29EF5B85DD24D817/",
         },

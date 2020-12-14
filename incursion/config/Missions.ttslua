@@ -223,7 +223,7 @@ return {
         },
         AvatarOverrides = {
             LuckySeventh = Avatars.LuckySeventh.Slugger,
-            MI13 = Avatars.MI13.PaddyMayne,
+            MI13 = Avatars.MI13.ZipKelly,
             DropTroopersAllied = Avatars.DropTroopers.HildeBecker,
             DropTroopersAxis = Avatars.DropTroopers.HildeBecker,
             SWD = Avatars.SWD.Hans,
@@ -381,7 +381,7 @@ return {
         },
         AvatarOverrides = {
             LuckySeventh = Avatars.LuckySeventh.Slugger,
-            MI13 = Avatars.MI13.Paddy,
+            MI13 = Avatars.MI13.Gracie,
             DropTroopersAllied = Avatars.DropTroopers.Hilde,
             DropTroopersAxis = Avatars.DropTroopers.MG42,
             SWD = Avatars.SWD.Ilsa,
@@ -793,7 +793,7 @@ return {
         },
         AvatarOverrides = {
             LuckySeventh = Avatars.LuckySeventh.Sarge,
-            MI13 = Avatars.MI13.Corporal,
+            MI13 = Avatars.MI13.ZipKelly,
             DropTroopersAllied = Avatars.DropTroopers.Feldwebel,
             DropTroopersAxis = Avatars.DropTroopers.Feldwebel,
             SWD = Avatars.SWD.Bomberzombie,
@@ -984,7 +984,7 @@ return {
         },
         AvatarOverrides = {
             LuckySeventh = Avatars.LuckySeventh.Blazer,
-            MI13 = Avatars.MI13.AckAck,
+            MI13 = Avatars.MI13.Gracie,
             DropTroopersAllied = Avatars.DropTroopers.Flammenwerfer,
             DropTroopersAxis = Avatars.DropTroopers.Flammenwerfer,
             SWD = Avatars.SWD.Panzeraffe,
