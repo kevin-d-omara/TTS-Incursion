@@ -31,7 +31,7 @@ MissionRunner.BagWithAllMemoryBags = {
         bag.tooltip = false
         bag.setLock(true)
         bag.setScale({1.00, 0.10, 1.00})
-        bag.setPosition({29.61, -10.89, 18.75})
+        bag.setPosition({-62.50, -10.89, 18.75})
     end,
 
     Show = function(self)
